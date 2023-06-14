@@ -1,0 +1,27 @@
+{
+	// Place your snippets for java here. Each snippet is defined under a snippet name and has a prefix, body and
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+	// same ids are connected.
+	// Example:
+	"generate testng test": {
+		"prefix": "@Test",
+		"body": [
+			"@Test\npublic void $1() throws InterruptedException {\n$2\n}"
+		],
+		"description": "create a testng test"
+	},
+	"generate testng fluent method": {
+		"prefix": "test",
+		"body": [
+			"public $1 $2()  {\n\treturn this$2\n}"
+		],
+		"description": "create a testng test"
+	},
+	"create testng fluent By":{
+		"prefix":"public static By",
+		"body":[
+			"public static By $1(){\n\treturn By.$2($3);\n}"
+		]
+	}
+}

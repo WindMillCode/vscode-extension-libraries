@@ -1,0 +1,10 @@
+{
+
+
+	"contact support": {
+		"prefix": "please try",
+		"body": [
+			"please try again later or contact support if the issue persists",
+		],
+	}
+}

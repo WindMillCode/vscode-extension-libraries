@@ -1,0 +1,47 @@
+{
+	// Place your snippets for javascriptreact here. Each snippet is defined under a snippet name and has a prefix, body and
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"classPrefix":{
+		"prefix":"classPrefix",
+		"body": "className={classPrefix(\"$1\")}"
+	},
+	"generateArray":{
+		"prefix": "Array(",
+		"body": "Array($1)\n.fill(null)\n.map((nullVal,index0)=>{\n\n})"
+	},
+	"forEach":{
+		"prefix": "forEach",
+		"body": ".forEach(($1)=>{$2\n\n})"
+	},
+	"map":{
+		"prefix": "map",
+		"body": ".map(($1)=>{$2\n\n})"
+	},
+	"filter":{
+		"prefix": "filter",
+		"body": ".filter(($1)=>{$2\n\n})"
+	},
+	"reduce":{
+		"prefix": "reduce",
+		"body": ".reduce((acc,$1)=>{$2\n\n})"
+	},
+	"class":{
+		"prefix": "class",
+		"body": "class $1 {\n\tconstructor(params={}){\n\t\tObject.assign(\n\t\t\tthis,\n\t\t\t{\n\t\t\t\t...params\n\t\t\t}\n\t\t)\n\t}\n}"
+	},
+	"img":{
+		"prefix":"<img",
+		"body":"<img src={$1.src} alt={$1.alt} />"
+	}
+}

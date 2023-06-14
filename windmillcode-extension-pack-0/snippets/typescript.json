@@ -1,0 +1,91 @@
+{
+	// Place your snippets for typescript here. Each snippet is defined under a snippet name and has a prefix, body and
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"class":{
+		"prefix": "class",
+		"body": "class $1 {\n\tconstructor(params:Partial<$1>={}){\n\t\tObject.assign(\n\t\t\tthis,\n\t\t\t{\n\t\t\t\t...params\n\t\t\t}\n\t\t)\n\t}\n}"
+	},
+	"describe":{
+		"prefix": "describe",
+		"body": "describe(\"$1\",()=>{\n\n})"
+	},
+	"it":{
+		"prefix": "it",
+		"body": "it(` when called | \n under normal conditions | \n does the required action `,()=>{\n$1\n})"
+	},
+	"takeUntil":{
+		"prefix": "takeUntil",
+		"body":"takeUntil(this.ngUnsub),"
+	},
+	"ngOnDestroy":{
+		"prefix": "ngOnDestroy",
+		"body": "ngOnDestroy(){\n\tthis.ngUnsub.next();\n\tthis.ngUnsub.complete()\n}"
+	},
+	"subscribe":{
+		"prefix": "pipe(",
+		"body": ".pipe(\n\ttakeUntil(this.ngUnsub),\n\ttap(()=>{\n\n\t})\n)\n"
+	},
+	"beforeEach":{
+		"prefix": "beforeEach",
+		"body": "beforeEach(()=>{\n\n})"
+	},
+	"generateArray":{
+		"prefix": "Array(",
+		"body": "Array($1)\n.fill(null)\n.map((nullVal,index0)=>{\n\n})"
+	},
+	"forEach":{
+		"prefix": "forEach",
+		"body": ".forEach(($1)=>{$2\n\n})"
+	},
+	"map":{
+		"prefix": "map",
+		"body": ".map(($1)=>{$2\n\n})"
+	},
+	"filter":{
+		"prefix": "filter",
+		"body": ".filter(($1)=>{$2\n\n})"
+	},
+	"reduce":{
+		"prefix": "reduce",
+		"body": ".reduce((acc,$1)=>{$2\n\n})"
+	},
+	"modern endpoint":{
+		"prefix":"iif",
+		"body":[
+			"return iif(\n\t()=>$1,\n\tof(null),$2\n)"
+		]
+	},
+	"angular service method":{
+		"prefix":"angular service method",
+		"body":[
+			"$1 = (uiBody:${1/(.*)/${1:/capitalize}/}UIRequestBody,raw = false)=>{\n\n\treturn iif(\n\t()=>ENV.$2.$1.automate,\n\t\tof(new ${1/(.*)/${1:/capitalize}/}UIResponseBody()),\n\n\t\t$1Load(uiBody)\n\t\t\t.pipe(\n\t\t\t\tconcatMap((apiBody)=>{\n\t\t\t\t\treturn this.http\n\t\t\t\t\t.post(ENV.$2.$1.url(),apiBody)\n\t\t\t\t\t.pipe(raw ? tap() : map($1Success))\n\t\t\t})\n\t\t)\n\t)\n}\n\nexport let $1Load = (uiBody:${1/(.*)/${1:/capitalize}/}UIRequestBody): Observable<${1/(.*)/${1:/capitalize}/}APIRequestBody>=>{\n\n\tlet apiBody = new ${1/(.*)/${1:/capitalize}/}APIRequestBody({})\n\treturn of(apiBody)\n\t.pipe(\n\t\ttake(1),\n\t)\n}\n\nexport let $1Success = (apiBody:${1/(.*)/${1:/capitalize}/}APIResponseBody):${1/(.*)/${1:/capitalize}/}UIResponseBody=>{\n\tlet uiBody = new ${1/(.*)/${1:/capitalize}/}UIResponseBody()\n\treturn uiBody\n}\n\nexport class ${1/(.*)/${1:/capitalize}/}UIRequestBody {\n\tconstructor(params:Partial<${1/(.*)/${1:/capitalize}/}UIRequestBody>={}){\n\t\tObject.assign(\n\t\t\tthis,\n\t\t\t{\n\t\t\t\t...params\n\t\t\t}\n\t\t)\n\t}\n} \n\nexport class ${1/(.*)/${1:/capitalize}/}UIResponseBody {\n\tconstructor(params:Partial<${1/(.*)/${1:/capitalize}/}UIResponseBody>={}){\n\t\tObject.assign(\n\t\t\tthis,\n\t\t\t{\n\t\t\t\t...params\n\t\t\t}\n\t\t)\n\t}\n}\n\nexport class ${1/(.*)/${1:/capitalize}/}APIRequestBody {\n\tconstructor(params:Partial<${1/(.*)/${1:/capitalize}/}APIRequestBody>={}){\n\t\tObject.assign(\n\t\t\tthis,\n\t\t\t{\n\t\t\t\t...params\n\t\t\t}\n\t\t)\n\t}\n}\n\nexport class ${1/(.*)/${1:/capitalize}/}APIResponseBody {\n\tconstructor(params:Partial<${1/(.*)/${1:/capitalize}/}APIResponseBody>={}){\n\t\tObject.assign(\n\t\t\tthis,\n\t\t\t{\n\t\t\t\t...params\n\t\t\t}\n\t\t)\n\t}\n}"
+		]
+	},
+	"js comment":{
+		"prefix": "js comment ",
+		"body": "/**\n * @$0 $1\n*/"
+	},
+	"angular: Env form control name":{
+		"prefix": "FormControlName ",
+		"body": "$1FormControlName:\"$1\""
+	},
+	"import translation file":{
+		"prefix":"import enTranslations",
+		"body":"import enTranslations from \"src/assets/i18n/en.json\";"
+	},
+	"wml color":{
+		"prefix":"orig",
+		"body":"wml$1:'var(--wml-$2)',\nwmlOriginal$1:'var(--wml-original-$2)',"
+	}
+}

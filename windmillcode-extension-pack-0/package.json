@@ -11,22 +11,63 @@
     "vscode": "^1.79.0"
   },
   "categories": [
-    "Extension Packs"
+    "Extension Packs",
+    "Snippets",
+    "Other"
   ],
+  "contributes": {
+    "snippets": [
+      {
+          "language": "css",
+          "path": "./snippets/css.json"
+      },
+      {
+          "language": "html",
+          "path": "./snippets/html.json"
+      },
+      {
+          "language": "java",
+          "path": "./snippets/java.json"
+      },
+      {
+          "language": "javascriptreact",
+          "path": "./snippets/javascriptreact.json"
+      },
+      {
+          "language": "json",
+          "path": "./snippets/json.json"
+      },
+      {
+          "language": "jsonc",
+          "path": "./snippets/jsonc.json"
+      },
+      {
+          "language": "markdown",
+          "path": "./snippets/markdown.json"
+      },
+      {
+          "language": "powershell",
+          "path": "./snippets/powershell.json"
+      },
+      {
+          "language": "python",
+          "path": "./snippets/python.json"
+      },
+      {
+          "language": "scss",
+          "path": "./snippets/scss.json"
+      },
+      {
+          "language": "typescript",
+          "path": "./snippets/typescript.json"
+      },
+      {
+          "language": "typescriptreact",
+          "path": "./snippets/typescriptreact.json"
+      }
+  ]
+  },
   "extensionPack": [
-    "AbolfazlAlmas.text-to-speech",
-    "alefragnani.delphi-themes",
-    "amodio.amethyst-theme",
-    "AndrsDC.base16-themes",
-    "Angular.ng-template",
-    "arcsine.chronicler",
-    "arcticicestudio.nord-visual-studio-code",
-    "artlaman.chalice-color-theme",
-    "Atelierbram.base2tone-vscode-themes",
-    "Atelierbram.base4tone-vscode-themes",
-    "azemoh.one-monokai",
-    "beastdestroyer.firefox-quantum-themes",
-    "cameronbieganek.julia-color-themes",
     "christian-kohler.npm-intellisense",
     "christian-kohler.path-intellisense",
     "CircleCI.circleci",
@@ -37,28 +78,18 @@
     "dgileadi.java-decompiler",
     "docsmsft.docs-yaml",
     "donjayamanne.javadebugger",
-    "donjayamanne.python-environment-manager",
     "donjayamanne.python-extension-pack",
-    "dracula-theme.theme-dracula",
-    "EliverLara.andromeda",
-    "eriklynd.json-tools",
     "esbenp.prettier-vscode",
     "everettjf.pubspec-dependency-search",
-    "EvgeniyPetukhov.dark-low-contrast",
     "FelixAngelov.bloc",
     "formulahendry.auto-rename-tag",
-    "formulahendry.docker-explorer",
-    "formulahendry.docker-extension-pack",
     "foxundermoon.shell-format",
-    "george3447.docker-run",
     "georgewfraser.vscode-javac",
     "GitHub.copilot",
     "golang.go",
     "Gruntfuggly.todo-tree",
     "hediet.vscode-drawio",
-    "henriiik.docker-linter",
     "IBM.output-colorizer",
-    "inci-august.august-themes",
     "ipedrazas.kubernetes-snippets",
     "ithildir.java-properties",
     "jamiepinheiro.paste-from-screenshot",
@@ -67,41 +98,20 @@
     "jinliming2.vscode-go-template",
     "joyous-coder.springboot-extension-pack",
     "JuanBlanco.solidity",
-    "KabirSarkar.spring-boot-gradle-extension-pack",
     "KevinRose.vsc-python-indent",
-    "krueger71.crt-themes",
     "kuscamara.remove-unused-imports",
     "liuchao.go-struct-tag",
-    "loiane.java-spring-extension-pack",
     "Malo.copy-json-path",
     "maracko.json-to-go",
-    "marcoLee.testfile-generator-for-junit",
     "MariusAlchimavicius.json-to-ts",
     "MarufHassan.flutter",
     "MarufHassan.flutter-snippets",
     "mhutchie.git-graph",
-    "MicroProfile-Community.mp-rest-client-generator-vscode-ext",
-    "MicroProfile-Community.mp-starter-vscode-ext",
-    "MicroProfile-Community.vscode-microprofile-pack",
-    "mike-flanigan.tranquility-base",
-    "mikegleasonjr.theme-go",
     "miquelddg.dart-barrel-file-generator",
     "mongodb.mongodb-vscode",
     "moyu.snapcode",
     "mrmlnc.vscode-scss",
-    "ms-azure-devops.azure-pipelines",
-    "ms-azuretools.azure-dev",
-    "ms-azuretools.vscode-azurecontainerapps",
-    "ms-azuretools.vscode-azurefunctions",
-    "ms-azuretools.vscode-azureresourcegroups",
-    "ms-azuretools.vscode-azurestaticwebapps",
-    "ms-azuretools.vscode-azurestorage",
-    "ms-azuretools.vscode-azurevirtualmachines",
-    "ms-azuretools.vscode-cosmosdb",
-    "ms-azuretools.vscode-docker",
-    "ms-dotnettools.vscode-dotnet-runtime",
-    "ms-kubernetes-tools.vscode-aks-tools",
-    "ms-kubernetes-tools.vscode-kubernetes-tools",
+
     "ms-python.black-formatter",
     "ms-python.isort",
     "ms-python.python",
@@ -116,13 +126,9 @@
     "ms-vscode-remote.remote-ssh-edit",
     "ms-vscode-remote.remote-wsl",
     "ms-vscode-remote.vscode-remote-extensionpack",
-    "ms-vscode.azure-account",
-    "ms-vscode.azurecli",
-    "ms-vscode.cpptools-themes",
     "ms-vscode.powershell",
     "ms-vscode.remote-explorer",
     "ms-vscode.remote-server",
-    "ms-vscode.vscode-node-azure-pack",
     "msyrus.go-doc",
     "mtxr.sqltools",
     "mtxr.sqltools-driver-mysql",
@@ -132,50 +138,24 @@
     "naco-siren.gradle-language",
     "njpwerner.autodocstring",
     "p1c2u.docker-compose",
-    "PKief.material-icon-theme",
     "Pool.redisexplorer",
     "pranaygp.vscode-css-peek",
     "pverest.java-ide-pack",
     "rangav.vscode-thunder-client",
     "rcore.rcore-unused-css-classes",
     "rebornix.ruby",
-    "redhat.fabric8-analytics",
-    "redhat.java",
-    "redhat.vscode-commons",
-    "redhat.vscode-microprofile",
-    "redhat.vscode-xml",
-    "redhat.vscode-yaml",
     "ricardo-emerson.java-sysout",
     "richardwillis.vscode-gradle-extension-pack",
-    "rokoroku.vscode-theme-darcula",
     "rust-lang.rust-analyzer",
     "ryu1kn.partial-diff",
-    "sallar.vscode-duotone-dark",
-    "sdras.night-owl",
-    "shadowblood.tailwind-moon",
     "shd101wyy.markdown-preview-enhanced",
     "sheldon-hull.extension-pack-go",
     "shengchen.vscode-checkstyle",
     "sibiraj-s.vscode-scss-formatter",
-    "sldobri.bunker",
     "SonarSource.sonarlint-vscode",
     "spmeesseman.vscode-taskexplorer",
-    "Summer.azure-event-hub-explorer",
-    "thegeoffstevens.best-dark-themes-pack",
-    "tintinweb.ethereum-security-bundle",
-    "tintinweb.graphviz-interactive-preview",
-    "tintinweb.solidity-metrics",
-    "tintinweb.solidity-visual-auditor",
-    "tintinweb.vscode-decompiler",
-    "tintinweb.vscode-ethover",
-    "tintinweb.vscode-inline-bookmarks",
-    "tintinweb.vscode-LLL",
-    "tintinweb.vscode-solidity-flattener",
-    "tintinweb.vscode-solidity-language",
-    "tintinweb.vscode-vyper",
+
     "tomoki1207.pdf",
-    "tomphilbin.gruvbox-themes",
-    "trufflesuite-csi.truffle-vscode",
     "TrungNgo.autoflake",
     "Tyriar.luna-paint",
     "usernamehw.errorlens",
@@ -199,10 +179,8 @@
     "wholroyd.jinja",
     "wingrunr21.vscode-ruby",
     "Wscats.java-snippet",
-    "wsds.theme-hacker",
     "yangbaopan.vscode-java-ibatisx",
     "YouMayCallMeV.vscode-java-saber",
-    "Youssef.viow",
-    "zhuangtongfa.material-theme"
+    "Youssef.viow"
   ]
 }

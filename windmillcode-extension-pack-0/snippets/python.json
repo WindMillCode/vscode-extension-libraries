@@ -1,0 +1,50 @@
+{
+	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+	// same ids are connected.
+	// Example:
+	"file running as main": {
+		"prefix": "__main__",
+		"body": [
+			"if __name__ == '__main__':\n\t",
+		],
+		"description": "execute module code"
+	},
+	"python function": {
+		"prefix": "def",
+		"body": [
+			"def $1():\n\t",
+		],
+		"description": "generate a python function"
+	},
+	"python local deps": {
+		"prefix": "local_deps",
+		"body": [
+			"from utils.local_deps import local_deps\nlocal_deps()",
+		],
+		"description": "local deps for local install"
+	},
+	"pytest assert status code": {
+		"prefix": "response.status_code",
+		"body": [
+			"assert response.status_code == $1",
+		],
+		"description": "assert response status code === 200"
+	},
+	"flask: route":{
+		"prefix":"flask: route",
+		"body": [
+			"@$1.route('$2',methods=['$3'])\ndef $1_$2():\n\tdata = request.json.get('data',{})\n\n\n\treturn {\n\t\t\"data\":{},\n\t\t\"code\": CONFIGS.endpointMsgCodes[\"success\"]\n\t},200"
+		]
+	},
+	"flask: sqlalchemy query":{
+		"prefix":"conn.execute",
+		"body":[
+			"stmt = text(\"\"\"\n$1\n\"\"\")\nself.sqlalchemy_0_conn.execute(stmt,{\n})\nself.sqlalchemy_0_conn.commit()"
+		]
+	}
+
+
+}
+
