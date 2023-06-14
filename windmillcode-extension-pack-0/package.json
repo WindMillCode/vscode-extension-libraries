@@ -4,6 +4,9 @@
   "description": "",
   "version": "0.0.1",
   "publisher": "windmillcode-publisher-0",
+  "repository":{
+    "url":"https://github.com/WindMillCode/vscode-extension-libraries"
+  },
   "engines": {
     "vscode": "^1.79.0"
   },
