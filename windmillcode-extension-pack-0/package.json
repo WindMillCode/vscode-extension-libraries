@@ -2,10 +2,11 @@
   "name": "windmillcode-extension-pack-0",
   "displayName": "windmillcode-extension-pack-0",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "publisher": "windmillcode-publisher-0",
-  "repository":{
-    "url":"https://github.com/WindMillCode/vscode-extension-libraries"
+  "icon": "images/logo.png",
+  "repository": {
+    "url": "https://github.com/WindMillCode/vscode-extension-libraries"
   },
   "engines": {
     "vscode": "^1.79.0"
@@ -15,57 +16,72 @@
     "Snippets",
     "Other"
   ],
+  "activationEvents": [
+    "onCommand:workbench.action.tasks.runTask"
+  ],
+  "main": "./out/extension",
   "contributes": {
     "snippets": [
       {
-          "language": "css",
-          "path": "./snippets/css.json"
+        "language": "css",
+        "path": "./snippets/css.json"
       },
       {
-          "language": "html",
-          "path": "./snippets/html.json"
+        "language": "html",
+        "path": "./snippets/html.json"
       },
       {
-          "language": "java",
-          "path": "./snippets/java.json"
+        "language": "java",
+        "path": "./snippets/java.json"
       },
       {
-          "language": "javascriptreact",
-          "path": "./snippets/javascriptreact.json"
+        "language": "javascriptreact",
+        "path": "./snippets/javascriptreact.json"
       },
       {
-          "language": "json",
-          "path": "./snippets/json.json"
+        "language": "json",
+        "path": "./snippets/json.json"
       },
       {
-          "language": "jsonc",
-          "path": "./snippets/jsonc.json"
+        "language": "jsonc",
+        "path": "./snippets/jsonc.json"
       },
       {
-          "language": "markdown",
-          "path": "./snippets/markdown.json"
+        "language": "markdown",
+        "path": "./snippets/markdown.json"
       },
       {
-          "language": "powershell",
-          "path": "./snippets/powershell.json"
+        "language": "powershell",
+        "path": "./snippets/powershell.json"
       },
       {
-          "language": "python",
-          "path": "./snippets/python.json"
+        "language": "python",
+        "path": "./snippets/python.json"
       },
       {
-          "language": "scss",
-          "path": "./snippets/scss.json"
+        "language": "scss",
+        "path": "./snippets/scss.json"
       },
       {
-          "language": "typescript",
-          "path": "./snippets/typescript.json"
+        "language": "typescript",
+        "path": "./snippets/typescript.json"
       },
       {
-          "language": "typescriptreact",
-          "path": "./snippets/typescriptreact.json"
+        "language": "typescriptreact",
+        "path": "./snippets/typescriptreact.json"
       }
-  ]
+    ],
+    "taskDefinitions": [
+      {
+        "type": "windmillcode",
+        "properties": {
+          "task": {
+            "type": "string",
+            "description": "the name of the windmillcode task"
+          }
+        }
+      }
+    ]
   },
   "extensionPack": [
     "christian-kohler.npm-intellisense",
@@ -111,7 +127,6 @@
     "mongodb.mongodb-vscode",
     "moyu.snapcode",
     "mrmlnc.vscode-scss",
-
     "ms-python.black-formatter",
     "ms-python.isort",
     "ms-python.python",
@@ -154,7 +169,6 @@
     "sibiraj-s.vscode-scss-formatter",
     "SonarSource.sonarlint-vscode",
     "spmeesseman.vscode-taskexplorer",
-
     "tomoki1207.pdf",
     "TrungNgo.autoflake",
     "Tyriar.luna-paint",
@@ -182,5 +196,19 @@
     "yangbaopan.vscode-java-ibatisx",
     "YouMayCallMeV.vscode-java-saber",
     "Youssef.viow"
-  ]
+  ],
+  "scripts": {
+    "vscode:prepublish": "yarn compile",
+    "compile": "tsc -b",
+    "watch": "tsc -b -w"
+  },
+  "devDependencies": {
+    "@types/node": "^16.18.34",
+    "@types/vscode": "^1.73.0",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.26.0",
+    "typescript": "^5.1.3"
+  }
 }
