@@ -32,13 +32,7 @@ export class WMLGitTaskProvider implements vscode.TaskProvider {
 
 class GitCreakTasksParams extends CreateTaskParams {
   constructor(params:Partial<GitCreakTasksParams>={}){
-    super()
-    Object.assign(
-      this,
-      {
-        ...params
-      }
-    )
+    super(params)
   }
   override taskSource ="git";
 }
@@ -50,9 +44,10 @@ async function getTasks(): Promise<vscode.Task[]> {
 
     // @ts-ignore
     result = [
-      new GitCreakTasksParams({taskName:"pushing work to git remote",executable:"pushing_work_to_git_remote.ps1"}),
-      new GitCreakTasksParams({taskName:"create branch after merged changes",executable:"create_branch_after_merged_changes.ps1"}),
-      new GitCreakTasksParams({taskName:"removing a file from being tracked by git",executable:"removing_a_file_from_being_tracked_by_git.ps1"}),
+      new GitCreakTasksParams({taskName:"pushing work to git remote"}),
+      new GitCreakTasksParams({taskName:"create branch after merged changes"}),
+      new GitCreakTasksParams({taskName:"removing a file from being tracked by git"}),
+
     ]
     .map((task)=>{
       return createTask(task)

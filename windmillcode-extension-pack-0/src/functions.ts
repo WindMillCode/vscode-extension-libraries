@@ -20,6 +20,9 @@ export let letDeveloperKnowAboutAnIssue = (err:any,msg:string)=>{
   }
   channel.appendLine(msg);
   channel.show(true);
+  vscode.window.showInformationMessage(err.stderr)
+  vscode.window.showInformationMessage(err)
+  vscode.window.showInformationMessage(msg);
 }
 
 
@@ -77,6 +80,16 @@ export class CreateTaskParams {
         ...params
       }
     )
+    if(!this.executable){
+      this.executable = this.taskName.replace(/\s/g, "_")
+      // @ts-ignore
+      let ext:any = {
+        [OperatingSystem.WINDOWS]:".ps1",
+        [OperatingSystem.LINUX]:".sh",
+        [OperatingSystem.MACOS]:".sh",
+      }[this.currentOS]
+      this.executable+=ext
+    }
   }
 
   kind: vscode.TaskDefinition = {
