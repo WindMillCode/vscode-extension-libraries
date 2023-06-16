@@ -4,11 +4,18 @@
  *--------------------------------------------------------------------------------------------*/
 import * as vscode from 'vscode';
 import { WMLGitTaskProvider } from './WMLGitTaskProvider';
-import { getOutputChannel } from './functions';
+import { WMLAngularTaskProvider } from './WMLAngularTaskProvider';
+import { WMLYarnTaskProvider } from './WMLYarnTaskProvider';
+import { WMLPythonTaskProvider } from './WMLPythonTaskProvider';
+import { WMLFlaskTaskProvider } from './WMLFlaskTaskProvider';
 
 let WMLDisposables: vscode.Disposable[] =[]
 let WMLTaskProviders:any[] = [
-	WMLGitTaskProvider
+	WMLGitTaskProvider,
+	WMLAngularTaskProvider,
+	WMLYarnTaskProvider,
+	WMLPythonTaskProvider,
+	WMLFlaskTaskProvider
 ]
 export function activate(_context: vscode.ExtensionContext): void {
 	const workspaceRoot = (vscode.workspace.workspaceFolders && (vscode.workspace.workspaceFolders.length > 0))

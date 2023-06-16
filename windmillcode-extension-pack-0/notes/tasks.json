@@ -168,69 +168,10 @@
       },
       "promptOnClose": false
     },
+
+
     {
-      "label": "angular frontend: Check for angular updates",
-      "type": "shell",
-      "command": "cd .\\apps\\zero\\frontend\\AngularApp\\; npx ng update",
-      "group": "none",
-      "presentation": {
-        "reveal": "always",
-        "panel": "new"
-      },
-      "promptOnClose": false,
-      "runOptions": {
-        "runOn": "folderOpen"
-      }
-    },
-    {
-      "label": "angular frontend: update angular",
-      "type": "shell",
-      "command": "git add .;git commit -m'[CHECKPOINT] before upgrading to next angular version';  .\\ignore\\${input:current_user_0}\\update_angular.ps1 ",
-      "group": "none",
-      "presentation": {
-        "reveal": "always",
-        "panel": "new",
-        "close": true
-      },
-      "promptOnClose": false
-    },
-    {
-      "label": "angular frontend: install external angular project",
-      "type": "shell",
-      "command": "cd .\\apps\\zero\\frontend\\AngularApp\\; yarn remove ${input:external_angular_project0};yarn link ${input:external_angular_project0}",
-      "group": "none",
-      "presentation": {
-        "reveal": "always",
-        "panel": "new"
-      },
-      "promptOnClose": false
-    },
-    {
-      "label": "angular frontend: uninstall external angular project",
-      "type": "shell",
-      "command": "cd .\\apps\\zero\\frontend\\AngularApp\\; yarn unlink ${input:external_angular_project0}; yarn add ${input:npm_package_install_type0} ${input:external_angular_project0}",
-      "group": "none",
-      "presentation": {
-        "reveal": "always",
-        "panel": "new"
-      },
-      "promptOnClose": false
-    },
-    {
-      "label": "angular frontend: run compodoc",
-      "type": "shell",
-      "command": "cd .\\apps\\zero\\frontend\\AngularApp\\; yarn compodoc:build-and-serve",
-      "osx": {
-        "command": "cd ignore/${input:current_user_0}; ./run-frontend-dev.sh"
-      },
-      "group": "none",
-      "presentation": {
-        "reveal": "always",
-        "panel": "new"
-      }
-    },
-    {
-      "label": "angular frontend: analyze",
+      "label": "angular frontend analyze",
       "type": "shell",
       "command": "cd .\\apps\\zero\\frontend\\AngularApp\\; yarn analyze:${input:angular_frontend_analyze0}",
       "osx": {
@@ -242,18 +183,7 @@
         "panel": "new"
       }
     },
-    {
-      "label": "firebase cloud: install app deps",
-      "type": "shell",
-      "windows":{
-        "command": " cd apps\\zero\\cloud\\firebase; yarn install",
-      },
-      "group": "none",
-      "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      }
-    },
+
     {
       "label": "firebase cloud:run emulators",
       "type": "shell",
@@ -338,7 +268,7 @@
       }
     },
     {
-      "label": "flask backend: run",
+      "label": "flask backend run",
       "type": "shell",
       "windows": {
         "command": ".\\ignore\\${input:current_user_0}\\run_backend_dev.ps1 ${input:current_user_0}"

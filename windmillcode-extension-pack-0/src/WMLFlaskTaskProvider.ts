@@ -4,12 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as vscode from 'vscode';
-import { CreateTaskParams, createTask, getFileFromExtensionDirectory, getOutputChannel, letDeveloperKnowAboutAnIssue } from './functions';
+import { CreateTaskParams, createTask, letDeveloperKnowAboutAnIssue } from './functions';
 
 
 
 
-export class WMLGitTaskProvider implements vscode.TaskProvider {
+export class WMLFlaskTaskProvider implements vscode.TaskProvider {
 	static WindmillType = 'windmillcode';
 
 	constructor(workspaceRoot: string) {
@@ -26,9 +26,9 @@ export class WMLGitTaskProvider implements vscode.TaskProvider {
 	}
 }
 
-class GitCreateTasksParams extends CreateTaskParams {
-  constructor(params:Partial<GitCreateTasksParams>={}){
-    params.taskSource ="git"
+class FlaskCreateTasksParams extends CreateTaskParams {
+  constructor(params:Partial<FlaskCreateTasksParams>={}){
+    params.taskSource = "flask backend"
     super(params)
   }
 }
@@ -40,10 +40,8 @@ async function getTasks(): Promise<vscode.Task[]> {
 
     // @ts-ignore
     result = [
-      new GitCreateTasksParams({taskName:"pushing work to git remote"}),
-      new GitCreateTasksParams({taskName:"create branch after merged changes"}),
-      new GitCreateTasksParams({taskName:"removing a file from being tracked by git"}),
-      new GitCreateTasksParams({taskName:"merge changes from current dev branch"}),
+      new FlaskCreateTasksParams({taskName:"run"}),
+      new FlaskCreateTasksParams({taskName:"test"}),
     ]
     .map((task)=>{
       return createTask(task)
@@ -54,7 +52,7 @@ async function getTasks(): Promise<vscode.Task[]> {
 
 
   } catch (err: any) {
-    letDeveloperKnowAboutAnIssue(err,'Issue while loading windmillcode git tasks.')
+    letDeveloperKnowAboutAnIssue(err,'Issue while loading windmillcode Flask tasks.')
   }
 
 	return result;

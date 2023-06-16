@@ -9,7 +9,7 @@ import { CreateTaskParams, createTask, getFileFromExtensionDirectory, getOutputC
 
 
 
-export class WMLGitTaskProvider implements vscode.TaskProvider {
+export class WMLAngularTaskProvider implements vscode.TaskProvider {
 	static WindmillType = 'windmillcode';
 
 	constructor(workspaceRoot: string) {
@@ -26,9 +26,9 @@ export class WMLGitTaskProvider implements vscode.TaskProvider {
 	}
 }
 
-class GitCreateTasksParams extends CreateTaskParams {
-  constructor(params:Partial<GitCreateTasksParams>={}){
-    params.taskSource ="git"
+class AngularCreateTasksParams extends CreateTaskParams {
+  constructor(params:Partial<AngularCreateTasksParams>={}){
+    params.taskSource = "angular frontend"
     super(params)
   }
 }
@@ -40,10 +40,12 @@ async function getTasks(): Promise<vscode.Task[]> {
 
     // @ts-ignore
     result = [
-      new GitCreateTasksParams({taskName:"pushing work to git remote"}),
-      new GitCreateTasksParams({taskName:"create branch after merged changes"}),
-      new GitCreateTasksParams({taskName:"removing a file from being tracked by git"}),
-      new GitCreateTasksParams({taskName:"merge changes from current dev branch"}),
+      new AngularCreateTasksParams({taskName:"run"}),
+      new AngularCreateTasksParams({taskName:"install app deps"}),
+      new AngularCreateTasksParams({taskName:"check for angular updates"}),
+      new AngularCreateTasksParams({taskName:"update angular"}),
+      new AngularCreateTasksParams({taskName:"run compodoc"}),
+      new AngularCreateTasksParams({taskName:"analyze"})
     ]
     .map((task)=>{
       return createTask(task)
@@ -54,7 +56,7 @@ async function getTasks(): Promise<vscode.Task[]> {
 
 
   } catch (err: any) {
-    letDeveloperKnowAboutAnIssue(err,'Issue while loading windmillcode git tasks.')
+    letDeveloperKnowAboutAnIssue(err,'Issue while loading windmillcode Angular tasks.')
   }
 
 	return result;

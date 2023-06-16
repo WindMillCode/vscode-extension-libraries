@@ -11,7 +11,7 @@ Param (
 $utilsFile = $PSScriptRoot + '\utils.ps1'
 . $utilsFile;
 
-
+cd $workspaceLocation
 
 $currentBranch = git rev-parse --abbrev-ref HEAD
 
@@ -33,7 +33,7 @@ if ( $createBranch -eq "") {
 
 
 
-cd $workspaceLocation
+
 
 $command0 = "git checkout $sourceBranch; git pull origin $sourceBranch; git branch -D $deleteBranch; git checkout -b $createBranch"
 

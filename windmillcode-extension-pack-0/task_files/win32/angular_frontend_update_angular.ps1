@@ -1,4 +1,12 @@
-cd apps\zero\frontend\AngularApp
+Param (
+    [Parameter(Mandatory=$true)] [string] $workspaceLocation=""
+
+)
+
+cd $workspaceLocation
+git add .;git commit -m'[CHECKPOINT] before upgrading to next angular version';
+
+cd apps\frontend\AngularApp
 $inputText = npx ng update
 # Split the input into individual lines
 $inputLines = $inputText.Split([Environment]::NewLine)
@@ -16,8 +24,7 @@ foreach ($package in $packagesToUpdate) {
 
 # Remove the trailing "&& " from the command
 # $updateCommand = $updateCommand.Substring(0, $updateCommand.Length - 3)
-$updateCommand += " --allow-dirty"
-# Print the command
+# $updateCommand += " --allow-dirty"
 Invoke-Expression $updateCommand
 
 

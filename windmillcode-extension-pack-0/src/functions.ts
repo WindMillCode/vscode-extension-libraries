@@ -81,7 +81,8 @@ export class CreateTaskParams {
       }
     )
     if(!this.executable){
-      this.executable = this.taskName.replace(/\s/g, "_")
+      this.executable = this.taskSource + "_" + this.taskName
+      this.executable = this.executable.replace(/\s/g, "_")
       // @ts-ignore
       let ext:any = {
         [OperatingSystem.WINDOWS]:".ps1",
