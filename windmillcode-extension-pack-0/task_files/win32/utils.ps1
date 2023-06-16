@@ -67,3 +67,6 @@ function Show-Menu {
 $path = $MyInvocation.MyCommand.Path
 if (!$path) {$path = $psISE.CurrentFile.Fullpath}
 if ($path)  {$path = Split-Path $path -Parent}
+
+
+$currentBranch = git rev-parse --abbrev-ref HEAD

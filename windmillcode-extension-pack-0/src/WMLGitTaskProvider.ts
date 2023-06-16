@@ -2,14 +2,10 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import * as path from 'path';
-import * as fs from 'fs';
-import * as cp from 'child_process';
+
 import * as vscode from 'vscode';
-import { error } from 'console';
-import { OperatingSystem, WMLTaskDefinition } from './models';
 import { CreateTaskParams, createTask, getFileFromExtensionDirectory, getOutputChannel, letDeveloperKnowAboutAnIssue } from './functions';
-import * as os from 'os'
+
 
 
 
@@ -47,7 +43,7 @@ async function getTasks(): Promise<vscode.Task[]> {
       new GitCreakTasksParams({taskName:"pushing work to git remote"}),
       new GitCreakTasksParams({taskName:"create branch after merged changes"}),
       new GitCreakTasksParams({taskName:"removing a file from being tracked by git"}),
-
+      new GitCreakTasksParams({taskName:"merge changes from current dev branch"}),
     ]
     .map((task)=>{
       return createTask(task)
