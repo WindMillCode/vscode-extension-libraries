@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { OperatingSystem } from './models';
 import * as path from 'path'
+import * as os from 'os'
 let _channel: vscode.OutputChannel;
 export function getOutputChannel(): vscode.OutputChannel {
 	if (!_channel) {
@@ -35,4 +36,57 @@ export let getFileFromExtensionDirectory =(relativeFilePath:string,currentOS:Nod
   }
   throw new Error("File not found")
 
+}
+
+export let createTask = (params = new CreateTaskParams())=>{
+  let {shellExecOptions,kind,taskScope,taskName,taskSource,currentOS,executable} = params
+  let shellExecutionArgs:string[] = [params.workspaceFolder]
+  let task = new vscode.Task(
+    kind,
+    taskScope,
+    taskName,
+    taskSource,
+  );
+
+  try{
+    if(currentOS === OperatingSystem.WINDOWS){
+        executable = getFileFromExtensionDirectory(executable,currentOS)
+
+        task.execution = new vscode.ShellExecution(
+          executable + " "+shellExecutionArgs[0],
+          // shellExecutionArgs,
+          shellExecOptions
+        )
+    }
+  }
+  catch(e){
+    letDeveloperKnowAboutAnIssue(e,'Issue while loading windmillcode' +taskSource +' tasks.')
+    return null
+  }
+
+
+  return task
+
+}
+
+export class CreateTaskParams {
+  constructor(params:Partial<CreateTaskParams>={}){
+    Object.assign(
+      this,
+      {
+        ...params
+      }
+    )
+  }
+
+  kind: vscode.TaskDefinition = {
+    type: 'windmillcode'
+  }
+  currentOS:NodeJS.Platform = os.platform()
+  shellExecOptions:vscode.ShellExecutionOptions ={cwd:"."}
+  workspaceFolder:string = vscode.workspace.workspaceFolders![0].uri.fsPath
+  executable!:string
+  taskName: vscode.Task["name"] = "Give me a name!!!!"
+  taskSource: vscode.Task["source"] = "Give me a source"
+  taskScope=vscode.TaskScope.Workspace
 }

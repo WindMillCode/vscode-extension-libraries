@@ -8,7 +8,7 @@ import * as cp from 'child_process';
 import * as vscode from 'vscode';
 import { error } from 'console';
 import { OperatingSystem, WMLTaskDefinition } from './models';
-import { getFileFromExtensionDirectory, getOutputChannel, letDeveloperKnowAboutAnIssue } from './functions';
+import { CreateTaskParams, createTask, getFileFromExtensionDirectory, getOutputChannel, letDeveloperKnowAboutAnIssue } from './functions';
 import * as os from 'os'
 
 
@@ -30,85 +30,33 @@ export class WMLGitTaskProvider implements vscode.TaskProvider {
 	}
 }
 
-
-
-
-let pushToGitRemote = (kind: vscode.TaskDefinition,currentOS:NodeJS.Platform,workspaceFolder:string)=>{
-  let executable:string
-  let shellExecutionArgs:string[] = [workspaceFolder]
-  let shellExecOptions:vscode.ShellExecutionOptions ={cwd:"."}
-  let task = new vscode.Task(
-    kind,
-    vscode.TaskScope.Workspace,
-    "pushing work to git remote",
-    'git',
-  );
-
-  try{
-    if(currentOS === OperatingSystem.WINDOWS){
-        executable = getFileFromExtensionDirectory("pushing_work_to_git_remote.ps1",currentOS)
-
-        task.execution = new vscode.ShellExecution(
-          executable + " "+shellExecutionArgs[0],
-          // shellExecutionArgs,
-          shellExecOptions
-        )
-    }
+class GitCreakTasksParams extends CreateTaskParams {
+  constructor(params:Partial<GitCreakTasksParams>={}){
+    super()
+    Object.assign(
+      this,
+      {
+        ...params
+      }
+    )
   }
-  catch(e){
-    letDeveloperKnowAboutAnIssue(e,'Issue while loading windmillcode git tasks.')
-    return null
-  }
-
-
-  return task
-}
-
-let createBranchAfterMergedChanges = (kind: vscode.TaskDefinition,currentOS:NodeJS.Platform,workspaceFolder:string)=>{
-  let executable:string
-  let shellExecutionArgs:string[] = [workspaceFolder]
-  let shellExecOptions:vscode.ShellExecutionOptions ={cwd:"."}
-  let task = new vscode.Task(
-    kind,
-    vscode.TaskScope.Workspace,
-    "create branch after merged changes",
-    'git',
-  );
-
-  try{
-    if(currentOS === OperatingSystem.WINDOWS){
-        executable = getFileFromExtensionDirectory("create_branch_after_merged_changes.ps1",currentOS)
-
-        task.execution = new vscode.ShellExecution(
-          executable + " "+shellExecutionArgs[0],
-          // shellExecutionArgs,
-          shellExecOptions
-        )
-    }
-  }
-  catch(e){
-    letDeveloperKnowAboutAnIssue(e,'Issue while loading windmillcode git tasks.')
-    return null
-  }
-
-
-  return task
+  override taskSource ="git";
 }
 
 async function getTasks(): Promise<vscode.Task[]> {
 
 	let result: vscode.Task[]  = [];
   try {
-    const kind: vscode.TaskDefinition = {
-      type: 'windmillcode'
-    };
-    let currentOS = os.platform();
-    let workspaceFolder = vscode.workspace.workspaceFolders![0].uri.fsPath
+
     // @ts-ignore
     result = [
-      pushToGitRemote(kind,currentOS,workspaceFolder),
-      createBranchAfterMergedChanges(kind,currentOS,workspaceFolder)
+      new GitCreakTasksParams({taskName:"pushing work to git remote",executable:"pushing_work_to_git_remote.ps1"}),
+      new GitCreakTasksParams({taskName:"create branch after merged changes",executable:"create_branch_after_merged_changes.ps1"}),
+      new GitCreakTasksParams({taskName:"removing a file from being tracked by git",executable:"removing_a_file_from_being_tracked_by_git.ps1"}),
     ]
+    .map((task)=>{
+      return createTask(task)
+    })
     .filter((task)=>{
       return task instanceof vscode.Task
     })
