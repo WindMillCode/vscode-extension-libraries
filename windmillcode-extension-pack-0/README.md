@@ -6,3 +6,5 @@ v 0.2.0
 
 v 0.3.0
   * support for the python & flask utilities
+v 0.3.1
+  * fixed issue with yarn utilities
