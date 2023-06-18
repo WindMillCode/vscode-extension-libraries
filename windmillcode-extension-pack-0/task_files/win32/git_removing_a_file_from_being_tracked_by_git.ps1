@@ -1,7 +1,7 @@
 Param (
     [Parameter(Mandatory=$true)] [string] $workspaceLocation="",
-    [string] $targetType ="file",
-    [string] $targetName ="" ,
+    [string] $targetType ="",
+    [string] $targetName =""
 )
 
 

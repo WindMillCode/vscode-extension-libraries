@@ -9,7 +9,7 @@ import { CreateTaskParams, createTask, letDeveloperKnowAboutAnIssue } from './fu
 
 
 
-export class WMLTestNGTaskProvider implements vscode.TaskProvider {
+export class WMLDockerTaskProvider implements vscode.TaskProvider {
 	static WindmillType = 'windmillcode';
 
 	constructor(workspaceRoot: string) {
@@ -26,9 +26,9 @@ export class WMLTestNGTaskProvider implements vscode.TaskProvider {
 	}
 }
 
-class TestNGE2ECreateTasksParams extends CreateTaskParams {
-  constructor(params:Partial<TestNGE2ECreateTasksParams>={}){
-    params.taskSource = "testng e2e"
+class DockerCreateTasksParams extends CreateTaskParams {
+  constructor(params:Partial<DockerCreateTasksParams>={}){
+    params.taskSource = "docker"
     super(params)
   }
 }
@@ -40,9 +40,9 @@ async function getTasks(): Promise<vscode.Task[]> {
 
     // @ts-ignore
     result = [
-      new TestNGE2ECreateTasksParams({taskName:"run"}),
-      new TestNGE2ECreateTasksParams({taskName:"setup vscode extension"}),
-      new TestNGE2ECreateTasksParams({taskName:"create testng page"}),
+      new DockerCreateTasksParams({taskName:"run"}),
+      new DockerCreateTasksParams({taskName:"init container"}),
+      new DockerCreateTasksParams({taskName:"ssh into container"})
     ]
     .map((task)=>{
       return createTask(task)
@@ -53,7 +53,7 @@ async function getTasks(): Promise<vscode.Task[]> {
 
 
   } catch (err: any) {
-    letDeveloperKnowAboutAnIssue(err,'Issue while loading windmillcode TestNG tasks.')
+    letDeveloperKnowAboutAnIssue(err,'Issue while loading windmillcode Docker tasks.')
   }
 
 	return result;

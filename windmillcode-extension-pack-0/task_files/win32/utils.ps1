@@ -4,51 +4,32 @@ function Show-Menu {
         [string]$Prompt,
 
         [Parameter(Mandatory = $true)]
-        [string[]]$Options
+        [string[]]$Options,
+
+        [Parameter()]
+        [switch]$EnableOtherOption = $false
     )
 
-    # Determine the maximum option length for padding
     $maxOptionLength = ($Options | Measure-Object -Property Length -Maximum).Maximum
-
-    # Display the menu options
-    Write-Host $Prompt
-    for ($i = 0; $i -lt $Options.Count; $i++) {
-        $option = $Options[$i]
-        $paddedOption = $option.PadRight($maxOptionLength)
-
-        # Check if the current option is selected
-        if ($i -eq 0) {
-            Write-Host " > $($i + 1). $paddedOption"
-        }
-        else {
-            Write-Host "   $($i + 1). $paddedOption"
-        }
+    $actualOptionsCount = $Options.Count
+    if ($EnableOtherOption) {
+        $actualOptionsCount++
     }
 
-    # Prompt the user for selection
+
     $selectedIndex = 0
     while ($true) {
-        $keyInfo = [System.Console]::ReadKey($true)
-        $key = $keyInfo.Key
-
-        if ($key -eq 'UpArrow') {
-            $selectedIndex = ($selectedIndex - 1) % $Options.Count
-        }
-        elseif ($key -eq 'DownArrow') {
-            $selectedIndex = ($selectedIndex + 1) % $Options.Count
-        }
-        elseif ($key -eq 'Enter') {
-            break
-        }
-
-        # Clear the console and redraw menu with updated selection
         [System.Console]::Clear()
         Write-Host $Prompt
-        for ($i = 0; $i -lt $Options.Count; $i++) {
-            $option = $Options[$i]
+        for ($i = 0; $i -lt $actualOptionsCount; $i++) {
+            if ($i -eq $Options.Count - 1 -and $EnableOtherOption) {
+                $option = "OTHER"
+            }
+            else {
+                $option = $Options[$i]
+            }
             $paddedOption = $option.PadRight($maxOptionLength)
 
-            # Check if the current option is selected
             if ($i -eq $selectedIndex) {
                 Write-Host " > $($i + 1). $paddedOption"
             }
@@ -56,12 +37,62 @@ function Show-Menu {
                 Write-Host "   $($i + 1). $paddedOption"
             }
         }
+
+        $keyInfo = [System.Console]::ReadKey($true)
+        $key = $keyInfo.Key
+
+        if ($key -eq 'UpArrow') {
+            $selectedIndex = ($selectedIndex - 1 + $actualOptionsCount) % $actualOptionsCount
+        }
+        elseif ($key -eq 'DownArrow') {
+            $selectedIndex = ($selectedIndex + 1) % $actualOptionsCount
+        }
+        elseif ($key -eq 'Enter') {
+            if ($selectedIndex -eq $Options.Count - 1 -and $EnableOtherOption) {
+                Write-Host
+                $otherOption = Read-Host "Provide a value for OTHER:"
+                return $otherOption
+            }
+            break
+        }
     }
 
-    # Return the selected option
     return $Options[$selectedIndex]
 }
 
+
+function Take-Variable-Args {
+
+
+    $InnerScriptArguments = @()
+
+    while ($true) {
+        $argument = Read-Host "Enter the arguments to pass to the script (press ENTER to enter another argument, leave blank and press ENTER once done )"
+        if ([string]::IsNullOrWhiteSpace($argument)) {
+            break
+        }
+        $InnerScriptArguments += $argument
+    }
+
+    return $InnerScriptArguments
+    # Invoke the inner script with the provided arguments
+    # & $InnerScriptPath $InnerScriptArguments
+}
+
+function GetParamValue {
+    param (
+        [Parameter(Mandatory=$true)]
+        [System.Reflection.ParameterInfo]$Parameter
+    )
+
+    $parameterValue = $Parameter.DefaultValue
+    if (-not([System.Management.Automation.Language.NullString]::IsNullOrEmpty($parameterValue))) {
+        return $parameterValue
+    }
+    else {
+        Write-Host "Parameter value not found."
+    }
+}
 
 
 $path = $MyInvocation.MyCommand.Path
