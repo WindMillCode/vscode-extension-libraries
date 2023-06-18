@@ -28,7 +28,7 @@ while ($true){
     }
     cd $workspaceLocation
     if( -not($programPythonVersion -eq "") ){
-    pyenv shell $programPythonVersion
+        pyenv shell $programPythonVersion
     }
     Set-Location apps\backend\FlaskApp;
     python app.py;

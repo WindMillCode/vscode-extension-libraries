@@ -1,23 +1,26 @@
 Param (
     [Parameter(Mandatory=$true)] [string] $workspaceLocation=""
-    [string] $envVarsScript ="",
-    [string] $suiteFile=""
-    [string] $paramEnv=""
-    [string] $E2EDir=""
+
 )
 
-$utilsFile = $PSScriptRoot + '\utils.ps1'
-. $utilsFile;
+try {
+    $utilsFile = Join-Path $PSScriptRoot 'testng_e2e_run_base.ps1'
+    . $utilsFile -workspaceLocation $workspaceLocation
 
-cd $workspaceLocation
+
+    cd $workspaceLocation
 
 
-if ( $envVarsScript -eq "") {
-    $envVarsScript  = Read-Host -Prompt "script where env vars are set for the app to run relative to workspace root"
-    if ( $envVarsScript -eq "") {
-      $envVarsScript = "apps\testing\testng"
+    if ( -not($envVarsScript -eq "")) {
+      Invoke-Expression $envVarsScript
     }
+
+    cd $workspaceLocation
+    cd  $testNGFolder
+    mvn clean test -DsuiteFile="$suiteFile" -DparamEnv="$defaultVar"
+
 }
-
-
-Invoke-Expression $envVarsScript
+catch {
+    Write-Host "An error occurred: $($_.Exception.Message)"
+    exit 1
+}

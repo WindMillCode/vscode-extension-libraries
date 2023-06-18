@@ -41,6 +41,7 @@ async function getTasks(): Promise<vscode.Task[]> {
     // @ts-ignore
     result = [
       new TestNGE2ECreateTasksParams({taskName:"run"}),
+      new TestNGE2ECreateTasksParams({taskName:"setup vscode extension"}),
     ]
     .map((task)=>{
       return createTask(task)
