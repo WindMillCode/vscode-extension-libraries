@@ -8,3 +8,6 @@ v 0.3.0
   * support for the python & flask utilities
 v 0.3.1
   * fixed issue with yarn utilities
+
+v 0.4.0
+  * support for testng, docker and misc utitlies

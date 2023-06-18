@@ -7,21 +7,21 @@
 	"file running as main": {
 		"prefix": "__main__",
 		"body": [
-			"if __name__ == '__main__':\n\t",
+			"if __name__ == '__main__':\n\t"
 		],
 		"description": "execute module code"
 	},
 	"python function": {
 		"prefix": "def",
 		"body": [
-			"def $1():\n\t",
+			"def $1():\n\t"
 		],
 		"description": "generate a python function"
 	},
 	"python local deps": {
 		"prefix": "local_deps",
 		"body": [
-			"from utils.local_deps import local_deps\nlocal_deps()",
+			"from utils.local_deps import local_deps\nlocal_deps()"
 		],
 		"description": "local deps for local install"
 	},

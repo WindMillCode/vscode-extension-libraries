@@ -22,7 +22,6 @@ if ( $repoLocation -eq "") {
     )
 
     $repoLocation = Show-Menu -Prompt $myPrompt -Options $myOptions
-
 }
 
 if ( $commitType -eq "") {
