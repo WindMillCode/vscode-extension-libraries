@@ -1,20 +1,20 @@
 Param (
     [Parameter(Mandatory=$true)] [string] $workspaceLocation="",
-    [string] $envVarsLocation ="",
+    [string] $envVarsScript ="",
     [string] $pythonVersion=""
 )
 
 $utilsFile = $PSScriptRoot + '\utils.ps1'
 . $utilsFile;
 
-if ( $envVarsLocation -eq "") {
-    $myPrompt = "where are the env vars located (choose empty string if the app does not have ENVIROMENT VARIABLES):"
+if ( $envVarsScript -eq "") {
+    $myPrompt = "the file to run to set the env vars (choose empty string if the app does not have ENVIROMENT VARIABLES):"
     $myOptions = @(
         ".\ignore\Windmillcode\flask_backend_test.ps1",
         "None"
     )
 
-    $envVarsLocation = Show-Menu -Prompt $myPrompt -Options $myOptions
+    $envVarsScript = Show-Menu -Prompt $myPrompt -Options $myOptions
 
 }
 if ( $pythonVersion -eq "") {
@@ -23,8 +23,8 @@ if ( $pythonVersion -eq "") {
 
 cd $workspaceLocation
 
-if ( -not($envVarsLocation -eq "None")) {
-    Invoke-Expression $envVarsLocation
+if ( -not($envVarsScript -eq "None")) {
+    Invoke-Expression $envVarsScript
 }
 if( -not($pythonVersion -eq "") ){
   pyenv shell $pythonVersion
@@ -33,4 +33,4 @@ Set-Location apps\backend\FlaskApp
 python run_tests.py
 
 $currentScript = $PSScriptRoot + '\flask_backend_run.ps1'
-Invoke-Command  $currentScript $workspaceLocation $envVarsLocation $pythonVersion
+Invoke-Command  $currentScript $workspaceLocation $envVarsScript $pythonVersion

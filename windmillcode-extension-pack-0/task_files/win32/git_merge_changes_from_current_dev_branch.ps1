@@ -10,6 +10,7 @@ $utilsFile = $PSScriptRoot + '\utils.ps1'
 . $utilsFile;
 
 
+
 if ( $sourceBranch -eq "") {
     $sourceBranch = Read-Host -Prompt "the branch to merge changes from: "
     if ( $sourceBranch -eq "") {

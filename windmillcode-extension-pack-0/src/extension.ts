@@ -8,6 +8,7 @@ import { WMLAngularTaskProvider } from './WMLAngularTaskProvider';
 import { WMLYarnTaskProvider } from './WMLYarnTaskProvider';
 import { WMLPythonTaskProvider } from './WMLPythonTaskProvider';
 import { WMLFlaskTaskProvider } from './WMLFlaskTaskProvider';
+import { WMLMiscTaskProvider } from './WMLMiscTaskProvider';
 
 let WMLDisposables: vscode.Disposable[] =[]
 let WMLTaskProviders:any[] = [
@@ -15,7 +16,8 @@ let WMLTaskProviders:any[] = [
 	WMLAngularTaskProvider,
 	WMLYarnTaskProvider,
 	WMLPythonTaskProvider,
-	WMLFlaskTaskProvider
+	WMLFlaskTaskProvider,
+	WMLMiscTaskProvider
 ]
 export function activate(_context: vscode.ExtensionContext): void {
 	const workspaceRoot = (vscode.workspace.workspaceFolders && (vscode.workspace.workspaceFolders.length > 0))

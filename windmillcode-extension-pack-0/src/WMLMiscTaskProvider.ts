@@ -7,9 +7,7 @@ import * as vscode from 'vscode';
 import { CreateTaskParams, createTask, letDeveloperKnowAboutAnIssue } from './functions';
 
 
-
-
-export class WMLTestNGTaskProvider implements vscode.TaskProvider {
+export class WMLMiscTaskProvider implements vscode.TaskProvider {
 	static WindmillType = 'windmillcode';
 
 	constructor(workspaceRoot: string) {
@@ -26,9 +24,9 @@ export class WMLTestNGTaskProvider implements vscode.TaskProvider {
 	}
 }
 
-class TestNGE2ECreateTasksParams extends CreateTaskParams {
-  constructor(params:Partial<TestNGE2ECreateTasksParams>={}){
-    params.taskSource = "testng e2e"
+class MiscCreateTasksParams extends CreateTaskParams {
+  constructor(params:Partial<MiscCreateTasksParams>={}){
+    params.taskSource = "misc"
     super(params)
   }
 }
@@ -40,7 +38,7 @@ async function getTasks(): Promise<vscode.Task[]> {
 
     // @ts-ignore
     result = [
-      new TestNGE2ECreateTasksParams({taskName:"run"}),
+      new MiscCreateTasksParams({taskName:"make a new doc item"}),
     ]
     .map((task)=>{
       return createTask(task)
@@ -51,7 +49,7 @@ async function getTasks(): Promise<vscode.Task[]> {
 
 
   } catch (err: any) {
-    letDeveloperKnowAboutAnIssue(err,'Issue while loading windmillcode TestNG tasks.')
+    letDeveloperKnowAboutAnIssue(err,'Issue while loading windmillcode Misc tasks.')
   }
 
 	return result;
