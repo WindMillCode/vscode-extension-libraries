@@ -1,5 +1,5 @@
 Param (
-    [Parameter(Mandatory=$true)] [string] $workspaceLocation="",
+     [string] $workspaceLocation=$PSScriptRoot + '\..\..\..\',
     [string] $repoLocation ="",
     [string] $commitType ="" ,
     [string] $commitMsg =""
@@ -42,7 +42,6 @@ if ( $commitMsg -eq "") {
 echo $repoLocation
 echo $commitType
 echo $commitMsg
-echo $path
 
 cd $workspaceLocation
 cd $repoLocation

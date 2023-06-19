@@ -1,5 +1,5 @@
 Param (
-    [Parameter(Mandatory=$true)] [string] $workspaceLocation="",
+     [string] $workspaceLocation=$PSScriptRoot + '\..\..\..\',
     [string] $appLocation =".\apps\backend\FlaskApp",
     [string] $reinstall ="false",
     [string] $pythonVersion =""

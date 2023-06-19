@@ -19,7 +19,6 @@ function Show-Menu {
 
     $selectedIndex = 0
     while ($true) {
-        [System.Console]::Clear()
         Write-Host $Prompt
         for ($i = 0; $i -lt $actualOptionsCount; $i++) {
             if ($i -eq $Options.Count - 1 -and $EnableOtherOption) {
@@ -55,6 +54,7 @@ function Show-Menu {
             }
             break
         }
+        [System.Console]::Clear()
     }
 
     return $Options[$selectedIndex]

@@ -1,5 +1,5 @@
 Param (
-  [Parameter(Mandatory=$true)] [string] $workspaceLocation="",
+   [string] $workspaceLocation=$PSScriptRoot + '\..\..\..\',
   [string] $dockerContainerName ="",
   [string] $databaseSoftwareName="",
   [string] $mysqlUsername = "",

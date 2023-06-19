@@ -1,5 +1,5 @@
 Param (
-    [Parameter(Mandatory=$true)] [string] $workspaceLocation="",
+     [string] $workspaceLocation=$PSScriptRoot + '\..\..\..\',
     [Parameter]  $envVarsLocation ,
     [Parameter]  $pythonVersion
 )
@@ -11,7 +11,7 @@ $currentScript = $PSScriptRoot + '\flask_backend_run.ps1'
 if ( $envVarsLocation -eq $null) {
     $myPrompt = "where are the env vars located (choose empty string if the app does not have ENVIROMENT VARIABLES):"
     $myOptions = @(
-        ".\ignore\Windmillcode\flask_backend_run.ps1",
+        ".\ignore\Local\flask_backend_run.ps1",
         "None"
     )
 
@@ -19,6 +19,13 @@ if ( $envVarsLocation -eq $null) {
 }
 if ( $pythonVersion -eq $null) {
     $programPythonVersion  = Read-Host -Prompt "provide a python version for pyenv to use"
+}
+if ( $pythonVersion -eq "") {
+    $defaultVar = "3.11.4"
+    $pythonVersion = Read-Host -Prompt "provide a python version for pyenv to use (default and recommended is $defaultVar)"
+     if ( $pythonVersion -eq "") {
+         $pythonVersion = $defaultVar
+    }
 }
 
 while ($true){

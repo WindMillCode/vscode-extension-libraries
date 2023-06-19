@@ -19,6 +19,9 @@ v 0.4.1
 
 v 0.4.2
   bug fixed to workspace file testng_e2e_run to testng_e2e_shared
-  
+
 v 0.4.3
   * ensured there was an option for the powershell options snippet
+
+v 0.5.0
+  * refactored all tasks to update the tasks.json if one is not there already

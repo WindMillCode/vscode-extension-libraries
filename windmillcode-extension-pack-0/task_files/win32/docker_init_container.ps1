@@ -1,5 +1,5 @@
 Param (
-    [Parameter(Mandatory=$true)] [string] $workspaceLocation="",
+     [string] $workspaceLocation=$PSScriptRoot + '\..\..\..\',
     [string] $initScript ="",
     [string[]] $initScriptArgs=@()
 )
@@ -12,7 +12,7 @@ cd $workspaceLocation
 if ( $initScript -eq "") {
     $initScript  = Read-Host -Prompt "docker init script to run relative to workspace root (leave empty for the default )"
     if($initScript -eq ""){
-        $initScript ="ignore\Windmillcode\docker_init_container.ps1"
+        $initScript ="ignore\Local\docker_init_container.ps1"
     }
 }
 

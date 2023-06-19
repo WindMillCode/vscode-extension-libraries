@@ -3,27 +3,20 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 import * as vscode from 'vscode';
-import { WMLGitTaskProvider } from './WMLGitTaskProvider';
-import { WMLAngularTaskProvider } from './WMLAngularTaskProvider';
-import { WMLYarnTaskProvider } from './WMLYarnTaskProvider';
-import { WMLPythonTaskProvider } from './WMLPythonTaskProvider';
-import { WMLFlaskTaskProvider } from './WMLFlaskTaskProvider';
-import { WMLMiscTaskProvider } from './WMLMiscTaskProvider';
-import { WMLTestNGTaskProvider } from './WMLTestNGTaskProvider';
-import { WMLDockerTaskProvider } from './WMLDockerTaskProvider';
-import { WMLSQLTaskProvider } from './WMLSQLProvider';
+import { WMLTasksJSONTaskProvider } from './TasksJSONProvider';
 
 let WMLDisposables: vscode.Disposable[] =[]
 let WMLTaskProviders:any[] = [
-	WMLGitTaskProvider,
-	WMLAngularTaskProvider,
-	WMLYarnTaskProvider,
-	WMLPythonTaskProvider,
-	WMLFlaskTaskProvider,
-	WMLMiscTaskProvider,
-	WMLTestNGTaskProvider,
-	WMLDockerTaskProvider,
-	WMLSQLTaskProvider
+	WMLTasksJSONTaskProvider
+	// WMLAngularTaskProvider,
+	// WMLFlaskTaskProvider,
+	// WMLGitTaskProvider,
+	// WMLYarnTaskProvider,
+	// WMLPythonTaskProvider,
+	// WMLMiscTaskProvider,
+	// WMLTestNGTaskProvider,
+	// WMLDockerTaskProvider,
+	// WMLSQLTaskProvider
 ]
 export function activate(_context: vscode.ExtensionContext): void {
 	const workspaceRoot = (vscode.workspace.workspaceFolders && (vscode.workspace.workspaceFolders.length > 0))
