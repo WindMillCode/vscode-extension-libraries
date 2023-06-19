@@ -25,3 +25,6 @@ v 0.4.3
 
 v 0.5.0
   * refactored all tasks to update the tasks.json if one is not there already
+
+v 0.5.1
+  * added support fore cloud firebase

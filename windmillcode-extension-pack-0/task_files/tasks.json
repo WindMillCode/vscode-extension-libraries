@@ -91,6 +91,16 @@
       }
     },
     {
+      "label": "firebase cloud:run emulators",
+      "type": "shell",
+      "windows":{
+        "command":".\\ignore\\${input:current_user_0}\\win32\\firebase_cloud_run_emulators.ps1"
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
       "label":"git: create branch after merged changes",
       "type":"shell",
       "windows":{
