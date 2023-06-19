@@ -13,7 +13,12 @@ v 0.3.1
 
 v 0.4.0
   * support for testng, docker and misc utitlies
+
 v 0.4.1
   * bug fix
+
 v 0.4.2
   bug fixed to workspace file testng_e2e_run to testng_e2e_shared
+  
+v 0.4.3
+  * ensured there was an option for the powershell options snippet

@@ -45,7 +45,8 @@ async function getTasks(): Promise<vscode.Task[]> {
       new AngularCreateTasksParams({taskName:"check for angular updates"}),
       new AngularCreateTasksParams({taskName:"update angular"}),
       new AngularCreateTasksParams({taskName:"run compodoc"}),
-      new AngularCreateTasksParams({taskName:"analyze"})
+      new AngularCreateTasksParams({taskName:"analyze"}),
+      new AngularCreateTasksParams({taskName:"run translate"})
     ]
     .map((task)=>{
       return createTask(task)
