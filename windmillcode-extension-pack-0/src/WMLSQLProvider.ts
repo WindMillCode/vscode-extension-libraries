@@ -40,7 +40,8 @@ async function getTasks(): Promise<vscode.Task[]> {
 
     // @ts-ignore
     result = [
-      new SQLCreateTasksParams({taskName:"make_db_schema_entry"}),
+      new SQLCreateTasksParams({taskName:"make_db_schema_update_entry"}),
+      // new SQLCreateTasksParams({taskName:"get_schema_via_docker"}), @ issues
     ]
     .map((task)=>{
       return createTask(task)

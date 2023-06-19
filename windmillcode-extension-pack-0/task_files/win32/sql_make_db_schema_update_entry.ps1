@@ -3,7 +3,7 @@
 Param (
     [Parameter(Mandatory=$true)]
     [string] $workspaceLocation = "",
-    [string] $databaseBackupLocation = ""
+    [string] $databaseToBackup = ""
 );
 
 $ErrorActionPreference = "Stop";
@@ -12,12 +12,13 @@ $utilsFile = $PSScriptRoot + '\utils.ps1'
 . $utilsFile;
 
 
-if ( $databaseBackupLocation -eq "") {
-    $defaultVar = "apps\database\mysql"
-    $databaseBackupLocation = Read-Host -Prompt "Enter the database script location (leave blank for $defaultVar (dont provide an answer you will be able to configure this from settings.json soon)  )"
-    if ( $databaseBackupLocation -eq "") {
-        $databaseBackupLocation =  $defaultVar
+if ( $databaseToBackup -eq "") {
+    $defaultVar = "mysql"
+    $databaseToBackup = Read-Host -Prompt "Enter the database script location (default is mysql refer to the folder in apps\database for your project)"
+    if ( $databaseToBackup -eq "") {
+      $databaseToBackup =  $defaultVar
     }
+    $databaseBackupLocation =  "apps\database\"+$databaseToBackup+"\schema_entries"
 }
 
 cd $workspaceLocation

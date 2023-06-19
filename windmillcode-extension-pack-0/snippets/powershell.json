@@ -12,16 +12,16 @@
 		"description": "usually for setting the name of an env var"
 	},
 	"input code": {
-		"prefix": "Read-Host",
+		"prefix": "input code",
 		"body": [
-			"if ( $1 -eq \"\") {\n\t$1 = Read-Host -Prompt \"$2\"\n\t if ( $1 -eq \"\") { \n\t\t $1 = $3 \n\t} \n}"
+			"if ( $1 -eq \"\") {\n\t$defaultVar = \"$3\"\n\t$1 = Read-Host -Prompt \"$2\"\n\t if ( $1 -eq \"\") { \n\t\t $1 = $defaultVar \n\t} \n}"
 		],
 		"description": "usually for setting the name of an env var"
 	},
 	"option code": {
-		"prefix": "Show-Menu",
+		"prefix": "option code",
 		"body": [
-			"if ( $1 -eq \"\") {\n\t$myPrompt = \"$2\"\n\t$myOptions = @($3)\n\t$commitType =  Show-Menu -Prompt $myPrompt -Options $myOptions\n}"
+			"if ( $1 -eq \"\") {\n\t$myPrompt = \"$2\"\n\t$myOptions = @($3)\n\t$1 =  Show-Menu -Prompt $myPrompt -Options $myOptions\n}"
 		],
 		"description": "usually for setting the name of an env var"
 	}

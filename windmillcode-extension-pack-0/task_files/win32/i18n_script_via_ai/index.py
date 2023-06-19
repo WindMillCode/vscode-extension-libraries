@@ -92,7 +92,10 @@ class OpenAIManager():
                 )
               my_translate = self._ask_chatgpt(prompt)
               my_translate = re.sub(r'[\\\n]', '', my_translate)
-              new_lang[k] = json.loads(my_translate)
+              try:
+                new_lang[k] = json.loads(my_translate)
+              except json.JSONDecodeError:
+                new_lang[k] ={}
 
             abs_path_dest_file = os.path.join(os.getcwd(),args.location,dest_file.replace("{}",x))
             with open(abs_path_dest_file,"w",encoding="utf-8") as g:

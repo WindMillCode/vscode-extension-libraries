@@ -22,7 +22,21 @@ export class WMLAngularTaskProvider implements vscode.TaskProvider {
 	}
 
 	public resolveTask(_task: vscode.Task): vscode.Task | undefined {
-    return undefined
+    const task = _task.definition.task;
+    // A Rake task consists of a task and an optional file as specified in RakeTaskDefinition
+    // Make sure that this looks like a Rake task by checking that there is a task.
+    if (task) {
+      // resolveTask requires that the same definition object be used.
+      const definition: vscode.TaskDefinition = <any>_task.definition;
+      return new vscode.Task(
+        definition,
+        _task.scope ?? vscode.TaskScope.Workspace,
+        definition.task,
+        _task.name,
+        _task.execution
+      );
+    }
+    return undefined;
 	}
 }
 

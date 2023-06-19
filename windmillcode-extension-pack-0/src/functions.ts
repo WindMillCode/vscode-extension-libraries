@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { OperatingSystem } from './models';
 import * as path from 'path'
 import * as os from 'os'
+const { v4: uuidv4 } = require('uuid');
 let _channel: vscode.OutputChannel;
 export function getOutputChannel(): vscode.OutputChannel {
 	if (!_channel) {
@@ -44,12 +45,19 @@ export let getFileFromExtensionDirectory =(relativeFilePath:string,currentOS:Nod
 export let createTask = (params = new CreateTaskParams())=>{
   let {shellExecOptions,kind,taskScope,taskName,taskSource,currentOS,executable} = params
   let shellExecutionArgs:string[] = [params.workspaceFolder]
+  kind.taskScope = taskScope
+  kind.taskName = taskName
   let task = new vscode.Task(
     kind,
     taskScope,
     taskName,
     taskSource,
   );
+
+  task.presentationOptions ={
+    focus:true,
+    clear:true
+  }
 
   try{
     if(currentOS === OperatingSystem.WINDOWS){
@@ -94,7 +102,8 @@ export class CreateTaskParams {
   }
 
   kind: vscode.TaskDefinition = {
-    type: 'windmillcode'
+    type: 'windmillcode',
+    uid:uuidv4()
   }
   currentOS:NodeJS.Platform = os.platform()
   shellExecOptions:vscode.ShellExecutionOptions ={cwd:"."}

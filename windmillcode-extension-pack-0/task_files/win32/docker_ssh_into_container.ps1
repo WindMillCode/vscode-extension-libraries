@@ -32,10 +32,10 @@ try {
         "powershell"
       )
 
-      $shell =  Show-Menu -Prompt $myPrompt -Options $myOptions 
+      $shell =  Show-Menu -Prompt $myPrompt -Options $myOptions
   }
 
-  docker exec -it $dockerContainerName $shell
+  Start-Process -FilePath "docker" -ArgumentList "exec", "-it", $dockerContainerName, $shell
 
 }
 catch {
