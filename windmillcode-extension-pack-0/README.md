@@ -28,3 +28,9 @@ v 0.5.0
 
 v 0.5.1
   * added support fore cloud firebase
+
+v 0.5.3
+  * fixed a bug
+
+v 0.5.4
+  * provided scss snippet font-face base64 template for base64 snippets

@@ -1,14 +1,14 @@
 Param (
-     [string] $workspaceLocation=$PSScriptRoot + '\..\..\..\',
-    [Parameter]  $envVarsLocation ,
-    [Parameter]  $pythonVersion
+    [string] $workspaceLocation=$PSScriptRoot + '\..\..\..\',
+    [string]  $envVarsLocation="",
+    [string]  $pythonVersion=""
 )
 
 $utilsFile = $PSScriptRoot + '\utils.ps1'
 $currentScript = $PSScriptRoot + '\flask_backend_run.ps1'
 . $utilsFile;
 
-if ( $envVarsLocation -eq $null) {
+if ( $envVarsLocation -eq "") {
     $myPrompt = "where are the env vars located (choose empty string if the app does not have ENVIROMENT VARIABLES):"
     $myOptions = @(
         ".\ignore\Local\flask_backend_run.ps1",
@@ -17,14 +17,12 @@ if ( $envVarsLocation -eq $null) {
 
     $programEnvVarsLocation = Show-Menu -Prompt $myPrompt -Options $myOptions
 }
-if ( $pythonVersion -eq $null) {
-    $programPythonVersion  = Read-Host -Prompt "provide a python version for pyenv to use"
-}
+
 if ( $pythonVersion -eq "") {
     $defaultVar = "3.11.4"
-    $pythonVersion = Read-Host -Prompt "provide a python version for pyenv to use (default and recommended is $defaultVar)"
-     if ( $pythonVersion -eq "") {
-         $pythonVersion = $defaultVar
+    $myPythonVersion = Read-Host -Prompt "provide a python version for pyenv to use (default and recommended is $defaultVar)"
+     if ( $myPythonVersion -eq "") {
+        $myPythonVersion = $defaultVar
     }
 }
 
@@ -35,7 +33,7 @@ while ($true){
     }
     cd $workspaceLocation
     if( -not($programPythonVersion -eq "") ){
-        pyenv shell $programPythonVersion
+        pyenv shell $myPythonVersion
     }
     Set-Location apps\backend\FlaskApp;
     python app.py;

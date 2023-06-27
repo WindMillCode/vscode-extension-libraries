@@ -9,7 +9,7 @@ $utilsFile = $PSScriptRoot + '\utils.ps1'
 cd $workspaceLocation
 
 try {
-  cd .\\apps\\zero\\cloud\\firebase\\;
+  cd .\\apps\\cloud\\FirebaseApp\\;
   npm run cleanup;
   npx firebase emulators:start --import='devData' --export-on-exit
 }

@@ -140,6 +140,9 @@
       "type":"shell",
       "windows":{
         "command":".\\ignore\\${input:current_user_0}\\win32\\python_install_app_deps.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 10
       }
     },
     {
@@ -182,6 +185,9 @@
       "type":"shell",
       "windows":{
         "command":".\\ignore\\${input:current_user_0}\\win32\\yarn_install_app_deps.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 10
       }
     }
   ],

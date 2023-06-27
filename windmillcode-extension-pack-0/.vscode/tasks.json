@@ -3,6 +3,7 @@
 {
 	"version": "2.0.0",
 	"tasks": [
+
 		{
 			"type": "npm",
 			"script": "watch",
@@ -33,5 +34,13 @@
         "command":".\\task_files\\win32\\git_pushing_work_to_git_remote.ps1"
       }
     },
+		{
+      "label":"misc: rm all vsix",
+      "type":"shell",
+      "windows":{
+        "command":"rm **.vsix"
+      }
+    },
 	]
 }
+

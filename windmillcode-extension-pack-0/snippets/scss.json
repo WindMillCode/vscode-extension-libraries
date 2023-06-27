@@ -37,6 +37,10 @@
 	"scss css color vars":{
 		"prefix": "--wml-orig",
 		"body": "--wml-$1:#{\\$wml-$1};\n--wml-original-$1:#{\\$wml-$1};"
-
+	},
+	"@font face base64":{
+		"prefix":"@font-face",
+		"description":"font face template for base64",
+		"body":"@font-face {\n\tfont-family: '$1';\n\tfont-style: normal;\n\tfont-weight: 900;\n\tfont-display: block;\n\tsrc: url(data:font/truetype;base64,) format('truetype'),\n\turl(data:application/vnd.ms-fontobject;base64,) format('embedded-opentype'),\n\turl(data:image/svg+xml;base64,) format('svg'),\n\turl(data:font/woff;base64,) format('woff'),\n\turl(data:font/woff2;base64,) format('woff2');\n\n}"
 	}
 }
