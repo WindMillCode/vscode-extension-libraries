@@ -51,4 +51,6 @@ v 0.5.9
   * fixed an error with the testng vscode script
 v 0.6.0
   * added yarn_install_specifc_packages.ps1 so that a user can manage specified package in an application
+v 0.7.0
+  * fix angular_translate in use cases where it did not know how to properly deal with an object
   

@@ -176,8 +176,10 @@ class OpenAIManager():
   I ONLY WANT THE DESTINATION LANGUAGE JSON OBJECT NO EXPLANATIONS !!!!
   IF YOU GET THE SAME ARRAY AS A PROMPT YOU MADE A MISTAKE CHECK THE RESULT ,ESPECIALLY AGAINST THE PREVIOUS RESULT, YOU ARE RETURNING CAREFULLY BEFORE RETURNING !!!
   """
-  prompt ="""Translate the following string `{}` from English  to the  {} language
+  prompt ="""Translate the following words `{}` from English  to the  {} language
   MAKE SURE TO RETURN THE TRANSLATED STRING NO EXPLANATIONS!!!!!!!!!!!!!!
+  THIS GOES FOR THE NAME OF THE LANGUAGE TOO!!!!!!!!!!!!!
+  DONT MENTION ANYTHING BUT THE RESULT!!!!!!!!!!!!
   """
   language_codes = {
     'zh': 'Mandarin Chinese',
@@ -416,6 +418,7 @@ class OpenAIManager():
     if isinstance(source, dict):
       for key, value in source.items():
         newKeyPath  = keyPath+"."+key
+        target = target if target else {}
         if target.get(key,None) != None and preserve == True:
           dest[key] = target[key]
         else:
@@ -470,6 +473,9 @@ class OpenAIManager():
         source_lang  = json.load(f)
 
         abs_path_dest_file = os.path.join(os.getcwd(),args.location,dest_file.replace("{}",x))
+        if not os.path.exists(abs_path_dest_file):
+          with open(abs_path_dest_file, 'w') as e:
+            e.write("{}")
         with open(abs_path_dest_file,encoding="utf-8") as g:
           dest_lang  = json.load(g)
           new_lang =self.transform_object_via_string(
