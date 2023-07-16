@@ -189,6 +189,26 @@
       "runOptions": {
         "instanceLimit": 10
       }
+    },
+    {
+      "label":"yarn: install app deps",
+      "type":"shell",
+      "windows":{
+        "command":".\\ignore\\${input:current_user_0}\\win32\\yarn_install_app_deps.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 10
+      }
+    },
+    {
+      "label":"yarn: install specific packages",
+      "type":"shell",
+      "windows":{
+        "command":".\\ignore\\${input:current_user_0}\\win32\\yarn_install_specific_packages.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 10
+      }
     }
   ],
   "inputs":[

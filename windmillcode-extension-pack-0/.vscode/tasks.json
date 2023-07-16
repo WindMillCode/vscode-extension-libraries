@@ -41,6 +41,20 @@
         "command":"rm **.vsix"
       }
     },
-	]
+		{
+      "label":"misc: package project",
+      "type":"shell",
+      "windows":{
+        "command":"npx vsce package ${input:misc_package_project_0}"
+      }
+    },
+	],
+  "inputs":[
+    {
+      "id": "misc_package_project_0",
+      "description": "the version for the package",
+      "type": "promptString"
+    }
+  ]
 }
 
