@@ -1,17 +1,5 @@
 {
-	// Place your snippets for scss here. Each snippet is defined under a snippet name and has a prefix, body and
-	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
-	// same ids are connected.
-	// Example:
-	// "Print to console": {
-	// 	"prefix": "log",
-	// 	"body": [
-	// 		"console.log('$1');",
-	// 		"$2"
-	// 	],
-	// 	"description": "Log output to console"
-	// }
+
 	"Component styles":{
 		"prefix": "host",
 		"body": ":host {\n\t&.$1View {\n\t}\n\t.$1{\n\t\t&Main {\n\t\t&Pod{\n\t\t}\n\t}\n\t.Pod{\n\t\t&0{}\n\t\t}\n\t}\n}"
@@ -19,7 +7,7 @@
 	"scss for":{
 		"prefix": "for",
 		"body":[
-			"@for $/i from $1 through $2 {\n\t&#{$/i} {\n\n\t}\n}"
+			"@for \\$i from $1 through $2 {\n\t&#{\\$i} {\n\n\t}\n}"
 		]
 	},
 	"import global styles":{
@@ -34,6 +22,10 @@
 		"prefix":"px",
 		"body": "calc($1/10.6 * 1rem)"
 	},
+	"scss css color value":{
+		"prefix": "rgba",
+		"body": "rgba(var(--$1))"
+	},
 	"scss css color vars":{
 		"prefix": "--wml-orig",
 		"body": "--wml-$1:#{\\$wml-$1};\n--wml-original-$1:#{\\$wml-$1};"
@@ -42,5 +34,10 @@
 		"prefix":"@font-face",
 		"description":"font face template for base64",
 		"body":"@font-face {\n\tfont-family: '$1';\n\tfont-style: normal;\n\tfont-weight: 900;\n\tfont-display: block;\n\tsrc: url(data:font/truetype;base64,) format('truetype'),\n\turl(data:application/vnd.ms-fontobject;base64,) format('embedded-opentype'),\n\turl(data:image/svg+xml;base64,) format('svg'),\n\turl(data:font/woff;base64,) format('woff'),\n\turl(data:font/woff2;base64,) format('woff2');\n\n}"
+	},
+	"@font face url":{
+		"prefix":"@font-face",
+		"description":"font face template for url",
+		"body":"@font-face {\n\tfont-family: '$1';\n\tfont-style: normal;\n\tfont-weight: 900;\n\tfont-display: block;\n\tsrc: url('../fonts/$1/$1.ttf') format('truetype'),\n\turl('../fonts/$1/$1.eot') format('embedded-opentype'),\n\turl('../fonts/$1/$1.svg') format('svg'),\n\turl('../fonts/$1/$1.woff') format('woff'),\n\turl('../fonts/$1/$1.woff2') format('woff2');\n}"
 	}
 }

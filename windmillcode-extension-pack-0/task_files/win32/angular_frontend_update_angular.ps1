@@ -29,4 +29,4 @@ Invoke-Expression $updateCommand
 
 
 Invoke-Expression "yarn upgrade --dev @faker-js/faker @windmillcode/angular-templates  webpack-bundle-analyzer browserify"
-Invoke-Expression "yarn upgrade @windmillcode/wml-components-base  @rxweb/reactive-form-validators @fortawesome/fontawesome-free @compodoc/compodoc  @sentry/angular-ivy @sentry/tracing"
+Invoke-Expression "yarn upgrade @windmillcode/angular-wml-components-base  @rxweb/reactive-form-validators @fortawesome/fontawesome-free @compodoc/compodoc  @sentry/angular-ivy @sentry/tracing"

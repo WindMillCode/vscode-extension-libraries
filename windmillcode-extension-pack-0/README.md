@@ -34,3 +34,18 @@ v 0.5.3
 
 v 0.5.4
   * provided scss snippet font-face base64 template for base64 snippets
+
+v 0.5.5
+  * updated i18n scripts to to work, even through there is string and chunk option right now there is only string option
+
+v 0.5.6
+  * added support for font-face urls
+  * updated package names as appropriate
+  * provide for scss rgb color code
+v 0.5.7
+  * correct an error with wml-orig
+v 0.5.8
+  * updated flask route to flask app template specs
+  * fixed and isses with scss for where you had to manually fixed the $i
+v 0.5.9
+  * fixed an error with the testng vscode script
