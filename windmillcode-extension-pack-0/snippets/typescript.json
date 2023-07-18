@@ -66,12 +66,7 @@
 			"return iif(\n\t()=>$1,\n\tof(null),$2\n)"
 		]
 	},
-	"angular service method":{
-		"prefix":"angular service method",
-		"body":[
-			"$1 = (uiBody:${1/(.*)/${1:/capitalize}/}UIRequestBody,raw = false)=>{\n\n\treturn iif(\n\t()=>ENV.$2.$1.automate,\n\t\tof(new ${1/(.*)/${1:/capitalize}/}UIResponseBody()),\n\n\t\t$1Load(uiBody)\n\t\t\t.pipe(\n\t\t\t\tconcatMap((apiBody)=>{\n\t\t\t\t\treturn this.http\n\t\t\t\t\t.post(ENV.$2.$1.url(),apiBody)\n\t\t\t\t\t.pipe(raw ? tap() : map($1Success))\n\t\t\t})\n\t\t)\n\t)\n}\n\nexport let $1Load = (uiBody:${1/(.*)/${1:/capitalize}/}UIRequestBody): Observable<${1/(.*)/${1:/capitalize}/}APIRequestBody>=>{\n\n\tlet apiBody = new ${1/(.*)/${1:/capitalize}/}APIRequestBody({})\n\treturn of(apiBody)\n\t.pipe(\n\t\ttake(1),\n\t)\n}\n\nexport let $1Success = (apiBody:${1/(.*)/${1:/capitalize}/}APIResponseBody):${1/(.*)/${1:/capitalize}/}UIResponseBody=>{\n\tlet uiBody = new ${1/(.*)/${1:/capitalize}/}UIResponseBody()\n\treturn uiBody\n}\n\nexport class ${1/(.*)/${1:/capitalize}/}UIRequestBody {\n\tconstructor(params:Partial<${1/(.*)/${1:/capitalize}/}UIRequestBody>={}){\n\t\tObject.assign(\n\t\t\tthis,\n\t\t\t{\n\t\t\t\t...params\n\t\t\t}\n\t\t)\n\t}\n} \n\nexport class ${1/(.*)/${1:/capitalize}/}UIResponseBody {\n\tconstructor(params:Partial<${1/(.*)/${1:/capitalize}/}UIResponseBody>={}){\n\t\tObject.assign(\n\t\t\tthis,\n\t\t\t{\n\t\t\t\t...params\n\t\t\t}\n\t\t)\n\t}\n}\n\nexport class ${1/(.*)/${1:/capitalize}/}APIRequestBody {\n\tconstructor(params:Partial<${1/(.*)/${1:/capitalize}/}APIRequestBody>={}){\n\t\tObject.assign(\n\t\t\tthis,\n\t\t\t{\n\t\t\t\t...params\n\t\t\t}\n\t\t)\n\t}\n}\n\nexport class ${1/(.*)/${1:/capitalize}/}APIResponseBody {\n\tconstructor(params:Partial<${1/(.*)/${1:/capitalize}/}APIResponseBody>={}){\n\t\tObject.assign(\n\t\t\tthis,\n\t\t\t{\n\t\t\t\t...params\n\t\t\t}\n\t\t)\n\t}\n}"
-		]
-	},
+
 	"js comment":{
 		"prefix": "js comment ",
 		"body": "/**\n * @$0 $1\n*/"
