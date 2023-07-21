@@ -2,3 +2,4 @@ out
 node_modules
 *.vsix
 site-packages
+task_files/go/

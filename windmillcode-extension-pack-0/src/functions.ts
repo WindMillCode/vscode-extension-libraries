@@ -6,24 +6,30 @@ const { v4: uuidv4 } = require('uuid');
 let _channel: vscode.OutputChannel;
 export function getOutputChannel(): vscode.OutputChannel {
 	if (!_channel) {
-		_channel = vscode.window.createOutputChannel('Console');
+		_channel = vscode.window.createOutputChannel('Windmillcode');
 	}
 	return _channel;
 }
 
-export let letDeveloperKnowAboutAnIssue = (err:any,msg:string)=>{
+export let letDeveloperKnowAboutAnIssue = (err?:any,msg?:string)=>{
   let channel = getOutputChannel();
-  if (err.stderr) {
+  if (err?.stderr) {
     channel.appendLine(err.stderr);
+    // vscode.window.showInformationMessage(err.stderr)
+    console.log(err.stderr)
   }
-  if (err.stdout) {
+  if (err?.stdout) {
     channel.appendLine(err.stdout);
+    // vscode.window.showInformationMessage(err.stdout)
+    console.log(err.stdout)
   }
-  channel.appendLine(msg);
-  channel.show(true);
-  vscode.window.showInformationMessage(err.stderr)
-  vscode.window.showInformationMessage(err)
-  vscode.window.showInformationMessage(msg);
+  if(msg){
+    channel.appendLine(msg);
+    // vscode.window.showInformationMessage(msg)
+    console.log(msg)
+  }
+  // channel.show(true);
+
 }
 
 

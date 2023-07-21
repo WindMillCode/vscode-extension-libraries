@@ -5,6 +5,9 @@
 import * as vscode from 'vscode';
 import { WMLTasksJSONTaskProvider } from './TasksJSONProvider';
 
+import { installGo } from './installGo';
+import { modifyTasksJson } from './modifyTasksJson';
+
 let WMLDisposables: vscode.Disposable[] =[]
 let WMLTaskProviders:any[] = [
 	WMLTasksJSONTaskProvider
@@ -18,9 +21,15 @@ let WMLTaskProviders:any[] = [
 	// WMLDockerTaskProvider,
 	// WMLSQLTaskProvider
 ]
-export function activate(_context: vscode.ExtensionContext): void {
+export async function activate(_context: vscode.ExtensionContext): Promise<void> {
 	const workspaceRoot = (vscode.workspace.workspaceFolders && (vscode.workspace.workspaceFolders.length > 0))
 		? vscode.workspace.workspaceFolders[0].uri.fsPath : undefined;
+
+
+
+	vscode.window.showInformationMessage(_context.extensionPath);
+	let executable = await installGo(_context.extensionPath)
+	modifyTasksJson(_context.extensionPath,executable)
 	if (!workspaceRoot) {
 		return;
 	}
