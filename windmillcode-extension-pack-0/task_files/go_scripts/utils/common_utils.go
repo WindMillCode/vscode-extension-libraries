@@ -1,16 +1,19 @@
 package utils
 
 import (
-	"fmt"
-	"os"
-	"strings"
 	"bufio"
-	"path/filepath"
+	"fmt"
+	"io/ioutil"
+	"os"
 	"os/exec"
+	"path/filepath"
 	"reflect"
-
+	"strings"
 )
 
+func OverwriteFile(filePath string, content []byte) error {
+	return ioutil.WriteFile(filePath, content, 0644)
+}
 
 // getType returns the type of a given value as a string
 func GetType(value interface{}) string {

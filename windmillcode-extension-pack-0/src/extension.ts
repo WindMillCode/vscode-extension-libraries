@@ -24,9 +24,9 @@ export async function activate(_context: vscode.ExtensionContext): Promise<void>
 	const workspaceRoot = (vscode.workspace.workspaceFolders && (vscode.workspace.workspaceFolders.length > 0))
 		? vscode.workspace.workspaceFolders[0].uri.fsPath : undefined;
 
-	vscode.window.showInformationMessage(_context.extensionPath);
-	let goExecutable = await installGo(_context.extensionPath)
 
+	let goExecutable = await installGo(_context.extensionPath)
+	vscode.window.showInformationMessage("Please close and open your workspace to be able to use the full features of the extension")
 	if (!workspaceRoot) {
 		return;
 	}

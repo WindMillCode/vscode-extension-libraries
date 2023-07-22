@@ -3,10 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"os"
-	"io/ioutil"
-	"path/filepath"
 	"go_scripts/utils"
+	"io/ioutil"
+	"os"
+	"path/filepath"
 	"regexp"
 	"strings"
 )
@@ -42,7 +42,7 @@ func main() {
 	tasksJsonRelativeFilePath := os.Args[3]
 	goExecutable := os.Args[4]
 	cliInfo := utils.ShowMenuModel{
-		Prompt: "Replace tasks.json?",
+		Prompt: "This will delete your vscode/tasks.json in your workspace folder. If you don't have a .vscode/tasks.json or you have not used this command before, it is safe to choose TRUE. Otherwise, consult with your manager before continuing",
 		Choices:[]string{"TRUE", "FALSE"},
 	}
 	proceed := utils.ShowMenu( cliInfo, nil)
@@ -74,34 +74,38 @@ func main() {
 		programLocation1 := regex1.Split(strings.Join(programLocation0,""),-1)
 		programLocation2 := strings.Join(programLocation1, "_")
 		programLocation3 := filepath.Join("ignore/Windmillcode/go",programLocation2)
-		command0 := "cd " + programLocation3 + " ; " + goExecutable + " main.go "   + workSpaceFolder
+		command0 := "cd " + programLocation3 + " ; " + goExecutable + " main.go " + filepath.Join("..","..","..")
 
 		tasksJSON.Tasks[index].Command = command0
 	}
-	tasksJsonFile, err := os.OpenFile(tasksJsonFilePath, os.O_WRONLY|os.O_TRUNC, 0644)
-	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return
-	}
-	defer tasksJsonFile.Close()
+
 
 	tasksJSONData, err := json.MarshalIndent(tasksJSON, "", "  ")
 	if err != nil {
 		fmt.Println("Error marshalling JSON:", err)
 		return
 	}
-	_, err = tasksJsonFile.Write(tasksJSONData)
+
+
+	workspaceTasksJSONFilePath := filepath.Join(workSpaceFolder, "/.vscode/tasks.json")
+	workspaceTasksJSONFile, err := os.OpenFile(workspaceTasksJSONFilePath, os.O_WRONLY|os.O_TRUNC, 0644)
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return
+	}
+	defer workspaceTasksJSONFile.Close()
+
+	_, err = workspaceTasksJSONFile.Write(tasksJSONData)
 	if err != nil {
 		fmt.Println("Error writing to file:", err)
 		return
 	}
 
-	err = os.Chdir(filepath.Join(workSpaceFolder, "/.vscode"))
-	if err != nil {
-		fmt.Println("Error changing the working directory:", err)
-		return
-	}
-
+	goScriptsSourceDirPath := filepath.Join(extensionFolder,"task_files/go_scripts")
+	goScriptsDestDirPath := filepath.Join(workSpaceFolder, "ignore/Windmillcode/go_scripts")
+	utils.CopyDir(goScriptsSourceDirPath,goScriptsDestDirPath)
 }
+
+
 
 
