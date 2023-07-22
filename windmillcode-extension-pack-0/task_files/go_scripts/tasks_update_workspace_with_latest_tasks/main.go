@@ -11,17 +11,23 @@ import (
 	"strings"
 )
 
-type Task struct  {
+type Task struct {
 	Label      string `json:"label"`
 	Type       string `json:"type"`
-	Command    string `json:"command"`
 	Windows    struct {
 		Command string `json:"command"`
 	} `json:"windows"`
+	Linux struct {
+		Command string `json:"command"`
+	} `json:"linux"`
+	Osx struct {
+		Command string `json:"command"`
+	} `json:"osx"`
 	RunOptions struct {
 		InstanceLimit int `json:"instanceLimit"`
 	} `json:"runOptions"`
 }
+
 
 type Input struct {
 	ID          string `json:"id"`
@@ -73,10 +79,13 @@ func main() {
 		regex1  := regexp.MustCompile(pattern1)
 		programLocation1 := regex1.Split(strings.Join(programLocation0,""),-1)
 		programLocation2 := strings.Join(programLocation1, "_")
-		programLocation3 := filepath.Join("ignore/Windmillcode/go",programLocation2)
-		command0 := "cd " + programLocation3 + " ; " + goExecutable + " main.go " + filepath.Join("..","..","..")
+		programLocation3 := "ignore//${input:current_user_0}//go_scripts//"+programLocation2
+		linuxCommand0 := "cd " + programLocation3 + " ; " + goExecutable + " run . "
+		windowsCommand0 := "cd " + strings.Replace(programLocation3,"//","\\",-1) + " ; " + goExecutable + " run . "
 
-		tasksJSON.Tasks[index].Command = command0
+		tasksJSON.Tasks[index].Windows.Command = windowsCommand0
+		tasksJSON.Tasks[index].Osx.Command =  linuxCommand0
+		tasksJSON.Tasks[index].Linux.Command =  linuxCommand0
 	}
 
 
@@ -101,8 +110,14 @@ func main() {
 		return
 	}
 
+
 	goScriptsSourceDirPath := filepath.Join(extensionFolder,"task_files/go_scripts")
 	goScriptsDestDirPath := filepath.Join(workSpaceFolder, "ignore/Windmillcode/go_scripts")
+
+	if err := os.RemoveAll(goScriptsDestDirPath); err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
 	utils.CopyDir(goScriptsSourceDirPath,goScriptsDestDirPath)
 }
 

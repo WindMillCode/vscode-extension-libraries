@@ -11,6 +11,23 @@ import (
 	"strings"
 )
 
+type ShellCommandOutput struct{}
+
+func (c ShellCommandOutput) Write(p []byte) (int, error) {
+	fmt.Println( string(p))
+	return len(p), nil
+}
+
+func RunCommand(command string,args []string) {
+	cmd := exec.Command(command, args...)
+	// cmd.Stdout = ShellCommandOutput{}
+	cmd.Stdout = os.Stdout
+	if err := cmd.Run(); err != nil {
+		fmt.Println("could not run command: ", err)
+	}
+}
+
+
 func OverwriteFile(filePath string, content []byte) error {
 	return ioutil.WriteFile(filePath, content, 0644)
 }

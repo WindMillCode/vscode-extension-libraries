@@ -6,6 +6,7 @@ import * as https from 'https';
 import * as fs from 'fs';
 import * as zlib from 'zlib';
 import { exec } from 'child_process';
+import { promisify } from 'util';
 const tar = require("tar")
 const semver = require('semver');
 
@@ -168,6 +169,20 @@ async function addToPath(directory:string) {
 }
 
 
+async function copyFile(sourcePath:string, destinationPath:string) {
+  const readFileAsync = promisify(fs.readFile);
+  const writeFileAsync = promisify(fs.writeFile);
+
+  try {
+    const data = await readFileAsync(sourcePath);
+    await writeFileAsync(destinationPath, data);
+    console.log('File copied successfully.');
+  } catch (error) {
+    console.error('Error copying the file:', error);
+  }
+}
+
+
 
 export let installGo = async (extensionRoot:string,goVersion="1.20.6",) => {
   // Change these values as needed
@@ -220,14 +235,32 @@ export let installGo = async (extensionRoot:string,goVersion="1.20.6",) => {
       unzipTarGz(goArchivePath,installLocation)
     }
     removeFile(goArchivePath)
+    if(platform === "win32"){
+      await copyFile(
+        path.normalize(`${goInstallDir}/bin/go.exe`),
+        path.normalize(`${goInstallDir}/bin/windmillcode_go.exe`)
+      )
+    }
+    else{
+      await copyFile(
+        path.normalize(`${goInstallDir}/bin/go.`),
+        path.normalize(`${goInstallDir}/bin/windmillcode_go`)
+      )
+    }
     await addToPath(path.normalize(`${goInstallDir}/bin/`))
-    return  "windmillcode_go"
+    return  {
+      executable:"windmillcode_go",
+      alreadyInstalled:false
+    }
   }
   else{
     if(executable === "windmillcode_go"){
       await addToPath(path.normalize(`${goInstallDir}/bin/`))
     }
-    return executable
+    return  {
+      executable,
+      alreadyInstalled:true
+    }
   }
 
 
