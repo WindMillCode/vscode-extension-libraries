@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
-	"path"
+	"path/filepath"
 	"go_scripts/utils"
 )
 
@@ -19,7 +19,7 @@ func main() {
 	if proceed == "FALSE" {
 		return
 	}
-	joinedPath := path.Join(extensionFolder, tasksJsonFilePath)
+	joinedPath := filepath.Join(extensionFolder, tasksJsonFilePath)
 
 	fmt.Println("Joined path:", joinedPath)
 	file, err := os.Open(joinedPath)
@@ -29,7 +29,7 @@ func main() {
 	}
 	defer file.Close()
 
-	err = os.Chdir(path.Join(workSpaceFolder, "/.vscode"))
+	err = os.Chdir(filepath.Join(workSpaceFolder, "/.vscode"))
 	if err != nil {
 		fmt.Println("Error changing the working directory:", err)
 		return
