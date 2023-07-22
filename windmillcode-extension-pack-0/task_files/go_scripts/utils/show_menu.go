@@ -16,7 +16,7 @@ type ShowMenuModel struct {
 
 
 
-func ShowMenu(prompt string, cliInfo ShowMenuModel, enableOtherOption  interface{} ) string  {
+func ShowMenu( cliInfo ShowMenuModel, enableOtherOption  interface{} ) string  {
 	cliInfo.Selected = make(map[int]string)
 	p := tea.NewProgram(cliInfo)
 	if _, err := p.Run(); err != nil {
@@ -48,9 +48,9 @@ func (m ShowMenuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			// Cool, what was the actual key pressed?
 			switch msg.String() {
 
-			// // These keys should exit the program.
-			// case "ctrl+c", "q":
-			// 		return m, tea.Quit
+			// These keys should exit the program.
+			case "ctrl+c", "q":
+					return m, tea.Quit
 
 			// The "up" and "k" keys move the cursor up
 			case "up", "k":
@@ -87,7 +87,7 @@ func (m ShowMenuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (m ShowMenuModel) View() string {
 	// The header
-	s := "What should we buy at the market?\n\n"
+	s := m.Prompt +"\n"
 
 	// Iterate over our choices
 	for i, choice := range m.Choices {

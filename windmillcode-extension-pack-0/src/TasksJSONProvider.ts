@@ -5,20 +5,19 @@
 
 import * as vscode from 'vscode';
 import { CreateTaskParams, createTask, letDeveloperKnowAboutAnIssue } from './functions';
-
+import * as path from "path"
 
 
 
 export class WMLTasksJSONTaskProvider implements vscode.TaskProvider {
 	static WindmillType = 'windmillcode';
-
+  goExecutable!:string
 	constructor(workspaceRoot: string) {
-
 	}
 
 	public provideTasks(): Thenable<vscode.Task[]> | undefined {
 
-		return getTasks();
+		return getTasks(this.goExecutable);
 	}
 
 	public resolveTask(_task: vscode.Task): vscode.Task | undefined {
@@ -33,17 +32,26 @@ class TasksJSONCreateTasksParams extends CreateTaskParams {
   }
 }
 
-async function getTasks(): Promise<vscode.Task[]> {
+async function getTasks(goExecutable:string): Promise<vscode.Task[]> {
 
 	let result: vscode.Task[]  = [];
   try {
 
+    letDeveloperKnowAboutAnIssue(null,goExecutable)
     // @ts-ignore
     result = [
-      new TasksJSONCreateTasksParams({taskName:"update workspace with latest tasks"}),
+      new TasksJSONCreateTasksParams({
+        executable:goExecutable,
+        taskName:"update workspace with latest tasks"
+      }),
     ]
-    .map((task)=>{
-      return createTask(task)
+    .map((taskParams,index0)=>{
+      let newTask = createTask(taskParams) as any
+      if(index0 === 0){
+        newTask.execution.commandLine += ` ${taskParams.extensionFolder} ${path.join("task_files","tasks.json")}`
+      }
+      letDeveloperKnowAboutAnIssue(null,newTask.execution.commandLine)
+      return newTask
     })
     .filter((task)=>{
       return task instanceof vscode.Task

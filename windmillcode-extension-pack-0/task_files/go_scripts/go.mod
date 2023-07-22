@@ -1,4 +1,4 @@
-module windmillcode_tasks_json_scripts
+module go_scripts
 
 go 1.20
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	// "windmillcode_tasks_json_scripts/bubbletea2"
-	"windmillcode_tasks_json_scripts/utils"
+	"../utils"
 )
 
 func main() {
@@ -13,7 +13,7 @@ func main() {
 		Prompt: "Choose an option:",
 		Choices:options,
 	}
-	envType := utils.ShowMenu("Select an option:", cliInfo, nil)
+	envType := utils.ShowMenu( cliInfo, nil)
 	fmt.Printf(envType)
 	cwd,_ := os.Getwd()
 	fmt.Printf(cwd)
