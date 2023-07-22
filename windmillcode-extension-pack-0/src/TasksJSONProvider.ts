@@ -48,7 +48,11 @@ async function getTasks(goExecutable:string): Promise<vscode.Task[]> {
     .map((taskParams,index0)=>{
       let newTask = createTask(taskParams) as any
       if(index0 === 0){
-        newTask.execution.commandLine += ` ${taskParams.extensionFolder} ${path.join("task_files","tasks.json")}`
+        newTask.execution.commandLine += `
+        ${taskParams.extensionFolder}
+        ${path.join("task_files","tasks.json")}
+        ${goExecutable}
+        `.split("\n").join(" ")
       }
       letDeveloperKnowAboutAnIssue(null,newTask.execution.commandLine)
       return newTask

@@ -81,12 +81,20 @@ let removeFile = (filePath: string): void => {
   });
 };
 
-let checkGoInstalledInExtension =(installDir:string,desiredVersion:string)=>{
+let checkGoInstalledInExtension =  (installDir:string,desiredVersion:string,addedToPath=false)=>{
   return new Promise((resolve,rej)=>{
-    let executable = path.normalize(`${installDir}/bin/go`)
-    exec(`${executable} version`, (error, stdout, stderr) => {
+    // let executable = path.normalize(`${installDir}/bin/windmillcode_go`)
+    let executable = "windmillcode_go"
+    letDeveloperKnowAboutAnIssue(null,executable)
+    exec(`${executable} version`,async  (error, stdout, stderr) => {
       if (error) {
-        letDeveloperKnowAboutAnIssue(null,"It seems the correct version is not install on the system or the extension, installing go in the extension location");
+        if(!addedToPath){
+          letDeveloperKnowAboutAnIssue(null,"Adding executable to the path");
+          await addToPath(path.normalize(`${installDir}/bin`))
+          resolve(checkGoInstalledInExtension(installDir,desiredVersion,true))
+          return
+        }
+        letDeveloperKnowAboutAnIssue(null,"It seems the correct version is not installed on the system or the extension, installing go in the extension location");
         resolve(false);
       } else {
         let versionMatch = stdout.match(/go(\d+\.\d+\.\d+)/);
@@ -94,7 +102,7 @@ let checkGoInstalledInExtension =(installDir:string,desiredVersion:string)=>{
         letDeveloperKnowAboutAnIssue(installedVersion)
         letDeveloperKnowAboutAnIssue(desiredVersion)
         if(!semver.gt(desiredVersion,installedVersion)){
-          letDeveloperKnowAboutAnIssue(null,`Go is installed and the correct version is in the extension.${stdout.trim()}`);
+          letDeveloperKnowAboutAnIssue(null,`Go is installed and the correct version is in the extension ${stdout.trim()}`);
           resolve(executable);
         }
         else{
@@ -129,9 +137,39 @@ const checkGoInstalled = (installDir:string,desiredVersion="1.20.6") => {
 };
 
 
+async function addToPath(directory:string) {
+  let platform:Partial<NodeJS.Platform> = os.platform()
+  // @ts-ignore
+  let actions ={
+    "win32":{
+      "env_setter":"setx PATH "
+    },
+    "darwin":{
+      "env_setter":"export PATH="
+    },
+    "linux":{
+      "env_setter":"export PATH="
+    }
+  }[platform]
+  if(process.env.PATH?.includes(directory)){
+    return
+  }
+  process.env.PATH = `${directory}${path.delimiter}${process.env.PATH}`;
+  return new Promise((res,rej)=>{
+    exec(`${actions}"${process.env.PATH}"`,(err,stdout,stderr)=>{
+      if(err){
+        letDeveloperKnowAboutAnIssue(null,err.stack)
+        res(false)
+      }
+      res(true)
+    })
+  })
+
+}
 
 
-export let installGo = async (extensionRoot:string,goVersion="1.20.5",) => {
+
+export let installGo = async (extensionRoot:string,goVersion="1.20.6",) => {
   // Change these values as needed
   let installLocation = path.normalize(extensionRoot+"/task_files")
   letDeveloperKnowAboutAnIssue(installLocation)
@@ -161,7 +199,6 @@ export let installGo = async (extensionRoot:string,goVersion="1.20.5",) => {
   }
 
   // Download and install Go
-  // letDeveloperKnowAboutAnIssue(null,`Downloading Go version ${goVersion} for ${platform}...`);
   let goURL = `https://golang.org/dl/go${goVersion}.${platform}-amd64.${goArchiveExt}`;
   if(platform === "win32"){
     goURL = `https://dl.google.com/go/go${goVersion}.windows-amd64.${goArchiveExt}`
@@ -170,9 +207,10 @@ export let installGo = async (extensionRoot:string,goVersion="1.20.5",) => {
     `${installLocation}/go${goVersion}.${platform}-amd64.${goArchiveExt}`
   );
   let goInstallDir = path.normalize( `${installLocation}/go`);
-  letDeveloperKnowAboutAnIssue(null,goInstallDir)
-  let executable:any = await checkGoInstalled(goInstallDir)
-  letDeveloperKnowAboutAnIssue(null,executable)
+  letDeveloperKnowAboutAnIssue(null,`Installation Dir ${goInstallDir}`)
+
+  // @ts-ignore
+  let executable:boolean |"go" |"windmillcode_go" = await checkGoInstalled(goInstallDir)
   if(executable === false){
     downloadFile(goURL,goArchivePath)
     if(platform === "win32"){
@@ -182,9 +220,13 @@ export let installGo = async (extensionRoot:string,goVersion="1.20.5",) => {
       unzipTarGz(goArchivePath,installLocation)
     }
     removeFile(goArchivePath)
-    return   path.normalize(`${goInstallDir}/bin/go`)
+    await addToPath(path.normalize(`${goInstallDir}/bin/`))
+    return  "windmillcode_go"
   }
   else{
+    if(executable === "windmillcode_go"){
+      await addToPath(path.normalize(`${goInstallDir}/bin/`))
+    }
     return executable
   }
 

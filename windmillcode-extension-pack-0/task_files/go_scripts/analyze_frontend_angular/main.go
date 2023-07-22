@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	// "windmillcode_tasks_json_scripts/bubbletea2"
-	"../utils"
+	"go_scripts/utils"
 )
 
 func main() {

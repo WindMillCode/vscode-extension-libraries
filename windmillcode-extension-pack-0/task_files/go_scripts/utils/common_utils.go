@@ -7,11 +7,15 @@ import (
 	"bufio"
 	"path/filepath"
 	"os/exec"
+	"reflect"
 
 )
 
 
-
+// getType returns the type of a given value as a string
+func GetType(value interface{}) string {
+	return reflect.TypeOf(value).String()
+}
 
 func TakeVariableArgs() []string {
 	var innerScriptArguments []string

@@ -2,216 +2,293 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label":"angular frontend: analyze",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\angular_frontend_analyze.ps1"
-      }
-    },
-    {
-      "label":"angular frontend: check for angular updates",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\angular_frontend_check_for_angular_updates.ps1"
+      "label": "angular frontend: analyze",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\angular_frontend_analyze ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\angular_frontend_analyze.ps1"
       },
       "runOptions": {
-        "runOn": "folderOpen"
+        "instanceLimit": 0
       }
     },
     {
-      "label":"angular frontend: run",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\angular_frontend_run.ps1"
+      "label": "angular frontend: check for angular updates",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\angular_frontend_check_for_angular_updates ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\angular_frontend_check_for_angular_updates.ps1"
       },
       "runOptions": {
-        "runOn": "folderOpen"
+        "instanceLimit": 0
       }
     },
     {
-      "label":"angular frontend: run compodoc",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\angular_frontend_run_compodoc.ps1"
-      }
-    },
-    {
-      "label":"angular frontend: run translate",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\angular_frontend_run_translate.ps1"
-      }
-    },
-    {
-      "label":"angular frontend: update angular",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\angular_frontend_update_angular.ps1"
-      }
-    },
-    {
-      "label":"docker: init container",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\docker_init_container.ps1"
-      }
-    },
-    {
-      "label":"docker: run",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\docker_run.ps1"
+      "label": "angular frontend: run",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\angular_frontend_run ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\angular_frontend_run.ps1"
       },
       "runOptions": {
-        "runOn": "folderOpen"
+        "instanceLimit": 0
       }
     },
     {
-      "label":"docker: ssh into container",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\docker_ssh_into_container.ps1"
-      }
-    },
-    {
-      "label":"flask backend: run",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\flask_backend_run.ps1"
+      "label": "angular frontend: run compodoc",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\angular_frontend_run_compodoc ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\angular_frontend_run_compodoc.ps1"
       },
       "runOptions": {
-        "runOn": "folderOpen"
+        "instanceLimit": 0
       }
     },
     {
-      "label":"flask backend: test",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\flask_backend_test.ps1"
+      "label": "angular frontend: run translate",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\angular_frontend_run_translate ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\angular_frontend_run_translate.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
+      }
+    },
+    {
+      "label": "angular frontend: update angular",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\angular_frontend_update_angular ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\angular_frontend_update_angular.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
+      }
+    },
+    {
+      "label": "docker: init container",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\docker_init_container ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\docker_init_container.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
+      }
+    },
+    {
+      "label": "docker: run",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\docker_run ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\docker_run.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
+      }
+    },
+    {
+      "label": "docker: ssh into container",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\docker_ssh_into_container ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\docker_ssh_into_container.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
+      }
+    },
+    {
+      "label": "flask backend: run",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\flask_backend_run ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\flask_backend_run.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
+      }
+    },
+    {
+      "label": "flask backend: test",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\flask_backend_test ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\flask_backend_test.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
       }
     },
     {
       "label": "firebase cloud:run emulators",
       "type": "shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\firebase_cloud_run_emulators.ps1"
+      "command": "cd ignore\\Windmillcode\\go\\firebase_cloudrun_emulators ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\firebase_cloud_run_emulators.ps1"
       },
       "runOptions": {
-        "runOn": "folderOpen"
+        "instanceLimit": 0
       }
     },
     {
-      "label":"git: create branch after merged changes",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\git_create_branch_after_merged_changes.ps1"
-      }
-    },
-    {
-      "label":"git: merge changes from current dev branch",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\git_merge_changes_from_current_dev_branch.ps1"
-      }
-    },
-    {
-      "label":"git: pushing work to git remote",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\git_pushing_work_to_git_remote.ps1"
-      }
-    },
-    {
-      "label":"git: removing a file from being tracked by git",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\git_removing_a_file_from_being_tracked_by_git.ps1"
-      }
-    },
-    {
-      "label":"misc: make a new doc item",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\misc_make_a_new_doc_item.ps1"
-      }
-    },
-    {
-      "label":"python: install app deps",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\python_install_app_deps.ps1"
+      "label": "git: create branch after merged changes",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\git_create_branch_after_merged_changes ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\git_create_branch_after_merged_changes.ps1"
       },
       "runOptions": {
-        "instanceLimit": 10
+        "instanceLimit": 0
       }
     },
     {
-      "label":"sql: get schema via docker",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\sql_get_schema_via_docker.ps1"
+      "label": "git: merge changes from current dev branch",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\git_merge_changes_from_current_dev_branch ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\git_merge_changes_from_current_dev_branch.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
       }
     },
     {
-      "label":"sql: make db schema update entry",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\sql_make_db_schema_update_entry.ps1"
+      "label": "git: pushing work to git remote",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\git_pushing_work_to_git_remote ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\git_pushing_work_to_git_remote.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
       }
     },
     {
-      "label":"testng: e2e create testng page",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\testng_e2e_create_testng_page.ps1"
+      "label": "git: removing a file from being tracked by git",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\git_removing_a_file_from_being_tracked_by_git ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\git_removing_a_file_from_being_tracked_by_git.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
       }
     },
     {
-      "label":"testng: e2e run",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\testng_e2e_run.ps1"
+      "label": "misc: make a new doc item",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\misc_make_a_new_doc_item ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\misc_make_a_new_doc_item.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
       }
     },
     {
-      "label":"testng: e2e setup vscode extension",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\testng_e2e_setup_vscode_extension.ps1"
-      }
-    },
-    {
-      "label":"yarn: install app deps",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\yarn_install_app_deps.ps1"
+      "label": "python: install app deps",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\python_install_app_deps ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\python_install_app_deps.ps1"
       },
       "runOptions": {
         "instanceLimit": 10
       }
     },
     {
-      "label":"yarn: install app deps",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\yarn_install_app_deps.ps1"
+      "label": "sql: get schema via docker",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\sql_get_schema_via_docker ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\sql_get_schema_via_docker.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
+      }
+    },
+    {
+      "label": "sql: make db schema update entry",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\sql_make_db_schema_update_entry ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\sql_make_db_schema_update_entry.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
+      }
+    },
+    {
+      "label": "testng: e2e create testng page",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\testng_e2e_create_testng_page ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\testng_e2e_create_testng_page.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
+      }
+    },
+    {
+      "label": "testng: e2e run",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\testng_e2e_run ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\testng_e2e_run.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
+      }
+    },
+    {
+      "label": "testng: e2e setup vscode extension",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\testng_e2e_setup_vscode_extension ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\testng_e2e_setup_vscode_extension.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 0
+      }
+    },
+    {
+      "label": "yarn: install app deps",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\yarn_install_app_deps ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\yarn_install_app_deps.ps1"
       },
       "runOptions": {
         "instanceLimit": 10
       }
     },
     {
-      "label":"yarn: install specific packages",
-      "type":"shell",
-      "windows":{
-        "command":".\\ignore\\${input:current_user_0}\\win32\\yarn_install_specific_packages.ps1"
+      "label": "yarn: install app deps",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\yarn_install_app_deps ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\yarn_install_app_deps.ps1"
+      },
+      "runOptions": {
+        "instanceLimit": 10
+      }
+    },
+    {
+      "label": "yarn: install specific packages",
+      "type": "shell",
+      "command": "cd ignore\\Windmillcode\\go\\yarn_install_specific_packages ; c:\\Users\\Restop-8734\\My_Apps\\windmillcode-vscode-libraries\\windmillcode-extension-pack-0\\task_files\\go\\bin\\go main.go c:\\Users\\Restop-8734\\My_Apps\\WindmillcodeSite_v2",
+      "windows": {
+        "command": ".\\ignore\\${input:current_user_0}\\win32\\yarn_install_specific_packages.ps1"
       },
       "runOptions": {
         "instanceLimit": 10
       }
     }
   ],
-  "inputs":[
+  "inputs": [
     {
       "id": "current_user_0",
       "description": "the user to run their env scripts",
