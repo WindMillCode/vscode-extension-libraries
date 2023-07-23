@@ -63,7 +63,7 @@
 
 
       "runOptions": {
-        "instanceLimit": 1
+        "instanceLimit": 10
       }
     },
     {
@@ -82,7 +82,7 @@
 
 
       "runOptions": {
-        "instanceLimit": 1
+        "instanceLimit": 10
       }
     },
     {
