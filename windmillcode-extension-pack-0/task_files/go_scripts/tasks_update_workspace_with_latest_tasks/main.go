@@ -24,6 +24,7 @@ type Task struct {
 		Command string `json:"command"`
 	} `json:"osx"`
 	RunOptions struct {
+		RunOn string `json:"runOn"`
 		InstanceLimit int `json:"instanceLimit"`
 	} `json:"runOptions"`
 }

@@ -7,41 +7,48 @@ import * as fs from 'fs';
 import * as zlib from 'zlib';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import * as vscode from 'vscode';
 const tar = require("tar")
 const semver = require('semver');
 
 let AdmZip = require("adm-zip");
 
 
-let downloadFile = (url: string, destinationPath: string): void => {
-  let file = fs.createWriteStream(destinationPath);
-
-  https.get(url, (response) => {
-    if (response.statusCode !== 200) {
-      letDeveloperKnowAboutAnIssue(null,`Error: Failed to download the file. Status Code:${response.statusCode}`);
-      return;
-    }
-
-    let downloadedBytes = 0;
-    let totalBytes = parseInt(response.headers['content-length'] || '0', 10);
-
-    response.on('data', (chunk) => {
-      downloadedBytes += chunk.length;
-      let progress = (downloadedBytes / totalBytes) * 100;
-      letDeveloperKnowAboutAnIssue(null,`Downloading... ${progress.toFixed(2)}%`);
-    });
+let downloadFile =async (url: string, destinationPath: string): Promise<void> => {
+  return new Promise((res,rej)=>{
 
 
-    response.pipe(file);
+    let file = fs.createWriteStream(destinationPath);
 
-    file.on('finish', () => {
-      file.close(() => {
-        letDeveloperKnowAboutAnIssue(null,'File download completed successfully.');
+    https.get(url, (response) => {
+      if (response.statusCode !== 200) {
+        letDeveloperKnowAboutAnIssue(null,`Error: Failed to download the file. Status Code:${response.statusCode}`);
+        return;
+      }
+
+      let downloadedBytes = 0;
+      let totalBytes = parseInt(response.headers['content-length'] || '0', 10);
+
+      response.on('data', (chunk) => {
+        downloadedBytes += chunk.length;
+        let progress = (downloadedBytes / totalBytes) * 100;
+        letDeveloperKnowAboutAnIssue(null,`Downloading... ${progress.toFixed(2)}%`);
       });
+
+
+      response.pipe(file);
+
+      file.on('finish', () => {
+        file.close(() => {
+          letDeveloperKnowAboutAnIssue(null,'File download completed successfully.');
+          res()
+        });
+      });
+    }).on('error', (err) => {
+      letDeveloperKnowAboutAnIssue('Error: Failed to download the file:', err.message);
+      rej()
     });
-  }).on('error', (err) => {
-    letDeveloperKnowAboutAnIssue('Error: Failed to download the file:', err.message);
-  });
+  })
 };
 
 
@@ -227,7 +234,9 @@ export let installGo = async (extensionRoot:string,goVersion="1.20.6",) => {
   // @ts-ignore
   let executable:boolean |"go" |"windmillcode_go" = await checkGoInstalled(goInstallDir)
   if(executable === false){
-    downloadFile(goURL,goArchivePath)
+    vscode.window.showInformationMessage("Installing go please wait")
+
+    await downloadFile(goURL,goArchivePath)
     if(platform === "win32"){
       unzipZipFile(goArchivePath,installLocation)
     }
@@ -237,13 +246,13 @@ export let installGo = async (extensionRoot:string,goVersion="1.20.6",) => {
     removeFile(goArchivePath)
     if(platform === "win32"){
       await copyFile(
-        path.normalize(`${goInstallDir}/bin/go.exe`),
+        path.normalize(`${goInstallDir}/bin/${goBinary}`),
         path.normalize(`${goInstallDir}/bin/windmillcode_go.exe`)
       )
     }
     else{
       await copyFile(
-        path.normalize(`${goInstallDir}/bin/go.`),
+        path.normalize(`${goInstallDir}/bin/${goBinary}`),
         path.normalize(`${goInstallDir}/bin/windmillcode_go`)
       )
     }

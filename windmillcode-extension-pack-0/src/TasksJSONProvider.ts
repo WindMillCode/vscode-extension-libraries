@@ -54,7 +54,6 @@ async function getTasks(goExecutable:string): Promise<vscode.Task[]> {
         ${goExecutable}
         `.split("\n").join(" ")
       }
-      letDeveloperKnowAboutAnIssue(null,newTask.execution.commandLine)
       return newTask
     })
     .filter((task)=>{

@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "../../WindmillcodeSite_v2"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"typescript.tsdk": "../apps/frontend/AngularApp/node_modules/typescript/lib",
+		"workbench.colorTheme": "Default Dark Modern",
+		"task.allowAutomaticTasks": "on"
+	}
+}

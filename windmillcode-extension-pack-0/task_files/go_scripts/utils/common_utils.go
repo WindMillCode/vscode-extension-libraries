@@ -1,9 +1,7 @@
 package utils
 
 import (
-	"bufio"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -11,48 +9,16 @@ import (
 	"strings"
 )
 
-type ShellCommandOutput struct{}
-
-func (c ShellCommandOutput) Write(p []byte) (int, error) {
-	fmt.Println( string(p))
-	return len(p), nil
-}
-
-func RunCommand(command string,args []string) {
-	cmd := exec.Command(command, args...)
-	// cmd.Stdout = ShellCommandOutput{}
-	cmd.Stdout = os.Stdout
-	if err := cmd.Run(); err != nil {
-		fmt.Println("could not run command: ", err)
-	}
-}
 
 
-func OverwriteFile(filePath string, content []byte) error {
-	return ioutil.WriteFile(filePath, content, 0644)
-}
+
+
 
 // getType returns the type of a given value as a string
 func GetType(value interface{}) string {
 	return reflect.TypeOf(value).String()
 }
 
-func TakeVariableArgs() []string {
-	var innerScriptArguments []string
-
-	fmt.Println("Enter the arguments to pass to the script (press ENTER to enter another argument, leave blank and press ENTER once done):")
-	scanner := bufio.NewScanner(os.Stdin)
-
-	for scanner.Scan() {
-		argument := strings.TrimSpace(scanner.Text())
-		if argument == "" {
-			break
-		}
-		innerScriptArguments = append(innerScriptArguments, argument)
-	}
-
-	return innerScriptArguments
-}
 
 func GetParamValue(parameterName string, parameterValue interface{}) interface{} {
 	if parameterValue != nil {
