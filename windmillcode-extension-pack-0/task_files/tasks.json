@@ -91,6 +91,7 @@
 
 
       "runOptions": {
+        "runOn":"folderOpen",
         "instanceLimit": 1
       }
     },
@@ -109,6 +110,7 @@
 
 
       "runOptions": {
+        "runOn":"folderOpen",
         "instanceLimit": 1
       }
     },
@@ -209,15 +211,6 @@
 
       "runOptions": {
         "instanceLimit": 1
-      }
-    },
-    {
-      "label": "yarn: install app deps",
-      "type": "shell",
-
-
-      "runOptions": {
-        "instanceLimit": 10
       }
     },
     {

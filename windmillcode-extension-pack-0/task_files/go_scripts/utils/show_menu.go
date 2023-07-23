@@ -3,11 +3,15 @@ package utils
 import (
 	"fmt"
 	"os"
+
 	tea "github.com/charmbracelet/bubbletea"
 )
 
 
 type ShowMenuModel struct {
+	Default string
+	Other bool
+	OtherString string
 	Prompt string
 	Choices  []string           // items on the to-do list
 	cursor   int                // which to-do list item our cursor is pointing at
@@ -18,6 +22,20 @@ type ShowMenuModel struct {
 
 func ShowMenu( cliInfo ShowMenuModel, enableOtherOption  interface{} ) string  {
 	cliInfo.Selected = make(map[int]string)
+
+	if cliInfo.OtherString ==""{
+		cliInfo.OtherString = "Other: "
+	}
+	if cliInfo.Other == true {
+		cliInfo.Choices = append(cliInfo.Choices,cliInfo.OtherString )
+	}
+	if cliInfo.Default != ""{
+		for i,v := range cliInfo.Choices{
+			if v == cliInfo.Default{
+				cliInfo.Selected[i] = cliInfo.Default
+			}
+		}
+	}
 	p := tea.NewProgram(cliInfo)
 	if _, err := p.Run(); err != nil {
 		fmt.Printf("Alas, there's been an error: %v", err)
@@ -50,7 +68,8 @@ func (m ShowMenuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 			// These keys should exit the program.
 			case "ctrl+c", "q":
-					return m, tea.Quit
+					panic("Exiting program")
+					
 
 			// The "up" and "k" keys move the cursor up
 			case "up", "k":
@@ -67,14 +86,18 @@ func (m ShowMenuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			// The "enter" key and the spacebar (a literal space) toggle
 			// the selected state for the item that the cursor is pointing at.
 			case "enter", " ":
-					_, ok := m.Selected[m.cursor]
+
 					for key := range m.Selected {
 						delete(m.Selected, key)
 					}
-					if ok {
-							delete(m.Selected, m.cursor)
-					} else {
-							m.Selected[m.cursor] = m.Choices[m.cursor]
+					choice := m.Choices[m.cursor]
+					m.Selected[m.cursor] = choice
+					if choice == m.OtherString && m.Other == true {
+						m.Selected[m.cursor] = GetInputFromStdin(
+							GetInputFromStdinStruct{
+								Prompt: []string{fmt.Sprintf("Provide a value for %s", choice)},
+							},
+						)
 					}
 					return m, tea.Quit
 			}

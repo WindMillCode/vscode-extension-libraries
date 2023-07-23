@@ -21,3 +21,13 @@ func CDToAngularApp(){
 func CDToFirebaseApp(){
 	CDToLocation(filepath.Join("apps","cloud","FirebaseApp"))
 }
+
+func CDToFlaskApp(){
+	CDToLocation(filepath.Join("apps","backend","FlaskApp"))
+}
+
+func CDToTestNGApp(){
+	CDToLocation(filepath.Join("apps","testing","testng"))
+}
+
+

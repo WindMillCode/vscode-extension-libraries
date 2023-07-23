@@ -15,7 +15,6 @@ try {
 if ( $docLocation -eq "") {
     $myPrompt = "Choose an option:"
     $myOptions = @(
-      "docs\tutorials\",
       "docs\tasks_docs\",
       "docs\application_documentation\",
       "issues\"

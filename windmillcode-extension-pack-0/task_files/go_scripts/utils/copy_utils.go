@@ -66,6 +66,35 @@ func CopyFile(src, dest string) error {
 	return nil
 }
 
+type CopySelectFilesToDestinationStruct struct {
+	SourceFiles  []string
+	GlobPattern string //regex
+	DestinationDir string
+}
+func CopySelectFilesToDestination(c CopySelectFilesToDestinationStruct) error {
+
+
+
+	// Move files with the specified pattern to the destination directory
+	if c.GlobPattern !=""{
+		var err error
+		c.SourceFiles,err = filepath.Glob(c.GlobPattern)
+		if err != nil {
+				return err
+		}
+	}
+
+
+	for _, file := range c.SourceFiles {
+			if err := CopyFile(file, filepath.Join(c.DestinationDir, filepath.Base(file))); err != nil {
+					return err
+			}
+	}
+
+	return nil
+}
+
+
 func main() {
 	srcDir := "/path/to/source/directory"
 	destDir := "/path/to/destination/directory"

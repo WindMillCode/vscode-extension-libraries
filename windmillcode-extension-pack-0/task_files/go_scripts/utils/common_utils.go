@@ -11,9 +11,6 @@ import (
 
 
 
-
-
-
 // getType returns the type of a given value as a string
 func GetType(value interface{}) string {
 	return reflect.TypeOf(value).String()

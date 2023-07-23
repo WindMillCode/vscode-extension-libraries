@@ -51,15 +51,19 @@ func GetInputFromStdin(obj GetInputFromStdinStruct) string {
 	// Create a new scanner to read from stdin
 	scanner := bufio.NewScanner(os.Stdin)
 
-	fmt.Print(obj.Prompt[0])
+	if obj.Default != "" {
+		fmt.Print(fmt.Sprintf("%s (Default is %s) ",obj.Prompt[0] , obj.Default))
+	} else {
+		fmt.Print(fmt.Sprintf("%s",obj.Prompt[0]))
+	}
 
 	// Read the next line of input from stdin
 	scanner.Scan()
 	input := scanner.Text()
-	if(input == "" && obj.ErrMsg != ""){
-		panic(obj.ErrMsg)
-	} else if (input == "" && obj.Default != ""){
+	if (input == "" && obj.Default != ""){
 		input = obj.Default
+	} else if(input == "" && obj.ErrMsg != ""){
+		panic(obj.ErrMsg)
 	}
 
 	return input
@@ -78,6 +82,7 @@ func RunCommand(command string,args []string) {
 	fmt.Println(fullCommand)
 	cmd := exec.Command(command, args...)
 	// cmd.Stdout = ShellCommandOutput{}
+	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {

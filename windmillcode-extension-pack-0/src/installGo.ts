@@ -28,11 +28,11 @@ let downloadFile =async (url: string, destinationPath: string): Promise<void> =>
 
       let downloadedBytes = 0;
       let totalBytes = parseInt(response.headers['content-length'] || '0', 10);
-
+      letDeveloperKnowAboutAnIssue(null,`Downloading Go`);
       response.on('data', (chunk) => {
         downloadedBytes += chunk.length;
         let progress = (downloadedBytes / totalBytes) * 100;
-        letDeveloperKnowAboutAnIssue(null,`Downloading... ${progress.toFixed(2)}%`);
+        // letDeveloperKnowAboutAnIssue(null,`Downloading... ${progress.toFixed(2)}%`);
       });
 
 
@@ -89,20 +89,21 @@ let removeFile = (filePath: string): void => {
   });
 };
 
-let checkGoInstalledInExtension =  (installDir:string,desiredVersion:string,addedToPath=false)=>{
-  return new Promise((resolve,rej)=>{
-    // let executable = path.normalize(`${installDir}/bin/windmillcode_go`)
+let checkGoInstalledInExtension =  (installDir:string,desiredVersion="1.20.6",addedToPath=false)=>{
+  return new Promise(async(resolve,rej)=>{
     let executable = "windmillcode_go"
-    letDeveloperKnowAboutAnIssue(null,executable)
     exec(`${executable} version`,async  (error, stdout, stderr) => {
       if (error) {
         if(!addedToPath){
           letDeveloperKnowAboutAnIssue(null,"Adding executable to the path");
           await addToPath(path.normalize(`${installDir}/bin`))
-          resolve(checkGoInstalledInExtension(installDir,desiredVersion,true))
-          return
+          setTimeout(()=>{},1500)
+          let value = await checkGoInstalledInExtension(installDir,desiredVersion,true)
+          return resolve(value)
+
         }
-        letDeveloperKnowAboutAnIssue(null,"It seems the correct version is not installed on the system or the extension, installing go in the extension location");
+        letDeveloperKnowAboutAnIssue(error.stack)
+        letDeveloperKnowAboutAnIssue("It seems the correct version is not installed on the system or the extension, installing go in the extension location");
         resolve(false);
       } else {
         let versionMatch = stdout.match(/go(\d+\.\d+\.\d+)/);
@@ -160,15 +161,17 @@ async function addToPath(directory:string) {
     }
   }[platform]
   if(process.env.PATH?.includes(directory)){
-    return
+    letDeveloperKnowAboutAnIssue(null,"go executable is already on the path")
+    return Promise.resolve(true)
   }
   process.env.PATH = `${directory}${path.delimiter}${process.env.PATH}`;
   return new Promise((res,rej)=>{
-    exec(`${actions}"${process.env.PATH}"`,(err,stdout,stderr)=>{
+    exec(`${actions?.env_setter}"${process.env.PATH}"`,(err,stdout,stderr)=>{
       if(err){
         letDeveloperKnowAboutAnIssue(null,err.stack)
         res(false)
       }
+      letDeveloperKnowAboutAnIssue(null,"added to path sucessfully")
       res(true)
     })
   })
@@ -232,7 +235,8 @@ export let installGo = async (extensionRoot:string,goVersion="1.20.6",) => {
   letDeveloperKnowAboutAnIssue(null,`Installation Dir ${goInstallDir}`)
 
   // @ts-ignore
-  let executable:boolean |"go" |"windmillcode_go" = await checkGoInstalled(goInstallDir)
+  let executable:boolean |"go" |"windmillcode_go" = await checkGoInstalledInExtension(goInstallDir)
+  letDeveloperKnowAboutAnIssue("got here before finishing")
   if(executable === false){
     vscode.window.showInformationMessage("Installing go please wait")
 

@@ -13,22 +13,26 @@ func main() {
 	utils.CDToWorkspaceRooot()
 	workspaceRoot,_ := os.Getwd()
 	i18nLocation := filepath.Join(workspaceRoot,"apps","frontend","AngularApp","src","assets","i18n")
+	settings, err := utils.GetSettingsJSON(workspaceRoot)
+	if err != nil {
+		return
+	}
 
+	openAIAPIKey := utils.GetInputFromStdin(
+		utils.GetInputFromStdinStruct{
+			Prompt:[]string{"provide the open ai api key"},
+			ErrMsg:"an open ai key is required to translate the app",
+			Default:settings.ExtensionPack.OpenAIAPIKey0,
+		},
+	)
+	langCodes := utils.GetInputFromStdin(
+		utils.GetInputFromStdinStruct{
+			Prompt:[]string{" Provide a list of lang codes to run \n translation script. \n Provide them in comma separated format according to the options below. \n Example: 'zh, es, hi, bn' \n It's best to do 4 at a time. \n Options: zh, es, hi, uk, ar, bn, ms, fr, de, sw, am"},
+			ErrMsg:"Lang codes are required",
+			Default:settings.ExtensionPack.LangCodes0,
+		},
+	)
 
-//  openAIAPIKey := utils.GetInputFromStdin(
-// 	utils.GetInputFromStdinStruct{
-// 		Prompt:[]string{"provide the open ai api key"},
-// 		ErrMsg:"an open ai key is required to translate the app",
-// 	},
-//  )
-//  langCodes := utils.GetInputFromStdin(
-// 	utils.GetInputFromStdinStruct{
-// 		Prompt:[]string{" Provide a list of lang codes to run \n translation script. \n Provide them in comma separated format according to the options below. \n Example: 'zh, es, hi, bn' \n It's best to do 4 at a time. \n Options: zh, es, hi, uk, ar, bn, ms, fr, de, sw, am"},
-// 		ErrMsg:"Lang codes are required",
-// 	},
-//  )
-  openAIAPIKey := "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"
-  langCodes :="zh, es, hi, uk, ar, bn, ms, fr, de, sw, am"
 	os.Setenv("OPENAI_API_KEY_0", openAIAPIKey)
 	utils.CDToLocation(filepath.Join(workspaceRoot,"ignore","Windmillcode","go_scripts","i18n_script_via_ai"))
 	// pathSeparator := string(filepath.Separator)

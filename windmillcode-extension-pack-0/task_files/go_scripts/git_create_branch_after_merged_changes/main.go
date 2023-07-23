@@ -2,6 +2,7 @@ package main
 
 import (
 	"go_scripts/utils"
+	"regexp"
 )
 
 func main() {
@@ -9,6 +10,13 @@ func main() {
 	utils.CDToWorkspaceRooot()
 	sourceBranch := "dev"
 	currentBranch := utils.RunCommandAndGetOutput("git",[]string{"rev-parse","--abbrev-ref","HEAD"})
+	pattern := `\s+|\n+`
+
+	// Create a regex object
+	regex := regexp.MustCompile(pattern)
+
+	// Remove all matches of the regex pattern from the input string
+	currentBranch = regex.ReplaceAllString(currentBranch, "")
 	deleteBranch := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt: []string{"the local branch to delete:"},
@@ -25,7 +33,7 @@ func main() {
 	utils.RunCommand("git",[]string{"checkout",sourceBranch})
 	utils.RunCommand("git",[]string{"pull","origin",sourceBranch})
 	utils.RunCommand("git",[]string{"branch","-D",deleteBranch})
-	utils.RunCommand("git",[]string{"checkout",sourceBranch})
+	utils.RunCommand("git",[]string{"checkout","-b",createBranch})
 
 }
 

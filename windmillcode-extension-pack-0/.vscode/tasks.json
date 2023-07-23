@@ -5,8 +5,9 @@
 	"tasks": [
 
 		{
-			"type": "npm",
-			"script": "watch",
+			"type": "shell",
+      "label": "yarn: watch",
+			"command":"yarn compile;yarn watch",
 			"problemMatcher": "$tsc-watch",
 			"isBackground": true,
 			"presentation": {

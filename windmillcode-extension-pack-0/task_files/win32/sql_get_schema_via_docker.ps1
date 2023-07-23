@@ -50,6 +50,7 @@ try {
 
     echo $mysqlPassword
     docker exec --workdir /root $dockerContainerName mysqldump  -u $mysqlUsername --password=$mysqlPassword --single-transaction --no-data --no-create-db windmillcodesite_mysql_database_0 > backup.sql
+
   }
   else{
     Write-Host "$databaseSoftwareName is not supported as of right now"
