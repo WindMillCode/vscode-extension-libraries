@@ -55,6 +55,4 @@ v 0.7.0
   * fix angular_translate in use cases where it did not know how to properly deal with an object
 v 1.0.0
   * remove angular service method from typescript snippetsschema as functionality is now the @windmillcode/angular-templates schematic package
-
-v 2.0.0
-* started to refactor extension tasks.json to use go instead of powershell for better cross os platform suppport, angular and yarn are completed so far
+* complete refactor of extension tasks.json to use go instead of powershell for better cross os platform suppport

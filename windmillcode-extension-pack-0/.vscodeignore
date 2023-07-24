@@ -10,3 +10,4 @@ vsc-extension-quickstart.md
 **/site-packages/**
 **/notes/**
 task_files/go/**
+task_files/go_scripts/.git/**
