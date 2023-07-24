@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"go_scripts/utils"
 	"os"
 	"path/filepath"
 	"runtime"
+
+	"github.com/WindMillCode/vscode-extension-libraries/tree/main/windmillcode-extension-pack-0/task_files/go_scripts/utils"
 )
 
 func main() {
@@ -21,45 +22,41 @@ func main() {
 
 	pythonVersion := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
-			Prompt: []string{"provide a python version for pyenv to use"},
+			Prompt:  []string{"provide a python version for pyenv to use"},
 			Default: "3.11.4",
 		},
 	)
-	utils.RunCommand("pyenv",[]string{"shell",pythonVersion})
+	utils.RunCommand("pyenv", []string{"shell", pythonVersion})
 	cliInfo := utils.ShowMenuModel{
-		Prompt: "reinstall?",
-		Choices:[]string{"true","false"},
+		Prompt:  "reinstall?",
+		Choices: []string{"true", "false"},
 	}
-	reinstall := utils.ShowMenu(cliInfo,nil)
+	reinstall := utils.ShowMenu(cliInfo, nil)
 	utils.CDToLocation(appLocation)
 
 	switch targetOs := runtime.GOOS; targetOs {
 	case "windows":
 
-		sitePackages := filepath.Join(".","site-packages","windows")
-		if reinstall == "true"{
-		if err := os.RemoveAll(sitePackages); err != nil {
-			fmt.Println("Error:", err)
-			return
-		}
-		}
-		utils.RunCommand("pip",[]string{"install","-r","requirements.txt","--target",sitePackages})
-	case "linux","darwin":
-		sitePackages := filepath.Join(".","site-packages","linux")
-		if reinstall == "true"{
+		sitePackages := filepath.Join(".", "site-packages", "windows")
+		if reinstall == "true" {
 			if err := os.RemoveAll(sitePackages); err != nil {
 				fmt.Println("Error:", err)
 				return
 			}
 		}
-		utils.RunCommand("pip",[]string{"install","-r","requirements.txt","--target",sitePackages})
+		utils.RunCommand("pip", []string{"install", "-r", "requirements.txt", "--target", sitePackages})
+	case "linux", "darwin":
+		sitePackages := filepath.Join(".", "site-packages", "linux")
+		if reinstall == "true" {
+			if err := os.RemoveAll(sitePackages); err != nil {
+				fmt.Println("Error:", err)
+				return
+			}
+		}
+		utils.RunCommand("pip", []string{"install", "-r", "requirements.txt", "--target", sitePackages})
 
 	default:
 		fmt.Println("Unknown Operating System:", targetOs)
 	}
 
-
-
-
 }
-

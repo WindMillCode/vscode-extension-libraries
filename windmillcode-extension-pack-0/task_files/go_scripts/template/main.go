@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go_scripts/utils"
+	"github.com/WindMillCode/vscode-extension-libraries/tree/main/windmillcode-extension-pack-0/task_files/go_scripts/utils"
 )
 
 func main() {
@@ -9,7 +9,5 @@ func main() {
 	utils.CDToWorkspaceRooot()
 	utils.CDToTestNGApp()
 
-
-	utils.RunCommand("",[]string{})
+	utils.RunCommand("", []string{})
 }
-

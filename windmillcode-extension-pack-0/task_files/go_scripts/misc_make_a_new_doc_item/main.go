@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"go_scripts/utils"
 	"path/filepath"
 	"regexp"
+
+	"github.com/WindMillCode/vscode-extension-libraries/tree/main/windmillcode-extension-pack-0/task_files/go_scripts/utils"
 )
 
 func main() {
@@ -12,13 +13,13 @@ func main() {
 	utils.CDToWorkspaceRooot()
 	cliInfo := utils.ShowMenuModel{
 		Prompt: "Choose an option:",
-		Choices:[]string{
-      "docs\\tasks_docs",
-      "docs\\application_documentation",
-      "issues",
+		Choices: []string{
+			"docs\\tasks_docs",
+			"docs\\application_documentation",
+			"issues",
 		},
 	}
-	docLocation := utils.ShowMenu(cliInfo,nil)
+	docLocation := utils.ShowMenu(cliInfo, nil)
 	docLocation = filepath.Join(docLocation)
 	targetName := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
@@ -27,13 +28,12 @@ func main() {
 	)
 	pattern := `\s+`
 	matched := regexp.MustCompile(pattern).MatchString(targetName)
-	if matched == true{
+	if matched == true {
 		fmt.Printf("The document name cannot contain any speaces PLEASE USE DASHES OR UNDERLINE FOR SPACES !!!!!!!!!     :)")
 		return
 	}
-	targetPath := filepath.Join(docLocation,targetName)
-	templatePath := filepath.Join(docLocation,"template")
-	utils.CopyDir(templatePath,targetPath)
-	utils.RunCommand("code",[]string{targetPath})
+	targetPath := filepath.Join(docLocation, targetName)
+	templatePath := filepath.Join(docLocation, "template")
+	utils.CopyDir(templatePath, targetPath)
+	utils.RunCommand("code", []string{targetPath})
 }
-

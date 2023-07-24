@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"go_scripts/utils"
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/WindMillCode/vscode-extension-libraries/tree/main/windmillcode-extension-pack-0/task_files/go_scripts/utils"
 )
 
 func main() {

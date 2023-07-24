@@ -2,18 +2,19 @@ package main
 
 import (
 	"fmt"
-	"go_scripts/utils"
 	"strings"
+
+	"github.com/WindMillCode/vscode-extension-libraries/tree/main/windmillcode-extension-pack-0/task_files/go_scripts/utils"
 )
 
 func main() {
 
 	utils.CDToWorkspaceRooot()
 	cliInfo := utils.ShowMenuModel{
-		Prompt: "Is it a file or directory:",
-		Choices:[]string{"file","directory"},
+		Prompt:  "Is it a file or directory:",
+		Choices: []string{"file", "directory"},
 	}
-	targetType := utils.ShowMenu(cliInfo,nil)
+	targetType := utils.ShowMenu(cliInfo, nil)
 
 	targetName := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
@@ -25,14 +26,12 @@ func main() {
 	if targetType == "file" {
 
 		argsString := fmt.Sprintf("rm --cached --sparse %s", targetName)
-		args0 = strings.Split(argsString," ")
+		args0 = strings.Split(argsString, " ")
 	} else {
 
 		argsString := fmt.Sprintf("rm -r --cached --sparse %s", targetName)
-		args0 = strings.Split(argsString," ")
+		args0 = strings.Split(argsString, " ")
 	}
 
-
-	utils.RunCommand("git",args0)
+	utils.RunCommand("git", args0)
 }
-

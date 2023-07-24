@@ -1,31 +1,31 @@
 package main
 
 import (
-	"go_scripts/utils"
 	"os"
+
+	"github.com/WindMillCode/vscode-extension-libraries/tree/main/windmillcode-extension-pack-0/task_files/go_scripts/utils"
 )
 
 func main() {
 
 	utils.CDToWorkspaceRooot()
-	workSpaceFolder,err := os.Getwd()
+	workSpaceFolder, err := os.Getwd()
 	if err != nil {
 		return
 	}
 	testArgs := utils.GetTestNGArgs(
 		utils.GetTestNGArgsStruct{
-			WorkspaceFolder:workSpaceFolder,
+			WorkspaceFolder: workSpaceFolder,
 		},
 	)
 
 	utils.CDToTestNGApp()
-	envVarContent,err := utils.ReadFile(testArgs.EnvVarsFile)
+	envVarContent, err := utils.ReadFile(testArgs.EnvVarsFile)
 	if err != nil {
 		return
 	}
-	err = utils.OverwriteFile(".env",envVarContent)
+	err = utils.OverwriteFile(".env", envVarContent)
 	if err != nil {
 		return
 	}
 }
-

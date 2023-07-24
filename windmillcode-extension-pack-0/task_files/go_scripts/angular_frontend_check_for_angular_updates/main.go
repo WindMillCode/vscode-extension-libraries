@@ -1,13 +1,12 @@
 package main
 
 import (
-	"go_scripts/utils"
+	"github.com/WindMillCode/vscode-extension-libraries/tree/main/windmillcode-extension-pack-0/task_files/go_scripts/utils"
 )
 
 func main() {
 
 	utils.CDToWorkspaceRooot()
 	utils.CDToAngularApp()
-	utils.RunCommand("npx",[]string{"ng","update"})
+	utils.RunCommand("npx", []string{"ng", "update"})
 }
-

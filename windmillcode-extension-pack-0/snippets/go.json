@@ -21,5 +21,13 @@
     ],
     "description": "remove a file or folder"
 
+	},
+  "GrabSettingsJSON": {
+		"prefix": "GrabSettingsJSON",
+		"body": [
+      "workspaceRoot, err := os.Getwd()\nif err != nil {\n\treturn\n}\nsettings, err := utils.GetSettingsJSON(workspaceRoot)\nif err != nil {\n\treturn\n}"
+    ],
+    "description": "remove a file or folder"
+
 	}
 }

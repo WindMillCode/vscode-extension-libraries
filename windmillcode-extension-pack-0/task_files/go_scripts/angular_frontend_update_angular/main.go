@@ -1,17 +1,18 @@
 package main
 
 import (
-	"go_scripts/utils"
 	"strings"
+
+	"github.com/WindMillCode/vscode-extension-libraries/tree/main/windmillcode-extension-pack-0/task_files/go_scripts/utils"
 )
 
 func main() {
 
 	utils.CDToWorkspaceRooot()
-	utils.RunCommand("git",[]string{"add","."})
-	utils.RunCommand("git",[]string{"commit","-m","[CHECKPOINT] before upgrading to next angular version"})
+	utils.RunCommand("git", []string{"add", "."})
+	utils.RunCommand("git", []string{"commit", "-m", "[CHECKPOINT] before upgrading to next angular version"})
 	utils.CDToAngularApp()
-	inputText := utils.RunCommandAndGetOutput("npx",[]string{"ng","update"})
+	inputText := utils.RunCommandAndGetOutput("npx", []string{"ng", "update"})
 	inputLines := strings.Split(inputText, "\n")
 	packagesToUpdate := []string{}
 	for _, line := range inputLines {
@@ -25,8 +26,7 @@ func main() {
 		packageName := strings.TrimSpace(strings.Split(packageGroup, " ")[0])
 		updateCommand += " " + packageName
 	}
-	utils.RunCommand("npx",strings.Split(updateCommand," "))
-	utils.RunCommand("yarn",[]string{"upgrade","--dev","@faker-js/faker","@windmillcode/angular-templates","webpack-bundle-analyzer","browserify"})
-	utils.RunCommand("yarn",[]string{"upgrade","@windmillcode/angular-wml-components-base","@rxweb/reactive-form-validators","@fortawesome/fontawesome-free","@compodoc/compodoc","@sentry/angular-ivy","@sentry/tracing"})
+	utils.RunCommand("npx", strings.Split(updateCommand, " "))
+	utils.RunCommand("yarn", []string{"upgrade", "--dev", "@faker-js/faker", "@windmillcode/angular-templates", "webpack-bundle-analyzer", "browserify"})
+	utils.RunCommand("yarn", []string{"upgrade", "@windmillcode/angular-wml-components-base", "@rxweb/reactive-form-validators", "@fortawesome/fontawesome-free", "@compodoc/compodoc", "@sentry/angular-ivy", "@sentry/tracing"})
 }
-

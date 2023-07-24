@@ -1,8 +1,9 @@
 package main
 
 import (
-	"go_scripts/utils"
 	"os"
+
+	"github.com/WindMillCode/vscode-extension-libraries/tree/main/windmillcode-extension-pack-0/task_files/go_scripts/utils"
 )
 
 func main() {
@@ -18,13 +19,11 @@ func main() {
 	}
 	dockerContainerName := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
-			Prompt: []string{"the name of the container"},
-			ErrMsg: "you must provide a container to run",
-			Default:settings.ExtensionPack.SQLDockerContainerName,
+			Prompt:  []string{"the name of the container"},
+			ErrMsg:  "you must provide a container to run",
+			Default: settings.ExtensionPack.SQLDockerContainerName,
 		},
 	)
 
-
-	utils.RunCommand("docker",[]string{"start",dockerContainerName})
+	utils.RunCommand("docker", []string{"start", dockerContainerName})
 }
-
