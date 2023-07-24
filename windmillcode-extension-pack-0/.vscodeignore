@@ -8,6 +8,9 @@ src/**
 tsconfig.json
 vsc-extension-quickstart.md
 **/site-packages/**
+**/node_modules/**
 **/notes/**
 task_files/go/**
+task_files/win32/**
 task_files/go_scripts/.git/**
+src/WML**

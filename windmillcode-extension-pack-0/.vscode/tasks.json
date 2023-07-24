@@ -29,10 +29,14 @@
 			}
 		},
     {
-      "label":"git: pushing work to git remote",
-      "type":"shell",
-      "windows":{
-        "command":".\\task_files\\win32\\git_pushing_work_to_git_remote.ps1"
+      "label": "git: pushing work to git remote",
+      "type": "shell",
+      "windows": {
+        "command": "cd task_files\\go_scripts\\git_pushing_work_to_git_remote ; windmillcode_go run . "
+      },
+      "runOptions": {
+        "runOn": "",
+        "instanceLimit": 1
       }
     },
 		{

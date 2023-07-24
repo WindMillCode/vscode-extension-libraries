@@ -2,7 +2,7 @@ module github.com/windmillcode/go_scripts
 
 go 1.20
 
-replace github.com/windmillcode/go_scripts => /go_scripts/utils
+replace github.com/windmillcode/go_scripts/utils => /go_scripts/utils
 
 require (
 	github.com/charmbracelet/bubbletea v0.24.2
