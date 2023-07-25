@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -36,7 +37,7 @@ func main() {
 		utils.RunCommand("pyenv", []string{"shell", pythonVersion})
 	}
 	utils.CDToLocation(workspaceFolder)
-	envVars := utils.RunCommandAndGetOutput("windmillcode_go", []string{"run", envVarsFile, filepath.Dir(envVarsFile)})
+	envVars := utils.RunCommandAndGetOutput("windmillcode_go", []string{"run", envVarsFile, filepath.Dir(envVarsFile), workspaceFolder})
 	envVarsArray := strings.Split(envVars, ",")
 	for _, x := range envVarsArray {
 		keyPair := []string{}
