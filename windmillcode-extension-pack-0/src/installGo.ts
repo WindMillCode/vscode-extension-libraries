@@ -21,7 +21,9 @@ let downloadFile =async (url: string, destinationPath: string): Promise<void> =>
     let file = fs.createWriteStream(destinationPath);
 
     https.get(url, (response) => {
-      if (response.statusCode !== 200) {
+      let statusCodes = [200,301]
+      // @ts-ignore
+      if (!statusCodes.includes(response.statusCode)) {
         letDeveloperKnowAboutAnIssue(null,`Error: Failed to download the file. Status Code:${response.statusCode}`);
         return;
       }
@@ -64,20 +66,35 @@ let unzipZipFile = (zipFilePath: string, extractToPath: string): void => {
   }
 };
 
-let unzipTarGz = (tarGzFilePath: string, destinationFolder: string): void => {
-  const tarGzReadStream = fs.createReadStream(tarGzFilePath);
-  const tarExtractStream = tar.extract({ cwd: destinationFolder });
+let unzipTarGz = (tarGzFilePath: string, destinationFolder: string): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    const tarGzReadStream = fs.createReadStream(tarGzFilePath);
+    const tarExtractStream = tar.extract({ cwd: destinationFolder });
 
-  tarGzReadStream.pipe(zlib.createGunzip()).pipe(tarExtractStream);
+    tarGzReadStream.pipe(zlib.createGunzip()).pipe(tarExtractStream);
 
-  tarExtractStream.on('finish', () => {
+    let totalEntries = 0;
+    let extractedEntries = 0;
+
+    tarExtractStream.on('entry', () => totalEntries++);
+
+    //
+    tarExtractStream.on('entry', (entry: any) => {
+      extractedEntries++;
+      const progressPercentage = Math.floor((extractedEntries / totalEntries) * 100);
+      letDeveloperKnowAboutAnIssue(null,`Progress: ${progressPercentage}% - Extracting ${entry.path}`);
+    });
+
+    tarExtractStream.on('finish', () => {
     letDeveloperKnowAboutAnIssue(null,`Successfully extracted files to ${destinationFolder}`);
+    resolve()
   });
 
   tarExtractStream.on('error', (err:any) => {
     letDeveloperKnowAboutAnIssue(err);
   });
-};
+  });
+}
 
 let removeFile = (filePath: string): void => {
   fs.unlink(filePath, (err) => {
@@ -245,7 +262,7 @@ export let installGo = async (extensionRoot:string,goVersion="1.20.6",) => {
       unzipZipFile(goArchivePath,installLocation)
     }
     else{
-      unzipTarGz(goArchivePath,installLocation)
+      await unzipTarGz(goArchivePath,installLocation)
     }
     removeFile(goArchivePath)
     if(platform === "win32"){
