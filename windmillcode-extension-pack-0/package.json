@@ -2,7 +2,7 @@
   "name": "windmillcode-extension-pack-0",
   "displayName": "windmillcode-extension-pack-0",
   "description": "",
-  "version": "1.0.3",
+  "version": "3.1.0",
   "publisher": "windmillcode-publisher-0",
   "icon": "images/logo.png",
   "repository": {
@@ -177,7 +177,6 @@
     "shengchen.vscode-checkstyle",
     "sibiraj-s.vscode-scss-formatter",
     "SonarSource.sonarlint-vscode",
-    "spmeesseman.vscode-taskexplorer",
     "tomoki1207.pdf",
     "TrungNgo.autoflake",
     "Tyriar.luna-paint",
@@ -221,9 +220,14 @@
     "typescript": "^5.1.3"
   },
   "dependencies": {
+    "@vscode/vsce": "^2.20.1",
     "adm-zip": "^0.5.10",
+    "decompress": "^4.2.1",
+    "decompress-targz": "^4.1.1",
+    "node-fetch": "2",
     "semver": "^7.5.4",
     "tar": "^6.1.15",
+    "tar.gz2": "^1.0.0",
     "uuid": "^9.0.0"
   }
 }

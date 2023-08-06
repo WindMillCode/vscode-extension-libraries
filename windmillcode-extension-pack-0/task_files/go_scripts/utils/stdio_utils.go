@@ -92,6 +92,24 @@ func RunCommand(command string,args []string) {
 	}
 }
 
+func RunCommandInSpecificDirectory(command string,args []string,targetDir string) {
+
+	fullCommand :=  fmt.Sprintf("Running command: %s %s", command,strings.Join(args," "))
+	fmt.Println(fullCommand)
+	cmd := exec.Command(command, args...)
+	cmd.Dir = targetDir
+	// cmd.Stdout = ShellCommandOutput{}
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	if err := cmd.Run(); err != nil {
+
+		msg := fmt.Sprintf("Could not run command %s %s \n This was the err %s", command,strings.Join(args," "),err.Error())
+		fmt.Println(msg)
+	}
+}
+
+
 func RunCommandAndGetOutput(command string,args []string) string {
 
 	fullCommand :=  fmt.Sprintf("Running command: %s %s", command,strings.Join(args," "))

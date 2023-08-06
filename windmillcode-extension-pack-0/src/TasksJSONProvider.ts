@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as vscode from 'vscode';
-import { CreateTaskParams, createTask, letDeveloperKnowAboutAnIssue } from './functions';
+import { CreateTaskParams, createTask, notifyDeveloper } from './functions';
 import * as path from "path"
 
 
@@ -37,7 +37,7 @@ async function getTasks(goExecutable:string): Promise<vscode.Task[]> {
 	let result: vscode.Task[]  = [];
   try {
 
-    letDeveloperKnowAboutAnIssue(null,goExecutable)
+    notifyDeveloper(null,goExecutable)
     // @ts-ignore
     result = [
       new TasksJSONCreateTasksParams({
@@ -62,7 +62,7 @@ async function getTasks(goExecutable:string): Promise<vscode.Task[]> {
 
 
   } catch (err: any) {
-    letDeveloperKnowAboutAnIssue(err,'Issue while loading windmillcode TasksJSON tasks.')
+    notifyDeveloper(err,'Issue while loading windmillcode TasksJSON tasks.')
   }
 
 	return result;

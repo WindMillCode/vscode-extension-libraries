@@ -214,7 +214,7 @@
       }
     },
     {
-      "label": "yarn: install app deps",
+      "label": "npm: install app deps",
       "type": "shell",
 
 
@@ -223,7 +223,7 @@
       }
     },
     {
-      "label": "yarn: install specific packages",
+      "label": "npm: install specific packages",
       "type": "shell",
 
 

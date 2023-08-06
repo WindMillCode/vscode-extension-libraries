@@ -10,6 +10,13 @@ func main() {
 
 	utils.CDToWorkspaceRooot()
 	cliInfo := utils.ShowMenuModel{
+		Prompt: "choose the package manager",
+		Choices:[]string{"npm","yarn"},
+		Default:"npm",
+	}
+	packageManager := utils.ShowMenu(cliInfo,nil)
+	cliInfo = utils.ShowMenuModel{
+		Other: true,
 		Prompt:  "Choose the node.js app",
 		Choices: []string{filepath.Join("./apps/frontend/AngularApp"), filepath.Join(".\\apps\\cloud\\FirebaseApp")},
 	}
@@ -36,8 +43,17 @@ func main() {
 
 	utils.CDToLocation(appLocation)
 	if reinstall == "true" {
-		utils.RunCommand("yarn", []string{"remove", packageList})
+		if packageManager == "npm" {
+			utils.RunCommand(packageManager, []string{"uninstall", packageList})
+		} else{
+			utils.RunCommand(packageManager, []string{"remove", packageList})
+		}
 	}
 
-	utils.RunCommand("yarn", []string{"add", depType, packageList})
+	if packageManager == "npm" {
+		utils.RunCommand(packageManager, []string{"install",depType, packageList})
+	} else{
+		utils.RunCommand(packageManager, []string{"add", depType, packageList})
+	}
+
 }

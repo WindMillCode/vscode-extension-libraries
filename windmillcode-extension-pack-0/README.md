@@ -71,3 +71,31 @@ v 1.0.2
 
 v 1.0.3
   * provided workspace folder location to flask scripts
+
+v 2.0.0
+  * added support for npm installations
+  * added support where you can specfiy the installation path for npm and python application
+
+v 2.0.1
+  * fixed bug for sql_update_schema
+
+v 2.0.2
+  * corrected a bug where the check to remove package-lock.json is made for npm_install_app_deps
+
+v 2.0.3
+  * rmd fmt so flask_backend_go can work
+
+v 2.0.4
+  * took out long-hand in wml-original for color naming
+
+V 2.1.0
+  * fixed an issue concerning update angular
+
+v 3.0.0
+  * all cli scripts now can be complied into executables making task running much faster
+
+v 3.0.1
+  * removed spressman tasks-explorer takes up too much time
+
+v 3.1.0
+  * hammered out issues for mac and linux should be working now

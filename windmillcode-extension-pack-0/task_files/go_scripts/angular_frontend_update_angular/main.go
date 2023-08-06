@@ -20,13 +20,13 @@ func main() {
 			packagesToUpdate = append(packagesToUpdate, line)
 		}
 	}
-	updateCommand := " ng update"
+	updateCommand := "ng update"
 	for _, pkg := range packagesToUpdate {
 		packageGroup := strings.TrimSpace(strings.Split(pkg, "->")[0])
 		packageName := strings.TrimSpace(strings.Split(packageGroup, " ")[0])
 		updateCommand += " " + packageName
 	}
 	utils.RunCommand("npx", strings.Split(updateCommand, " "))
-	utils.RunCommand("yarn", []string{"upgrade", "--dev", "@faker-js/faker", "@windmillcode/angular-templates", "webpack-bundle-analyzer", "browserify"})
 	utils.RunCommand("yarn", []string{"upgrade", "@windmillcode/angular-wml-components-base", "@rxweb/reactive-form-validators", "@fortawesome/fontawesome-free", "@compodoc/compodoc", "@sentry/angular-ivy", "@sentry/tracing"})
+	utils.RunCommand("yarn", []string{"upgrade", "--dev", "@faker-js/faker", "@windmillcode/angular-templates", "webpack-bundle-analyzer", "browserify"})
 }

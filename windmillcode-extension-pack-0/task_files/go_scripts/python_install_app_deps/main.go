@@ -12,13 +12,13 @@ import (
 func main() {
 
 	utils.CDToWorkspaceRooot()
-	// cliInfo := utils.ShowMenuModel{
-	// 	Prompt: "Choose an option:",
-	// 	Choices:[]string{".\\apps\\backend\\FlaskApp"},
-	// }
-	// appLocation := utils.ShowMenu(cliInfo,nil)
-	// appLocation = filepath.Join(appLocation)
-	appLocation := filepath.Join(".\\apps\\backend\\FlaskApp")
+	cliInfo := utils.ShowMenuModel{
+		Other: true,
+		Prompt: "Choose an option:",
+		Choices:[]string{".\\apps\\backend\\FlaskApp"},
+	}
+	appLocation := utils.ShowMenu(cliInfo,nil)
+	appLocation = filepath.Join(appLocation)
 
 	pythonVersion := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
@@ -27,7 +27,7 @@ func main() {
 		},
 	)
 	utils.RunCommand("pyenv", []string{"shell", pythonVersion})
-	cliInfo := utils.ShowMenuModel{
+	cliInfo = utils.ShowMenuModel{
 		Prompt:  "reinstall?",
 		Choices: []string{"true", "false"},
 	}

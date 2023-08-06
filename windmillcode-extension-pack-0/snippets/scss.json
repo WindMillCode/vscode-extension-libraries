@@ -28,7 +28,7 @@
 	},
 	"scss css color vars":{
 		"prefix": "--wml-orig",
-		"body": "--wml-$1:#{\\$wml-$1};\n--wml-original-$1:#{\\$wml-$1};"
+		"body": "--wml-$1:#{\\$wml-$1};\n--wml-orig-$1:#{\\$wml-$1};"
 	},
 	"@font face base64":{
 		"prefix":"@font-face",
