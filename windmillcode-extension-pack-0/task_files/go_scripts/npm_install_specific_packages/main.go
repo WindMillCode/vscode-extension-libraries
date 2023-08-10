@@ -37,7 +37,7 @@ func main() {
 	}
 	appLocation := utils.ShowMenu(cliInfo, nil)
 
-	packageList := utils.TakeVariableArgs(
+	packagesCLIString := utils.TakeVariableArgs(
 		utils.TakeVariableArgsStruct{
 			Prompt: "Provide the names of the packages you would like to install",
 			ErrMsg: "You must provide packages for installation",
@@ -59,6 +59,8 @@ func main() {
 	var wg sync.WaitGroup
 	regex0 := regexp.MustCompile(" ")
 	projectsList  := regex0.Split(projectsCLIString, -1)
+
+	packagesList  := regex0.Split(packagesCLIString, -1)
 	for _,project := range projectsList{
 		app := filepath.Join(project,appLocation)
 		wg.Add(1)
@@ -66,16 +68,16 @@ func main() {
 			defer wg.Done()
 			if reinstall == "true" {
 				if packageManager == "npm" {
-					utils.RunCommandInSpecificDirectory(packageManager, []string{"uninstall", packageList},app)
+					utils.RunCommandInSpecificDirectory(packageManager,  append([]string{"uninstall"} ,packagesList...),app)
 				} else{
-					utils.RunCommandInSpecificDirectory(packageManager, []string{"remove", packageList},app)
+					utils.RunCommandInSpecificDirectory(packageManager, append( []string{"remove"} ,packagesList...),app)
 				}
 			}
 
 			if packageManager == "npm" {
-				utils.RunCommandInSpecificDirectory(packageManager, []string{"install",depType, packageList},app)
+				utils.RunCommandInSpecificDirectory(packageManager, append( []string{"install",depType,"--verbose"} ,packagesList...),app)
 			} else{
-				utils.RunCommandInSpecificDirectory(packageManager, []string{"add", depType, packageList},app)
+				utils.RunCommandInSpecificDirectory(packageManager, append( []string{"add", depType} ,packagesList...),app)
 			}
 		}()
 

@@ -16,8 +16,11 @@ type TakeVariableArgsStruct struct{
 
 func TakeVariableArgs(obj TakeVariableArgsStruct) string {
 	var innerScriptArguments []string
-
-	fmt.Println(obj.Prompt)
+	prompt0 := obj.Prompt
+	if(obj.Default != ""){
+		prompt0 =fmt.Sprintf("%s (Default is %s)",obj.Prompt,obj.Default)
+	}
+	fmt.Println(prompt0)
 	fmt.Println("Enter the arguments to pass to the script (press ENTER to enter another argument, leave blank and press ENTER once done):")
 	for {
 		var argument string
