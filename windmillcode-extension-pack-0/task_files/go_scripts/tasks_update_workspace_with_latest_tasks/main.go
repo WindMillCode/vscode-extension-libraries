@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -56,7 +55,7 @@ func main() {
 
 	tasksJsonFilePath := filepath.Join(extensionFolder, tasksJsonRelativeFilePath)
 
-	content, err := ioutil.ReadFile(tasksJsonFilePath)
+	content, err := os.ReadFile(tasksJsonFilePath)
 	if err != nil {
 		fmt.Println("Error reading file:", err)
 		return
@@ -115,10 +114,7 @@ func main() {
 			return
 		}
 
-		if err := os.RemoveAll(goScriptsDestDirPath); err != nil {
-			fmt.Println("Error:", err)
-			return
-		}
+
 		utils.CopyDir(goScriptsSourceDirPath, goScriptsDestDirPath)
 	}
 

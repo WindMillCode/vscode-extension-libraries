@@ -160,7 +160,25 @@
       }
     },
     {
+      "label": "misc: copy to keep projects in sync",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
       "label": "python: install app deps",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 10
+      }
+    },
+    {
+      "label": "python: install specific packages",
       "type": "shell",
 
 

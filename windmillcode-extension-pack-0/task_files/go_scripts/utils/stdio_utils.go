@@ -32,6 +32,8 @@ func TakeVariableArgs(obj TakeVariableArgsStruct) string {
 	input := strings.Join(innerScriptArguments," ")
 	if(input == "" && obj.ErrMsg != ""){
 		panic(obj.ErrMsg)
+	} else if (input == "" && obj.Default !=""){
+		input = obj.Default
 	}
 	return input
 }

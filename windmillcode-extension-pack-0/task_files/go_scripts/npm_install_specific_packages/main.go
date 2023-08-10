@@ -1,7 +1,11 @@
 package main
 
 import (
+	"fmt"
+	"os"
 	"path/filepath"
+	"regexp"
+	"sync"
 
 	"github.com/windmillcode/go_scripts/utils"
 )
@@ -9,6 +13,17 @@ import (
 func main() {
 
 	utils.CDToWorkspaceRooot()
+	workspaceRoot,err:= os.Getwd()
+	if err !=nil {
+		fmt.Println("there was an error while trying to receive the current dir")
+	}
+	projectsCLIString := utils.TakeVariableArgs(
+		utils.TakeVariableArgsStruct{
+			Prompt: "Provide the paths of all the projects where you want the actions to take place",
+			Default:workspaceRoot,
+		},
+	)
+
 	cliInfo := utils.ShowMenuModel{
 		Prompt: "choose the package manager",
 		Choices:[]string{"npm","yarn"},
@@ -41,19 +56,31 @@ func main() {
 	}
 	reinstall := utils.ShowMenu(cliInfo, nil)
 
-	utils.CDToLocation(appLocation)
-	if reinstall == "true" {
-		if packageManager == "npm" {
-			utils.RunCommand(packageManager, []string{"uninstall", packageList})
-		} else{
-			utils.RunCommand(packageManager, []string{"remove", packageList})
-		}
-	}
+	var wg sync.WaitGroup
+	regex0 := regexp.MustCompile(" ")
+	projectsList  := regex0.Split(projectsCLIString, -1)
+	for _,project := range projectsList{
+		app := filepath.Join(project,appLocation)
+		wg.Add(1)
+		go func(){
+			defer wg.Done()
+			if reinstall == "true" {
+				if packageManager == "npm" {
+					utils.RunCommandInSpecificDirectory(packageManager, []string{"uninstall", packageList},app)
+				} else{
+					utils.RunCommandInSpecificDirectory(packageManager, []string{"remove", packageList},app)
+				}
+			}
 
-	if packageManager == "npm" {
-		utils.RunCommand(packageManager, []string{"install",depType, packageList})
-	} else{
-		utils.RunCommand(packageManager, []string{"add", depType, packageList})
+			if packageManager == "npm" {
+				utils.RunCommandInSpecificDirectory(packageManager, []string{"install",depType, packageList},app)
+			} else{
+				utils.RunCommandInSpecificDirectory(packageManager, []string{"add", depType, packageList},app)
+			}
+		}()
+
 	}
+	wg.Wait()
+
 
 }
