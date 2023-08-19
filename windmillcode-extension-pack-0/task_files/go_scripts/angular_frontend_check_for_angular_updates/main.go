@@ -25,7 +25,7 @@ func main() {
 	)
 	angularAppLocation := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
-			Prompt: []string{""},
+			Prompt: []string{"provide the relative path to the angular app (note : for every project  the relative path should be the same other wi)"},
 			Default: "apps/frontend/AngularApp",
 		},
 	)
@@ -37,8 +37,9 @@ func main() {
 		app := filepath.Join(project,angularAppLocation)
 		wg.Add(1)
 		go func ()  {
+			defer wg.Done()
 			utils.RunCommandInSpecificDirectory("npx", []string{"ng", "update"},app)
 		}()
-		wg.Done()
 	}
+	wg.Wait()
 }

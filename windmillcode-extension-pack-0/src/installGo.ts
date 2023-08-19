@@ -10,7 +10,7 @@ import * as vscode from 'vscode';
 const semver = require('semver');
 let AdmZip = require("adm-zip");
 
-const fetch = require('node-fetch');
+
 const targz = require('tar.gz2');
 
 let downloadFile =async (url: string, destinationPath: string): Promise<void> => {
@@ -268,9 +268,6 @@ export let installGo = async (extensionRoot:string,goVersion="1.20.7",) => {
   }
   else{
 
-    await downloadFile(goURL,goArchivePath)
-    let result = await unzipTarGz(goArchivePath,installLocation)
-    notifyDeveloper(null,` Download result is ${result}`)
     if(executable === "windmillcode_go"){
       await addToPath(path.normalize(`${goInstallDir}/bin/`))
     }

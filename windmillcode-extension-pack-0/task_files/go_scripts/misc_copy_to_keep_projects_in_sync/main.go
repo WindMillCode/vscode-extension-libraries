@@ -28,7 +28,7 @@ func main() {
 	projectsDestCLIString := utils.TakeVariableArgs(
 		utils.TakeVariableArgsStruct{
 			Prompt: "Provide the paths of all the projects to copy the files/dirs",
-			Default:workspaceRoot,
+			ErrMsg:"Projects must be provided",
 		},
 	)
 
@@ -51,7 +51,7 @@ func main() {
 		wg.Add(1)
 		go func(){
 			defer wg.Done()
-			fileInfo, err := os.Stat(destPath)
+			fileInfo, err := os.Stat(sourcePath)
 			if err != nil {
 				fmt.Println("Error:", err)
 				return

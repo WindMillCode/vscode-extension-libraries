@@ -128,6 +128,21 @@ func RunCommandAndGetOutput(command string,args []string) string {
 	return string(output)
 }
 
+func RunCommandInSpecifcDirectoryAndGetOutput(command string,args []string,targetDir string) string {
+
+	fullCommand :=  fmt.Sprintf("Running command: %s %s", command,strings.Join(args," "))
+	fmt.Println(fullCommand)
+	cmd := exec.Command(command, args...)
+	cmd.Dir = targetDir
+	output,err := cmd.Output()
+	if err != nil {
+		msg := fmt.Sprintf("Could not run command %s %s \n This was the err %s", command,strings.Join(args," "),err.Error())
+		panic(msg)
+
+	}
+	return string(output)
+}
+
 
 
 

@@ -99,3 +99,20 @@ v 3.0.1
 
 v 3.1.0
   * hammered out issues for mac and linux should be working now
+
+v 3.2.0
+  * angular and npm and python tasks support mutliple projects, where you can input multiple project paths and actions happen concurrently
+  * add misc copy items to copy an item from location to all destination locatins
+
+v 3.2.1
+  * removed node-fetch fixed a bug
+
+v 3.3.0
+  * fixed an issue concerning other for show menu now working as intended
+
+v 3.3.1
+  * updated update_angular script based on npm recommdations
+
+v 3.3.2
+  * made a fix in go script utils
+  

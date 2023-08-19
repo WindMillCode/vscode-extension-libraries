@@ -57,10 +57,9 @@ func main() {
 		go func(){
 			defer wg.Done()
 			if reinstall == "true" {
-				if packageManager == "npm" {
-					utils.RunCommandInSpecificDirectory("rm", []string{"package-lock.json"},app)
-				} else {
-					utils.RunCommandInSpecificDirectory("rm", []string{"yarn.lock"},app)
+				utils.RunCommandInSpecificDirectory("rm", []string{"package-lock.json"},app)
+				utils.RunCommandInSpecificDirectory("rm", []string{"yarn.lock"},app)
+				if packageManager == "yarn"  {
 					utils.RunCommandInSpecificDirectory(packageManager, []string{"cache", "clean"},app)
 				}
 				utils.RunCommandInSpecificDirectory("rm", []string{"-r", "node_modules"},app)
