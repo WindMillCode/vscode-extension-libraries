@@ -11,7 +11,7 @@ export function getOutputChannel(): vscode.OutputChannel {
 	return _channel;
 }
 
-export let letDeveloperKnowAboutAnIssue = (err?:any,msg?:string)=>{
+export let notifyDeveloper = (err?:any,msg?:string)=>{
   let channel = getOutputChannel();
   if (err?.stderr) {
     channel.appendLine(err.stderr);
@@ -84,7 +84,7 @@ export let createTask = (params = new CreateTaskParams())=>{
     }
   }
   catch(e){
-    letDeveloperKnowAboutAnIssue(e,'Issue while loading windmillcode' +taskSource +' tasks.')
+    notifyDeveloper(e,'Issue while loading windmillcode' +taskSource +' tasks.')
     return null
   }
 

@@ -245,7 +245,6 @@ export let installGo = async (extensionRoot:string,goVersion="1.20.7",) => {
     vscode.window.showInformationMessage("Installing go please wait")
 
     await downloadFile(goURL,goArchivePath)
-    //@ts-ignore
     await unzipFn(goArchivePath,installLocation)
 
 
