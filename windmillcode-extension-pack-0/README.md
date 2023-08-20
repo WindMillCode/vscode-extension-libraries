@@ -115,4 +115,6 @@ v 3.3.1
 
 v 3.3.2
   * made a fix in go script utils
-  
+
+v 3.3.3
+  * updated go
