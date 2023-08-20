@@ -67,6 +67,15 @@
       }
     },
     {
+      "label": "docker: backup all images",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
       "label": "docker: run",
       "type": "shell",
 

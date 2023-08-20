@@ -28,6 +28,11 @@
       "workspaceRoot, err := os.Getwd()\nif err != nil {\n\treturn\n}\nsettings, err := utils.GetSettingsJSON(workspaceRoot)\nif err != nil {\n\treturn\n}"
     ],
     "description": "remove a file or folder"
-
+	},
+	"wait group template":{
+		"prefix":"sync.WaitGroup",
+		"body":[
+			"var wg sync.WaitGroup\nwg.Add(1)\ngo func() {\n\t\tdefer wg.Done()\n\t}()\nwg.Wait()"
+		]
 	}
 }

@@ -118,3 +118,7 @@ v 3.3.2
 
 v 3.3.3
   * updated go
+
+v 3.4.0
+  * docker backup immages, allows the user to backup their images and containers to any specified location
+  * added wait.groups go snippet as well

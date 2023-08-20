@@ -83,7 +83,7 @@ let removeFile = (filePath: string): void => {
   });
 };
 
-let checkGoInstalledInExtension =  (installDir:string,desiredVersion="1.20.7",addedToPath=false)=>{
+let checkGoInstalledInExtension =  (installDir:string,desiredVersion="1.21.0",addedToPath=false)=>{
   return new Promise(async(resolve,rej)=>{
     let executable = "windmillcode_go"
     exec(`${executable} version`,async  (error, stdout, stderr) => {
@@ -117,7 +117,7 @@ let checkGoInstalledInExtension =  (installDir:string,desiredVersion="1.20.7",ad
   })
 }
 
-const checkGoInstalled = (installDir:string,desiredVersion="1.20.7") => {
+const checkGoInstalled = (installDir:string,desiredVersion="1.21.0") => {
   return new Promise((resolve, reject) => {
     exec('go version', (error, stdout, stderr) => {
       if (error) {
@@ -188,7 +188,7 @@ async function copyFile(sourcePath:string, destinationPath:string) {
 
 
 
-export let installGo = async (extensionRoot:string,goVersion="1.20.7",) => {
+export let installGo = async (extensionRoot:string,goVersion="1.21.0",) => {
   // Change these values as needed
   let installLocation = path.normalize(extensionRoot+"/task_files")
   notifyDeveloper(installLocation)
