@@ -1,0 +1,15 @@
+
+{
+  "Outline1":{
+    "prefix": "border",
+    "body": "decoration: BoxDecoration(border: Border.all()),"
+  },
+  "riverPodProvider":{
+    "prefix": "ref.watch",
+    "body": "final wml$1 = ref.watch(WML$1Provider)"
+  },
+  "Future delayed zero":{
+    "prefix":"Future.delayed(Duration.zero",
+    "body":"Future.delayed(Duration.zero, () { \n\n\t$0\n });"
+  }
+}

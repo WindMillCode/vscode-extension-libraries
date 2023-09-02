@@ -114,6 +114,42 @@
       }
     },
     {
+      "label": "flutter mobile: create page",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "flutter mobile: install specific packages",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "flutter mobile: create riverpod provider",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "flutter mobile: build",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
       "label": "firebase cloud: run emulators",
       "type": "shell",
 

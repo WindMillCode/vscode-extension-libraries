@@ -23,7 +23,7 @@ func main() {
 	pageName := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt: []string{"The name of the page on the website type in snake case "},
-			ErrMsg: "Your must provide a page name",
+			ErrMsg: "You must provide a page name",
 		},
 	)
 	utils.CDToLocation(pageFolder)

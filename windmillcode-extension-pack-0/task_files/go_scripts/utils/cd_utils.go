@@ -30,4 +30,8 @@ func CDToTestNGApp(){
 	CDToLocation(filepath.Join("apps","testing","testng"))
 }
 
+func CDToFlutterApp(){
+	CDToLocation(filepath.Join("apps","mobile","FlutterApp"))
+}
+
 
