@@ -6,10 +6,31 @@
   },
   "riverPodProvider":{
     "prefix": "ref.watch",
-    "body": "final wml$1 = ref.watch(WML$1Provider)"
+    "body": "final $1 = ref.watch(${1/(.*)/${1:/capitalize}/}Provider)"
   },
   "Future delayed zero":{
     "prefix":"Future.delayed(Duration.zero",
     "body":"Future.delayed(Duration.zero, () { \n\n\t$0\n });"
-  }
+  },
+  "Material page route":{
+    "prefix":"Navigator.push",
+    "body":"Navigator.push(context, MaterialPageRoute(builder: (context) {\n\treturn BannerExample();\n}));"
+  },
+  "Async Riverpod  provider when":{
+    "prefix":".when",
+    "body":"$1.when(\n\tloading: () => CircularProgressIndicator(),\n\terror: (err, stack) =>\n\t\tText('An Error has ocurred'),\n\tdata:(wmlDB){\n\treturn Container();\n}\n)"
+  },
+  "MediaQueryContext":{
+    "prefix":"MediaQuery.of(",
+    "body":"MediaQuery.of(context).size"
+  },
+  "Scaffold Messenger":{
+    "prefix":"ScaffoldMessenger.of",
+    "body":"if (!context.mounted) return;\\nScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));"
+  },
+  "Print Flutter Error and StackTrace": {
+    "prefix": "flterr",
+    "body": ["error: (err, stack) { err = err.toString(); var stackString = stack.toString(); return SingleChildScrollView(child: Text(\"\\$err\\n\\$stackString\")); }, "],
+    "description": "Print Flutter error and stack trace"
+}
 }

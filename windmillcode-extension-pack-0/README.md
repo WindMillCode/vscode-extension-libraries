@@ -122,3 +122,10 @@ v 3.3.3
 v 3.4.0
   * docker backup immages, allows the user to backup their images and containers to any specified location
   * added wait.groups go snippet as well
+
+v 4.0.0
+  * added flutter support
+  * added dart snippets
+
+v 4.0.1
+* additional flutter dart snipperts/ tasks
