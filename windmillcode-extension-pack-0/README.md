@@ -129,3 +129,6 @@ v 4.0.0
 
 v 4.0.1
 * additional flutter dart snipperts/ tasks
+
+v 4.0.2
+* additional flutter dart snipperts/ tasks

@@ -6,7 +6,7 @@
   },
   "riverPodProvider":{
     "prefix": "ref.watch",
-    "body": "final $1 = ref.watch(${1/(.*)/${1:/capitalize}/}Provider)"
+    "body": "final $1 = ref.watch(${1/(.*)/${1:/capitalize}/}RiverpodProvider)"
   },
   "Future delayed zero":{
     "prefix":"Future.delayed(Duration.zero",

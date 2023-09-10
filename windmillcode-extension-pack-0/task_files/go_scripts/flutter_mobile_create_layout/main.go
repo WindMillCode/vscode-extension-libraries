@@ -25,15 +25,16 @@ func main() {
 	}
 	pageName := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
-			Prompt: []string{"The name you would like to give to the page"},
+			Prompt: []string{"The name you would like to give to the layout"},
 			ErrMsg: "You must provide a value",
 		},
 	)
-	entityName:= pageName+"Page"
+	entityName := pageName + "Layout"
 	snakeCasePageName := strcase.ToSnake(pageName)
-	providerLocation := filepath.Join(flutterApp, "lib", "pages", snakeCasePageName)
-	newTemplatePath := filepath.Join(providerLocation, fmt.Sprintf("%s.dart", snakeCasePageName))
-	newRiverPodProviderPath := filepath.Join(providerLocation, fmt.Sprintf("%s_riverpod_provider.dart", snakeCasePageName))
+	snakeCaseFileName := strcase.ToSnake(pageName + "Layout")
+	providerLocation := filepath.Join(flutterApp, "lib", "layouts", snakeCasePageName)
+	newTemplatePath := filepath.Join(providerLocation, fmt.Sprintf("%s.dart", snakeCaseFileName))
+	newRiverPodProviderPath := filepath.Join(providerLocation, fmt.Sprintf("%s_riverpod_provider.dart", snakeCaseFileName))
 	utils.CopyDir(templateLocation, providerLocation)
 	os.Rename(
 		filepath.Join(providerLocation, "template_page.dart"),
@@ -51,7 +52,7 @@ func main() {
 		}
 		fileString = strings.ReplaceAll(fileString, "WMLTemplate", strcase.ToCamel(entityName))
 		fileString = strings.ReplaceAll(fileString, "Wml", "WML")
-		fileString = strings.ReplaceAll(fileString, "template", snakeCasePageName)
+		fileString = strings.ReplaceAll(fileString, "template", snakeCaseFileName)
 		utils.OverwriteFile(path, fileString)
 	}
 

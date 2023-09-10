@@ -132,6 +132,33 @@
       }
     },
     {
+      "label": "flutter mobile: create layout",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "flutter mobile: create shared widget",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "flutter mobile: create riverpod async notifier provider",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
       "label": "flutter mobile: create riverpod provider",
       "type": "shell",
 

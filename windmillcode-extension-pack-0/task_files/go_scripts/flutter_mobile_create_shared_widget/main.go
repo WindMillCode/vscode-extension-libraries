@@ -29,7 +29,6 @@ func main() {
 			ErrMsg: "You must provide a value",
 		},
 	)
-	entityName:= pageName+"Page"
 	snakeCasePageName := strcase.ToSnake(pageName)
 	providerLocation := filepath.Join(flutterApp, "lib", "pages", snakeCasePageName)
 	newTemplatePath := filepath.Join(providerLocation, fmt.Sprintf("%s.dart", snakeCasePageName))
@@ -49,7 +48,7 @@ func main() {
 		if err != nil {
 			return
 		}
-		fileString = strings.ReplaceAll(fileString, "WMLTemplate", strcase.ToCamel(entityName))
+		fileString = strings.ReplaceAll(fileString, "WMLTemplate", strcase.ToCamel(pageName))
 		fileString = strings.ReplaceAll(fileString, "Wml", "WML")
 		fileString = strings.ReplaceAll(fileString, "template", snakeCasePageName)
 		utils.OverwriteFile(path, fileString)
