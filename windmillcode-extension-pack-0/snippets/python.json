@@ -35,7 +35,7 @@
 	"flask: route":{
 		"prefix":"flask: route",
 		"body": [
-			"@$1.route('/$2',methods=['$3'])\ndef $1_$2():\n\tdata = request.json.get('data',{})\n\n\n\tres = APIMsgFormat(msg=\"A-OK\",code=CONFIGS.endpointMsgCodes[\"success\"])\n\treturn res.return_flask_response(),200"
+			"@$1.route('/$4',methods=['$3'])\ndef $1_$2():\n\tdata = request.json.get('data',{})\n\n\n\tres = APIMsgFormat(msg=\"A-OK\",code=CONFIGS.endpointMsgCodes[\"success\"])\n\treturn res.return_flask_response(),200"
 		]
 	},
 	"flask: sqlalchemy query":{

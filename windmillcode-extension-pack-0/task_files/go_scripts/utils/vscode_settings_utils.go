@@ -8,13 +8,21 @@ import (
 )
 
 
+type GitCloneSubdirsStruct  struct {
+	RepoURL    string `json:"repoURL"`
+	StagingDir string `json:"stagingDir"`
+	Subdirs    string `json:"subdirs"`
+	DestDir    string `json:"destDir"`
+}
 
 type WindmillcodeExtensionPack struct {
-	SQLDockerContainerName string   `json:"sqlDockerContainerName"`
-	DatabaseName           string   `json:"databaseName"`
-	DatabaseOptions        []string `json:"databaseOptions"`
-	OpenAIAPIKey0          string   `json:"openAIAPIKey0"`
-	LangCodes0	           string   `json:"langCodes0"`
+	SQLDockerContainerName string                `json:"sqlDockerContainerName"`
+	DatabaseName           string                `json:"databaseName"`
+	DatabaseOptions        []string              `json:"databaseOptions"`
+	OpenAIAPIKey0          string                `json:"openAIAPIKey0"`
+	LangCodes0	           string                `json:"langCodes0"`
+	PythonVersion0         string                `json:"pythonVersion0"`
+	GitCloneSubdirs        GitCloneSubdirsStruct `json:"gitCloneSubdirs"`
 }
 
 type VSCodeSettings struct {

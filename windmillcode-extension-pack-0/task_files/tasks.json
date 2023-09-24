@@ -76,6 +76,15 @@
       }
     },
     {
+      "label": "docker: restore all images",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
       "label": "docker: run",
       "type": "shell",
 
@@ -106,6 +115,15 @@
     },
     {
       "label": "flask backend: test",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "flask backend: create controller",
       "type": "shell",
 
 
@@ -196,6 +214,15 @@
       }
     },
     {
+      "label": "git: clone subdirs",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
       "label": "git: merge changes from current dev branch",
       "type": "shell",
 
@@ -223,7 +250,25 @@
       }
     },
     {
+      "label": "misc: optimize images",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
       "label": "misc: make a new doc item",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "misc: open doc item in vscode",
       "type": "shell",
 
 

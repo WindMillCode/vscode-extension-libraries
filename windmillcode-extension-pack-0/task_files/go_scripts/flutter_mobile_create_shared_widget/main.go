@@ -17,25 +17,26 @@ func main() {
 		return
 	}
 	templateLocation := filepath.Join(scriptLocation, "template")
-	utils.CDToWorkspaceRooot()
+	utils.CDToWorkspaceRoot()
 	utils.CDToFlutterApp()
 	flutterApp, err := os.Getwd()
 	if err != nil {
 		return
 	}
-	pageName := utils.GetInputFromStdin(
+	targetName := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
-			Prompt: []string{"The name you would like to give to the page"},
+			Prompt: []string{"The name you would like to give to the widget"},
 			ErrMsg: "You must provide a value",
 		},
 	)
-	snakeCasePageName := strcase.ToSnake(pageName)
-	providerLocation := filepath.Join(flutterApp, "lib", "pages", snakeCasePageName)
-	newTemplatePath := filepath.Join(providerLocation, fmt.Sprintf("%s.dart", snakeCasePageName))
-	newRiverPodProviderPath := filepath.Join(providerLocation, fmt.Sprintf("%s_riverpod_provider.dart", snakeCasePageName))
+	snakeCaseName := strcase.ToSnake(targetName)
+	snakeCaseWidgetName := strcase.ToSnake(targetName + "Widget")
+	providerLocation := filepath.Join(flutterApp, "lib", "pages", snakeCaseName)
+	newTemplatePath := filepath.Join(providerLocation, fmt.Sprintf("%s.dart", snakeCaseWidgetName))
+	newRiverPodProviderPath := filepath.Join(providerLocation, fmt.Sprintf("%s_riverpod_provider.dart", snakeCaseWidgetName))
 	utils.CopyDir(templateLocation, providerLocation)
 	os.Rename(
-		filepath.Join(providerLocation, "template_page.dart"),
+		filepath.Join(providerLocation, "template_widget.dart"),
 		newTemplatePath,
 	)
 	os.Rename(
@@ -48,9 +49,9 @@ func main() {
 		if err != nil {
 			return
 		}
-		fileString = strings.ReplaceAll(fileString, "WMLTemplate", strcase.ToCamel(pageName))
+		fileString = strings.ReplaceAll(fileString, "WMLTemplate", strcase.ToCamel(targetName))
 		fileString = strings.ReplaceAll(fileString, "Wml", "WML")
-		fileString = strings.ReplaceAll(fileString, "template", snakeCasePageName)
+		fileString = strings.ReplaceAll(fileString, "template", snakeCaseWidgetName)
 		utils.OverwriteFile(path, fileString)
 	}
 

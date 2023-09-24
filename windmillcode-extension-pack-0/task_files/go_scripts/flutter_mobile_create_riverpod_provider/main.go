@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+
 	"github.com/iancoleman/strcase"
 	"github.com/windmillcode/go_scripts/utils"
 )
@@ -16,7 +17,7 @@ func main() {
 		return
 	}
 	templateLocation := filepath.Join(scriptLocation, "template")
-	utils.CDToWorkspaceRooot()
+	utils.CDToWorkspaceRoot()
 	utils.CDToFlutterApp()
 	flutterApp, err := os.Getwd()
 	if err != nil {
@@ -29,7 +30,7 @@ func main() {
 		},
 	)
 
-	snakeCaseProviderName := strcase.ToSnake(providerName);
+	snakeCaseProviderName := strcase.ToSnake(providerName)
 	providerLocation := filepath.Join(flutterApp, "lib", "util", "riverpod_providers", snakeCaseProviderName)
 	newTemplatePath := filepath.Join(providerLocation, fmt.Sprintf("%s.dart", snakeCaseProviderName))
 	utils.CopyDir(templateLocation, providerLocation)

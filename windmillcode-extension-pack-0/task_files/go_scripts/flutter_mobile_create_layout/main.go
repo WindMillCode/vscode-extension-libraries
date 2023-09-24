@@ -17,7 +17,7 @@ func main() {
 		return
 	}
 	templateLocation := filepath.Join(scriptLocation, "template")
-	utils.CDToWorkspaceRooot()
+	utils.CDToWorkspaceRoot()
 	utils.CDToFlutterApp()
 	flutterApp, err := os.Getwd()
 	if err != nil {

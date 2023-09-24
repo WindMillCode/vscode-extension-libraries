@@ -17,7 +17,7 @@ func main() {
 		return
 	}
 	templateLocation := filepath.Join(scriptLocation, "template")
-	utils.CDToWorkspaceRooot()
+	utils.CDToWorkspaceRoot()
 	utils.CDToFlutterApp()
 	flutterApp, err := os.Getwd()
 	if err != nil {
@@ -29,7 +29,7 @@ func main() {
 			ErrMsg: "You must provide a value",
 		},
 	)
-	entityName:= pageName+"Page"
+	entityName := pageName + "Page"
 	snakeCasePageName := strcase.ToSnake(pageName)
 	providerLocation := filepath.Join(flutterApp, "lib", "pages", snakeCasePageName)
 	newTemplatePath := filepath.Join(providerLocation, fmt.Sprintf("%s.dart", snakeCasePageName))

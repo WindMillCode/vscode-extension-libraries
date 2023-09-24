@@ -69,6 +69,6 @@
 	},
 	"wml color":{
 		"prefix":"orig",
-		"body":"wml$1:rootStyle().getPropertyValue('--wml-$2'),\nxrig$1:rootStyle().getPropertyValue('--wml-orig-$2'),"
+		"body":"wml$1:rootStyle().getPropertyValue('--wml-$2'),\nwmlOrig$1:rootStyle().getPropertyValue('--wml-orig-$2'),"
 	}
 }

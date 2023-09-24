@@ -6,9 +6,9 @@ import (
 
 func main() {
 
-	utils.CDToWorkspaceRooot()
+	utils.CDToWorkspaceRoot()
 	utils.CDToFlutterApp()
 
-	utils.RunCommand("dart", []string{"fix","--apply"})
-	utils.RunCommand("flutter", []string{"build","appbundle"})
+	utils.RunCommand("dart", []string{"fix", "--apply"})
+	utils.RunCommand("flutter", []string{"build", "appbundle"})
 }

@@ -8,16 +8,14 @@ import (
 
 func main() {
 
-	utils.CDToWorkspaceRooot()
+	utils.CDToWorkspaceRoot()
 	cliInfo := utils.ShowMenuModel{
-		Other: true,
-		Prompt: "Choose an option:",
-		Choices:[]string{".\\apps\\mobile\\FlutterApp"},
+		Other:   true,
+		Prompt:  "Choose an option:",
+		Choices: []string{".\\apps\\mobile\\FlutterApp"},
 	}
-	appLocation := utils.ShowMenu(cliInfo,nil)
+	appLocation := utils.ShowMenu(cliInfo, nil)
 	appLocation = filepath.Join(appLocation)
-
-
 
 	packageList := utils.TakeVariableArgs(
 		utils.TakeVariableArgsStruct{
@@ -26,9 +24,8 @@ func main() {
 		},
 	)
 
-
 	utils.CDToLocation(appLocation)
 
-	utils.RunCommand("flutter", []string{"pub","add", packageList})
+	utils.RunCommand("flutter", []string{"pub", "add", packageList})
 
 }

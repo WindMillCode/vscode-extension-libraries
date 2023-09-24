@@ -33,11 +33,16 @@
 	"@font face base64":{
 		"prefix":"@font-face",
 		"description":"font face template for base64",
-		"body":"@font-face {\n\tfont-family: '$1';\n\tfont-style: normal;\n\tfont-weight: 900;\n\tfont-display: block;\n\tsrc: url(data:font/truetype;base64,) format('truetype'),\n\turl(data:application/vnd.ms-fontobject;base64,) format('embedded-opentype'),\n\turl(data:image/svg+xml;base64,) format('svg'),\n\turl(data:font/woff;base64,) format('woff'),\n\turl(data:font/woff2;base64,) format('woff2');\n\n}"
+		"body":"@font-face {\n\tfont-family: '$1';\n\tfont-style: normal;\n\tfont-weight: 900;\n\tfont-display: block;\n\tsrc:url(data:font/woff2;base64,) format('woff2'),\n\t url(data:font/truetype;base64,) format('truetype'),\n\turl(data:application/vnd.ms-fontobject;base64,) format('embedded-opentype'),\n\turl(data:image/svg+xml;base64,) format('svg'),\n\turl(data:font/woff;base64,) format('woff');\n\n}"
 	},
 	"@font face url":{
 		"prefix":"@font-face",
 		"description":"font face template for url",
-		"body":"@font-face {\n\tfont-family: '$1';\n\tfont-style: normal;\n\tfont-weight: 900;\n\tfont-display: block;\n\tsrc: url('../fonts/$1/$1.ttf') format('truetype'),\n\turl('../fonts/$1/$1.eot') format('embedded-opentype'),\n\turl('../fonts/$1/$1.svg') format('svg'),\n\turl('../fonts/$1/$1.woff') format('woff'),\n\turl('../fonts/$1/$1.woff2') format('woff2');\n}"
+		"body":"@font-face {\n\tfont-family: '$1';\n\tfont-style: normal;\n\tfont-weight: 900;\n\tfont-display: block;\n\tsrc:url('../fonts/$1/$1.woff2') format('woff2')\n\t url('../fonts/$1/$1.ttf') format('truetype'),\n\turl('../fonts/$1/$1.eot') format('embedded-opentype'),\n\turl('../fonts/$1/$1.svg') format('svg'),\n\turl('../fonts/$1/$1.woff') format('woff');\n}"
+	},
+	"wml-spacing":{
+		"prefix": "spacing",
+		"body": "\\$wml-spacing$1"
 	}
+
 }

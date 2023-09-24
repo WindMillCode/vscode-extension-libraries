@@ -12,7 +12,7 @@ import (
 
 func main() {
 
-	utils.CDToWorkspaceRooot()
+	utils.CDToWorkspaceRoot()
 	utils.CDToTestNGApp()
 	testNGApp, err := os.Getwd()
 	if err != nil {

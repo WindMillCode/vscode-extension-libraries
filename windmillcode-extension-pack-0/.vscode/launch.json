@@ -16,7 +16,7 @@
       ],
       "sourceMaps": true,
       "outFiles": ["${workspaceRoot}/out/src/**/*.js"],
-      "preLaunchTask": "yarn: watch"
+      "preLaunchTask": "npm: watch"
     }
   ]
 }

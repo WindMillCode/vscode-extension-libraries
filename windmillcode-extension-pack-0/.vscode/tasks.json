@@ -6,8 +6,8 @@
 
 		{
 			"type": "shell",
-      "label": "yarn: watch",
-			"command":"yarn compile;yarn watch",
+      "label": "npm: watch",
+			"command":"npm run compile;npm run watch",
 			"problemMatcher": "$tsc-watch",
 			"isBackground": true,
 			"presentation": {
@@ -51,7 +51,7 @@
       "type":"shell",
       "dependsOn":"misc: rm all vsix",
       "windows":{
-        "command":"npx vsce package ${input:misc_package_project_0}"
+        "command":"npx vsce package ${input:misc_package_project_0};start explorer ."
       }
     },
 		{
