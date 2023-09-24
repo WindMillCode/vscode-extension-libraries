@@ -20,8 +20,22 @@ func main() {
 	}
 
 	gitCloneSubDirs := settings.ExtensionPack.GitCloneSubdirs
-	fmt.Sprintln(gitCloneSubDirs)
-	stagingDir := os.TempDir()
+
+	// stagingDir := os.TempDir()
+	stagingDir := utils.GetInputFromStdin(
+		utils.GetInputFromStdinStruct{
+			Prompt: []string{"Provide the staging dir"},
+			Default: gitCloneSubDirs.StagingDir,
+		},
+	)
+	cliInfo := utils.ShowMenuModel{
+		Prompt: "deleteStaging Dir on Finish?",
+		Choices:[]string{"YES","NO"},
+	}
+	deleteStagingDir := utils.ShowMenu(cliInfo,nil)
+	if stagingDir == ""{
+		stagingDir =  os.TempDir()
+	}
 	repoURL := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt:  []string{"provide the repoURL"},
@@ -119,13 +133,23 @@ func main() {
 
 		if suffix!= "" {
 			dest := filepath.Join(destDir,suffix)
-
-			utils.CopyDir(src,dest)
+			entryType,_ := utils.IsFileOrFolder(src)
+			// fmt.Println(entryType)
+			// fmt.Println(dest)
+			// fmt.Println(src)
+			if entryType =="dir" {
+				utils.CopyDir(src,dest)
+			} else{
+				utils.CopyFile(src,dest)
+			}
 		}
 
 	}
 
-	os.RemoveAll(stagingDir)
-	fmt.Println(stagingDir)
+	if(deleteStagingDir =="YES"){
+		os.RemoveAll(stagingDir)
+	} else{
+		fmt.Println(stagingDir)
+	}
 
 }

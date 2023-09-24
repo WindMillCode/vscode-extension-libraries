@@ -137,4 +137,10 @@ v 4.0.3
   * flask create controller allows you to create a an endpoint and handler for a flask controller
 
 v 4.0.4
-  * added wml-spacing to make it easier to add spacing variables 
+  * added wml-spacing to make it easier to add spacing variables
+V 4.1.0
+* 2 powerful command line scripts
+  * git clone_subdirs
+      you choose a src and dest subdir location and the script pulls the src subdir
+  * misc opptimize images
+    * turns all imgs to jpg keeping quality and greatly reducing file size, svg excluded

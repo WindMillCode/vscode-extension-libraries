@@ -17,22 +17,28 @@ func main() {
 	if err != nil {
 		fmt.Println("there was an error while trying to receive the current dir")
 	}
+	settings, err := utils.GetSettingsJSON(workspaceRoot)
+	if err != nil {
+		return
+	}
+	miscOptimizeImages := settings.ExtensionPack.MiscOptimizeImages
+
 	projectsCLIString := utils.TakeVariableArgs(
 		utils.TakeVariableArgsStruct{
 			Prompt:  "Provide the paths of all the locations where you want your images optimized",
-			Default: workspaceRoot,
+			Default: miscOptimizeImages.Location,
 		},
 	)
 	backupLocation := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt:  []string{"This program will delete images in the directories provided please provide a path "},
-			Default: "",
+			Default: miscOptimizeImages.BackupLocation,
 		},
 	)
 	optimizePercent := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt:  []string{"enter a value from 1 -100 where 100 is perform no changes and 0 is full optimization, recommnded is"},
-			Default: "75",
+			Default: miscOptimizeImages.OptimizePercent,
 		},
 	)
 
@@ -56,16 +62,17 @@ func main() {
 				fmt.Println("An error occured while recursively goin through the directory", err)
 			}
 			for _, entry := range allEntries {
-				prefixImage := utils.HasSuffixInArray(entry, []string{".png", ".gif", ".ico", ".jpg", ".svg", ".webp", ".ico"}, true)
+				prefixImage := utils.HasSuffixInArray(entry, []string{".png", ".gif", ".ico", ".jpg",  ".webp", ".ico"}, true)
 				if prefixImage != "" {
 					imageFolderPath := filepath.Dir(entry)
 					imageFile := filepath.Base(entry)
-					wg.Add(1)
-					go func() {
-						defer wg.Done()
-						utils.RunCommandInSpecificDirectory("convert", []string{"-quality", optimizePercent, imageFile, fmt.Sprintf("%s%s", prefixImage, ".jpg")}, imageFolderPath);
-						os.Remove(entry)
-					}()
+					destImage := utils.HasPrefixInArray(prefixImage,[]string{imageFolderPath+"\\"},true)
+
+					utils.RunCommandInSpecificDirectory("convert", []string{
+						"-quality",
+						optimizePercent, imageFile, fmt.Sprintf("%s%s", destImage, ".jpg")}, imageFolderPath)
+					os.Remove(entry)
+
 				}
 			}
 

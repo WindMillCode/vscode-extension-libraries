@@ -51,7 +51,7 @@
       "type":"shell",
       "dependsOn":"misc: rm all vsix",
       "windows":{
-        "command":"npx vsce package ${input:misc_package_project_0};start explorer ."
+        "command":"npx vsce package ${input:misc_package_project_0};npx vsce publish ${input:misc_package_project_0};"
       }
     },
 		{

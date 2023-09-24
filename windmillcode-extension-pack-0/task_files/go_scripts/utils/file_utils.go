@@ -121,3 +121,15 @@ func RemoveDrivePath(folderPath string) (string) {
 	return resultPath
 }
 
+func IsFileOrFolder(path string) (string, error) {
+	fileInfo, err := os.Stat(path)
+	if err != nil {
+			return "", err
+	}
+
+	if fileInfo.IsDir() {
+			return "dir", nil
+	}
+
+	return "file", nil
+}

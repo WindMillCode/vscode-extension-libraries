@@ -1,4 +1,14 @@
 {
+
+	"for range loop": {
+    "prefix": "gorange",
+    "body": [
+        "for _, entry := range ${1:allEntries} {",
+        "\t// Your code here",
+        "}"
+    ],
+    "description": "Create a Go for range loop"
+},
 	"GetInput": {
 		"prefix": "GetInputFromStdin",
 		"body": [
