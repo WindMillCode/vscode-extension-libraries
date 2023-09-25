@@ -69,7 +69,7 @@ func main() {
 	for i, element := range newBranches {
 		newBranches[i] = strings.TrimSpace(element)
 	}
-	cliInfo := utils.ShowMenuModel{
+	cliInfo = utils.ShowMenuModel{
 		Prompt:  "select the branch name",
 		Choices: newBranches,
 		Other:   true,

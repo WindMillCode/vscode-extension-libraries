@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"runtime"
 	"sync"
 
 	"github.com/windmillcode/go_scripts/utils"
@@ -48,11 +49,11 @@ func main() {
 	for _, project := range projectsList {
 		app := filepath.Join(project)
 		normalizedBackupLocation := ""
-		// if runtime.GOOS == "windows"{
-		// 	normalizedBackupLocation = filepath.Join(backupLocation,utils.RemoveDrivePath(app))
-		// } else {
-		// }
-		normalizedBackupLocation = filepath.Join(backupLocation, app)
+		if runtime.GOOS == "windows"{
+			normalizedBackupLocation = filepath.Join(backupLocation,utils.RemoveDrivePath(app))
+		} else {
+			normalizedBackupLocation = filepath.Join(backupLocation, app)
+		}
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
@@ -69,8 +70,10 @@ func main() {
 					destImage := utils.HasPrefixInArray(prefixImage,[]string{imageFolderPath+"\\"},true)
 
 					utils.RunCommandInSpecificDirectory("convert", []string{
-						"-quality",
-						optimizePercent, imageFile, fmt.Sprintf("%s%s", destImage, ".jpg")}, imageFolderPath)
+						"-quality", optimizePercent,
+						 imageFile,
+						 "-background", "#FFFFFF", "-flatten",
+						 fmt.Sprintf("%s%s", destImage, ".jpg")}, imageFolderPath)
 					os.Remove(entry)
 
 				}

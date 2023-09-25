@@ -24,12 +24,13 @@
 		"prefix":"classPrefix",
 		"body": "[class]=\"classPrefix('$1')\""
 	},
+
 	"img":{
 		"prefix":"img",
-		"body": "<img [src]=$1.src [alt]=$1.alt />"
-	},
-	"angular img":{
-		"prefix":"img",
 		"body": "<img [src]=$1.src [alt]=\"$1.alt | translate\" />"
+	},
+	"wml-form":{
+		"prefix":"wml-form",
+		"body": "<wml-form [params]=\"mainForm\"></wml-form>"
 	}
 }
