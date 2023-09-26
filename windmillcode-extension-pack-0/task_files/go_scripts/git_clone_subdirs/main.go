@@ -28,6 +28,10 @@ func main() {
 			Default: gitCloneSubDirs.StagingDir,
 		},
 	)
+	if stagingDir == ""{
+		stagingDir = os.TempDir()
+		fmt.Println("using Temp for staging, this is risky and can end up replacing your files as folders! reach out to assist on how to get this fixed:)")
+	}
 	cliInfo := utils.ShowMenuModel{
 		Prompt: "deleteStaging Dir on Finish?",
 		Choices:[]string{"YES","NO"},

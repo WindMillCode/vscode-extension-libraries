@@ -77,17 +77,17 @@ func main() {
 			defer wg.Done()
 			if uninstall == "true" {
 				if packageManager == "npm" {
-					utils.RunCommandInSpecificDirectory(packageManager, append([]string{"uninstall"}, packagesList...), app)
+					utils.RunCommandInSpecificDirectory(packageManager, append([]string{"uninstall","-f"}, packagesList...), app)
 				} else {
-					utils.RunCommandInSpecificDirectory(packageManager, append([]string{"remove"}, packagesList...), app)
+					utils.RunCommandInSpecificDirectory(packageManager, append([]string{"remove","-f"}, packagesList...), app)
 				}
 			}
 
 			if install == "true"{
 				if packageManager == "npm" {
-					utils.RunCommandInSpecificDirectory(packageManager, append([]string{"install", depType, "--verbose"}, packagesList...), app)
+					utils.RunCommandInSpecificDirectory(packageManager, append([]string{"install","-f", depType, "--verbose"}, packagesList...), app)
 				} else {
-					utils.RunCommandInSpecificDirectory(packageManager, append([]string{"add", depType}, packagesList...), app)
+					utils.RunCommandInSpecificDirectory(packageManager, append([]string{"add","-f", depType}, packagesList...), app)
 				}
 			}
 

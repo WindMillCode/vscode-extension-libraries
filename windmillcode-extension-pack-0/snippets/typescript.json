@@ -1,8 +1,19 @@
 {
 
 	"class":{
-		"prefix": "class",
-		"body": "class $1 {\n\tconstructor(params:Partial<$1>={}){\n\t\tObject.assign(\n\t\t\tthis,\n\t\t\t{\n\t\t\t\t...params\n\t\t\t}\n\t\t)\n\t}\n}"
+		"prefix": "create-class",
+		"body": [
+			"export class $1 {",
+			"  constructor(params: Partial<$1> = {}) {",
+			"    let origParams = Object.entries(params)",
+			"      .filter(([key,val]) => {",
+			"        return !key.startsWith('param');",
+			"      });",
+			"    Object.assign(this, { ...Object.fromEntries(origParams) });",
+			"  }",
+			"}"
+		],
+		"description": "Creates a class with a filtered constructor"
 	},
 	"describe":{
 		"prefix": "describe",
