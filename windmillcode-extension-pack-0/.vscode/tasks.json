@@ -39,6 +39,17 @@
         "instanceLimit": 1
       }
     },
+    {
+      "label": "git: merge changes from current dev branch",
+      "type": "shell",
+      "windows": {
+        "command": "cd task_files\\go_scripts\\git_merge_changes_from_current_dev_branch ; windmillcode_go run . "
+      },
+      "runOptions": {
+        "runOn": "",
+        "instanceLimit": 1
+      }
+    },
 		{
       "label":"misc: rm all vsix",
       "type":"shell",
