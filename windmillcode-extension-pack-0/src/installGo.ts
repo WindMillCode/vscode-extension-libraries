@@ -156,9 +156,13 @@ async function addToPath(directory:string) {
   }[platform]
   if(process.env.PATH?.includes(directory)){
     notifyDeveloper(null,"go executable is already on the path")
+    concatPath(platform, directory);
+    changePermission(directory)
     return Promise.resolve(true)
   }
   process.env.PATH = `${directory}${path.delimiter}${process.env.PATH}`;
+  concatPath(platform, directory);
+  changePermission(directory)
   return new Promise((res,rej)=>{
     exec(`${actions?.env_setter}"${process.env.PATH}"`,(err,stdout,stderr)=>{
       if(err){
@@ -172,6 +176,22 @@ async function addToPath(directory:string) {
 
 }
 
+
+function concatPath(platform: string, directory: string) {
+  if (platform === "darwin") {
+    let execStart = "export PATH=$PATH:";
+    let finalExecMac = execStart.concat(directory);
+    editZshrcFile(finalExecMac);
+  }
+}
+
+function changePermission(directory: string){
+  let fileEnd = "windmillcode_go"
+  let finalFile = directory.concat(fileEnd)
+  fs.chmod(finalFile,0o777,() =>{
+    notifyDeveloper(null,`The permissions for ${finalFile} changed`);
+  })
+}
 
 async function copyFile(sourcePath:string, destinationPath:string) {
   const readFileAsync = promisify(fs.readFile);
@@ -237,6 +257,10 @@ export let installGo = async (extensionRoot:string,goVersion="1.21.0",) => {
 
   // @ts-ignore
   let executable:boolean |"go" |"windmillcode_go" = await checkGoInstalledInExtension(goInstallDir)
+  // need to add "export PATH=$PATH:" infornt of path location to complete
+  //let execStart = "export PATH=$PATH:/"
+  //let finalExecMac = execStart.concat(path.normalize(`${goInstallDir}/bin/`))
+  //editZshrcFile(finalExecMac);
 
 
   notifyDeveloper(null, ` Executable ${executable}`)
@@ -280,4 +304,33 @@ export let installGo = async (extensionRoot:string,goVersion="1.21.0",) => {
 
 
 
+}
+
+function editZshrcFile(newContent: string): void {
+  const homeDir = process.env.HOME || process.env.USERPROFILE;
+
+  if (!homeDir) {
+    console.error("Home directory not found.");
+    return;
+  }
+
+  const zshrcPath = path.join(homeDir, '.zshrc');
+
+  fs.readFile(zshrcPath, 'utf8', (err, data) => {
+    if (err) {
+      console.error("Error reading .zshrc:", err);
+      return;
+    }
+
+    const modifiedContent = data + '\n' + newContent;
+
+    fs.writeFile(zshrcPath, modifiedContent, 'utf8', (err) => {
+      if (err) {
+        console.error("Error writing to .zshrc:", err);
+        return;
+      }
+
+      console.log(".zshrc has been successfully updated.");
+    });
+  });
 }

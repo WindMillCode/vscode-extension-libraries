@@ -4,6 +4,12 @@
 	"version": "2.0.0",
 	"tasks": [
 
+    {
+      "label": "Pushing work to git remote",
+      "type": "shell",
+      "command": "git add .;git commit -m \"[UPDATE] additional work\";git branch --unset-upstream;git push origin HEAD"
+    },
+
 		{
 			"type": "shell",
       "label": "npm: watch",
