@@ -144,3 +144,6 @@ V 4.1.0
       you choose a src and dest subdir location and the script pulls the src subdir
   * misc opptimize images
     * turns all imgs to jpg keeping quality and greatly reducing file size, svg excluded
+
+v 5.0.0
+make extension work for  macos
