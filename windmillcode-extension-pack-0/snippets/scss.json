@@ -18,9 +18,9 @@
 		"prefix":"&",
 		"body":"&$1 {\n\t&0 {\n\n\t}\n}"
 	},
-	"scss rem vals":{
+	"scss em vals":{
 		"prefix":"px",
-		"body": "calc($1/10.6 * 1rem)"
+		"body": "calc($1/10.6 * 1em)"
 	},
 	"scss css color value":{
 		"prefix": "rgba",

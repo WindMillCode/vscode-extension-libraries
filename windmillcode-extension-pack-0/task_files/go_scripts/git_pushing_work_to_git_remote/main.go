@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/windmillcode/go_scripts/utils"
+	"github.com/windmillcode/go_cli_scripts/v3/utils"
 )
 
 func main() {
@@ -22,13 +22,13 @@ func main() {
 	repoLocation := utils.ShowMenu(cliInfo, nil)
 	cliInfo = utils.ShowMenuModel{
 		Prompt:  "choose the commit type",
-		Choices: []string{"UPDATE", "FIX", "PATCH", "BUG", "MERGE", "COMPLEX MERGE", "CHECKPOINT"},
+		Choices: []string{"UPDATE", "CHECKPOINT", "FIX", "PATCH", "BUG", "MERGE", "COMPLEX MERGE"},
 	}
 	commitType := utils.ShowMenu(cliInfo, nil)
 	commitType = fmt.Sprintf("[%s]", commitType)
 	commitMsg := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
-			Prompt:  []string{"Enter your commit msg: (leave blank to default to 'additional work')"},
+			Prompt:  []string{"Enter your commit msg:"},
 			Default: "additional work",
 		},
 	)

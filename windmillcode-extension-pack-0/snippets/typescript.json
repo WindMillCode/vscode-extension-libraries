@@ -1,7 +1,7 @@
 {
 
 	"class":{
-		"prefix": "create-class",
+		"prefix": "class",
 		"body": [
 			"export class $1 {",
 			"  constructor(params: Partial<$1> = {}) {",
@@ -15,14 +15,7 @@
 		],
 		"description": "Creates a class with a filtered constructor"
 	},
-	"describe":{
-		"prefix": "describe",
-		"body": "describe(\"$1\",()=>{\n\n})"
-	},
-	"it":{
-		"prefix": "it",
-		"body": "it(` when called | \n under normal conditions | \n does the required action `,()=>{\n$1\n})"
-	},
+
 	"takeUntil":{
 		"prefix": "takeUntil",
 		"body":"takeUntil(this.ngUnsub),"
@@ -81,5 +74,99 @@
 	"wml color":{
 		"prefix":"orig",
 		"body":"wml$1:rootStyle().getPropertyValue('--wml-$2'),\nwmlOrig$1:rootStyle().getPropertyValue('--wml-orig-$2'),"
+	},
+	"angular navigate":{
+		"prefix":"navigate",
+		"body":"this.utilService.router.navigateByUrl(ENV.nav.urls.$1)"
+	},
+	"angular wml-form":{
+		"prefix":"wml-form",
+		"body":"<wml-form [params]=mainForm></wml-form>"
+	},
+	"angular jasmine describe":{
+		"prefix": "describe",
+		"body": "describe(\"$1\",()=>{\n\n})"
+	},
+	"angular jasmine it":{
+		"prefix": "it",
+		"body": ["it(` when called | ",
+			"under normal conditions | ",
+			"does the required action `,()=>{",
+			"  // arrange",
+			"  $1",
+			"  // act",
+			"  ",
+			"  // assert",
+			"  ",
+			"})"
+		]
+	},
+	"angular jasmine it for async tests":{
+		"prefix": "it for async tests",
+		"body": ["it(` when called | ",
+			"  under normal conditions | ",
+			"  does the required action `,fakeAsync(()=>{",
+			"  // arrange",
+			"  let fn = (val?)=>{",
+			"    // assert",
+			"    discardPeriodicTasks()",
+			"  }",
+			"   // act",
+			"  $2",
+			"  .subscribe({next:fn,complete:fn})",
+			"  flush()",
+			"  ",
+			"  }))"
+		]
+	},
+	"angular jasmine expect toBeInstanceOf":{
+		"prefix":"toBeInstanceOf",
+		"body":[
+			"expect(cpnt.$1).toBeInstanceOf($2)"
+		]
+	},
+	"angular jasmine expect equal":{
+		"prefix":"toEqual",
+		"body":[
+			"expect(cpnt.$1).toEqual($2)"
+		]
+	},
+	"angular jasmine spyOn":{
+		"prefix":"spyOn",
+		"body":[
+			"spyOn(cpnt$1,\"$2\")"
+		]
+	},
+	"angular jasmine spyOn and callThrough":{
+		"prefix":"callThrough",
+		"body":[
+			"spyOn(cpnt$1,\"$2\").and.callThrough()"
+		]
+	},
+	"angular jasmine toHaveBeenCalled":{
+		"prefix":"toHaveBeenCalled",
+		"body":[
+			"expect(cpnt.$1).toHaveBeenCalled($2)"
+		]
+	},
+	"angular jasmine toHaveBeenCalledWith":{
+		"prefix":"toHaveBeenCalledWith",
+		"body":[
+			"expect(cpnt.$1).toHaveBeenCalledWith($2)"
+		]
+	},
+	"angular jasmine mockMethod":{
+		"prefix":"mockMethod",
+		"body":[
+			"$1Result,",
+			"$1:() => $1Result,"
+		]
+	},
+	"angular jasmine spyOnForES6Imports":{
+		"prefix":".spyOnForES6Imports",
+		"body":[
+			"wmlTestUtils",
+			"  .spyOnForES6Imports($1,'$2')"
+		]
 	}
 }

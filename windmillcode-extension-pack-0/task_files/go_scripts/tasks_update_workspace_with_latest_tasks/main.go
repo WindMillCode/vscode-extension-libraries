@@ -9,7 +9,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/windmillcode/go_scripts/utils"
+	"github.com/windmillcode/go_cli_scripts/v3/utils"
 )
 
 type Task struct {
@@ -55,9 +55,8 @@ func main() {
 
 	tasksJsonFilePath := filepath.Join(extensionFolder, tasksJsonRelativeFilePath)
 
-	content, err := os.ReadFile(tasksJsonFilePath)
-	if err != nil {
-		fmt.Println("Error reading file:", err)
+	content, err, shouldReturn := createTasksJson(tasksJsonFilePath, false)
+	if shouldReturn {
 		return
 	}
 	// fileContent := string(content)
@@ -86,8 +85,7 @@ func main() {
 			programLocation3 := "ignore//${input:current_user_0}//go_scripts//" + programLocation2
 			linuxTaskExecutable := ".//main"
 			linuxCommand0 := "cd " + programLocation3 + " ; " + linuxTaskExecutable
-			windowsCommand0 := "cd " + strings.Replace(programLocation3, "//", "\\", -1) + " ; "+strings.Replace(linuxTaskExecutable, "//", "\\", -1)
-
+			windowsCommand0 := "cd " + strings.Replace(programLocation3, "//", "\\", -1) + " ; " + strings.Replace(linuxTaskExecutable, "//", "\\", -1)
 
 			tasksJSON.Tasks[index].Windows.Command = windowsCommand0
 			tasksJSON.Tasks[index].Osx.Command = linuxCommand0
@@ -114,19 +112,18 @@ func main() {
 			return
 		}
 
-
 		utils.CopyDir(goScriptsSourceDirPath, goScriptsDestDirPath)
 	}
 
 	var rebuild string
-	if proceed == "TRUE"{
-		rebuild= "TRUE"
-	} else{
+	if proceed == "TRUE" {
+		rebuild = "TRUE"
+	} else {
 		cliInfo = utils.ShowMenuModel{
-			Prompt: "Do you want to rebuild the go programs into binary exectuables ",
-			Choices:[]string{"TRUE","FALSE"},
+			Prompt:  "Do you want to rebuild the go programs into binary exectuables ",
+			Choices: []string{"TRUE", "FALSE"},
 		}
-		rebuild = utils.ShowMenu(cliInfo,nil)
+		rebuild = utils.ShowMenu(cliInfo, nil)
 	}
 
 	if rebuild == "TRUE" {
@@ -142,7 +139,7 @@ func main() {
 			regex1 := regexp.MustCompile(pattern1)
 			programLocation1 := regex1.Split(strings.Join(programLocation0, ""), -1)
 			programLocation2 := strings.Join(programLocation1, "_")
-			absProgramLocation := filepath.Join(goScriptsDestDirPath,programLocation2)
+			absProgramLocation := filepath.Join(goScriptsDestDirPath, programLocation2)
 			go func() {
 				defer wg.Done()
 				buildGoCLIProgram(absProgramLocation, goExecutable)
@@ -153,11 +150,30 @@ func main() {
 
 }
 
+func createTasksJson(tasksJsonFilePath string, triedCreateOnError bool) ([]byte, error, bool) {
+	content, err := os.ReadFile(tasksJsonFilePath)
+	if err != nil {
+		if triedCreateOnError {
+			return nil, err, true
+		}
+
+		// If the file doesn't exist, create it.
+		_, createErr := os.Create(tasksJsonFilePath)
+		if createErr != nil {
+			return nil, createErr, true
+		}
+
+		// Recursively attempt to read the file after creating it.
+		return createTasksJson(tasksJsonFilePath, true)
+	}
+
+	return content, nil, false
+}
+
 func buildGoCLIProgram(programLocation string, goExecutable string) {
 
-
-	fmt.Printf("%s \n",programLocation)
-	utils.RunCommandInSpecificDirectory(goExecutable, []string{"build", "main.go"},programLocation)
-	fmt.Printf("Finished building %s \n",programLocation)
+	fmt.Printf("%s \n", programLocation)
+	utils.RunCommandInSpecificDirectory(goExecutable, []string{"build", "main.go"}, programLocation)
+	fmt.Printf("Finished building %s \n", programLocation)
 
 }

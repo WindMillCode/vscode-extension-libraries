@@ -6,14 +6,14 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/windmillcode/go_scripts/utils"
+	"github.com/windmillcode/go_cli_scripts/v3/utils"
 )
 
 func main() {
 
 	utils.CDToWorkspaceRoot()
-	workspaceFolder,err:= os.Getwd()
-	if err !=nil {
+	workspaceFolder, err := os.Getwd()
+	if err != nil {
 		fmt.Println("there was an error while trying to receive the current dir")
 	}
 	settings, err := utils.GetSettingsJSON(workspaceFolder)
@@ -28,7 +28,7 @@ func main() {
 	envVarsFile := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt:  []string{"where are the env vars located"},
-			Default: filepath.Join(workspaceFolder, ".\\ignore\\Local\\flask_backend_shared.go"),
+			Default: utils.JoinAndConvertPathToOSFormat(workspaceFolder, settings.ExtensionPack.FlaskBackendTestHelperScript),
 		},
 	)
 	pythonVersion := utils.GetInputFromStdin(
@@ -41,8 +41,20 @@ func main() {
 		utils.RunCommand("pyenv", []string{"shell", pythonVersion})
 	}
 	utils.CDToLocation(workspaceFolder)
-	envVars := utils.RunCommandAndGetOutput("windmillcode_go", []string{"run", envVarsFile, filepath.Dir(envVarsFile), workspaceFolder})
+
+	envVarCommandOptions := utils.CommandOptions{
+		Command:      "windmillcode_go",
+		Args:         []string{"run", envVarsFile, filepath.Dir(envVarsFile), workspaceFolder},
+		GetOutput:    true,
+		TargetDir:     filepath.Dir(envVarsFile),
+	}
+	envVars,err := utils.RunCommandWithOptions(envVarCommandOptions)
+	if err != nil {
+		return
+	}
 	envVarsArray := strings.Split(envVars, ",")
+
+
 	for _, x := range envVarsArray {
 		keyPair := []string{}
 		for _, y := range strings.Split(x, "=") {
@@ -50,7 +62,13 @@ func main() {
 		}
 		os.Setenv(keyPair[0], keyPair[1])
 	}
-	utils.CDToLocation(flaskAppFolder)
-	utils.RunCommand("python", []string{filepath.Join("unit_tests", "run_tests.py")})
+	flaskAppUnitTestFolder := utils.JoinAndConvertPathToOSFormat(
+		flaskAppFolder, "unit_tests",
+	)
+	utils.CDToLocation(flaskAppUnitTestFolder)
+	utils.RunCommand("python", []string{"run_tests.py"})
 
 }
+
+
+

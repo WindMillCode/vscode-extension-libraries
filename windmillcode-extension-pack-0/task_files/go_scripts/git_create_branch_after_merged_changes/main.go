@@ -3,7 +3,7 @@ package main
 import (
 	"regexp"
 
-	"github.com/windmillcode/go_scripts/utils"
+	"github.com/windmillcode/go_cli_scripts/v3/utils"
 )
 
 func main() {

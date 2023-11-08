@@ -147,3 +147,52 @@ V 4.1.0
 
 v 5.0.0
 make extension work for  macos
+
+v 5.0.1
+* npm added force option to install by force for npm and yarn
+
+
+v 5.0.2
+* added npm silience typescript which takes a regex and procceeds to comment out all files matching the regex
+
+v 5.0.3
+* andded angular frontend test
+
+v 5.0.4
+* corrected an error
+
+v 5.0.5
+* added angular_frontend_test
+
+v 5.0.6
+* corrected an error in update_workspace_with_latest tasks,
+* added openAI base for angular run translate to use other server than openai server in
+* updated npm to leverage os.Remove()
+
+v 5.0.7
+* added more capability for update scripts
+
+v 5.0.8
+* angular frontend run can specify configuration to choose from angular.json
+* fixed an error in git_clone_subdirs
+* updated snippets in typescript.json
+
+v 5.0.9
+* patch with update worksapce with latest tasks where the tasks.json file does not get created.
+
+v 5.1.0
+* removed the go_cli_library from the extension
+* added choose a license vscode extension
+* fixed flask_backend_dev and flask_backend_test
+
+v 5.1.1
+* update flask route in python.json to support unit test case version
+
+v 5.1.2
+* python install specifc package was overwriting requirements file prevented this
+
+v 5.1.3
+* python flask route snippet does not send back automatic 200
+
+v 5.1.4
+* python flask route snippet uses req_body instead of resp_body

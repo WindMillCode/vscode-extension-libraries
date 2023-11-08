@@ -49,6 +49,15 @@
       }
     },
     {
+      "label": "angular frontend: test",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
       "label": "angular frontend: update angular",
       "type": "shell",
 
@@ -359,6 +368,15 @@
     },
     {
       "label": "npm: install specific packages",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 10
+      }
+    },
+    {
+      "label": "npm: silence typescript errors",
       "type": "shell",
 
 

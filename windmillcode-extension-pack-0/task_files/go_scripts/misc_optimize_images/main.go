@@ -8,7 +8,7 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/windmillcode/go_scripts/utils"
+	"github.com/windmillcode/go_cli_scripts/v3/utils"
 )
 
 func main() {
@@ -49,8 +49,8 @@ func main() {
 	for _, project := range projectsList {
 		app := filepath.Join(project)
 		normalizedBackupLocation := ""
-		if runtime.GOOS == "windows"{
-			normalizedBackupLocation = filepath.Join(backupLocation,utils.RemoveDrivePath(app))
+		if runtime.GOOS == "windows" {
+			normalizedBackupLocation = filepath.Join(backupLocation, utils.RemoveDrivePath(app))
 		} else {
 			normalizedBackupLocation = filepath.Join(backupLocation, app)
 		}
@@ -60,21 +60,24 @@ func main() {
 			utils.CopyDir(app, normalizedBackupLocation)
 			allEntries, err := utils.GetItemsInFolderRecursive(app, true)
 			if err != nil {
-				fmt.Println("An error occured while recursively goin through the directory", err)
+				fmt.Println("An error occured while recursively going through the directory", err)
 			}
 			for _, entry := range allEntries {
-				prefixImage := utils.HasSuffixInArray(entry, []string{".png", ".gif", ".ico", ".jpg",  ".webp", ".ico"}, true)
+				prefixImage := utils.HasSuffixInArray(entry, []string{".png", ".gif", ".ico", ".jpg", ".webp", ".ico"}, true)
 				if prefixImage != "" {
 					imageFolderPath := filepath.Dir(entry)
 					imageFile := filepath.Base(entry)
-					destImage := utils.HasPrefixInArray(prefixImage,[]string{imageFolderPath+"\\"},true)
+					destImage := utils.HasPrefixInArray(prefixImage, []string{imageFolderPath + "\\"}, true)
 
 					utils.RunCommandInSpecificDirectory("convert", []string{
 						"-quality", optimizePercent,
-						 imageFile,
-						 "-background", "#FFFFFF", "-flatten",
-						 fmt.Sprintf("%s%s", destImage, ".jpg")}, imageFolderPath)
-					os.Remove(entry)
+						imageFile,
+						"-background", "#FFFFFF", "-flatten",
+						fmt.Sprintf("%s%s", destImage, ".jpg")}, imageFolderPath)
+
+					if utils.HasSuffixInArray(entry, []string{".jpg"}, true) == "" {
+						os.Remove(entry)
+					}
 
 				}
 			}

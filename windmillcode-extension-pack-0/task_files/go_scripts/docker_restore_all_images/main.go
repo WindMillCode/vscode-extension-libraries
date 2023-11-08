@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/windmillcode/go_scripts/utils"
+	"github.com/windmillcode/go_cli_scripts/v3/utils"
 )
 
 func main() {
@@ -56,7 +56,7 @@ func main() {
 }
 
 func restoreImages(targetPath string, wg *sync.WaitGroup, batchSize int) {
-	fileNames, _ := utils.GetItemsInFolder(targetPath, []string{})
+	fileNames, _ := utils.GetItemsInFolder(targetPath)
 	batchDone := make(chan bool, batchSize)
 	fmt.Println("fire")
 	for index, tarImage := range fileNames {
@@ -82,7 +82,7 @@ func restoreImages(targetPath string, wg *sync.WaitGroup, batchSize int) {
 
 func restoreCtnrs(targetPath string, wg *sync.WaitGroup, batchSize int) {
 
-	fileNames, _ := utils.GetItemsInFolder(targetPath, []string{})
+	fileNames, _ := utils.GetItemsInFolder(targetPath)
 	batchDone := make(chan bool, batchSize)
 
 	for index, tarImage := range fileNames {
@@ -106,8 +106,8 @@ func restoreCtnrs(targetPath string, wg *sync.WaitGroup, batchSize int) {
 			if len(matches) >= 2 {
 				ctnrImgName := matches[1]
 
-				utils.RunCommand("docker", []string{"run","-d", "--name", ctnrName, ctnrImgName})
-				utils.RunCommand("docker", []string{"rmi", ctnrImgName,"--force"})
+				utils.RunCommand("docker", []string{"run", "-d", "--name", ctnrName, ctnrImgName})
+				utils.RunCommand("docker", []string{"rmi", ctnrImgName, "--force"})
 			}
 
 			batchDone <- true

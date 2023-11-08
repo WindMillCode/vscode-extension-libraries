@@ -9,9 +9,9 @@ import { promisify } from 'util';
 import * as vscode from 'vscode';
 const semver = require('semver');
 let AdmZip = require("adm-zip");
-
-
 const targz = require('tar.gz2');
+
+let extensionDesiredVersion = "1.21.3"
 
 let downloadFile =async (url: string, destinationPath: string): Promise<void> => {
 
@@ -83,7 +83,7 @@ let removeFile = (filePath: string): void => {
   });
 };
 
-let checkGoInstalledInExtension =  (installDir:string,desiredVersion="1.21.0",addedToPath=false)=>{
+let checkGoInstalledInExtension =  (installDir:string,desiredVersion=extensionDesiredVersion,addedToPath=false)=>{
   return new Promise(async(resolve,rej)=>{
     let executable = "windmillcode_go"
     exec(`${executable} version`,async  (error, stdout, stderr) => {
@@ -117,7 +117,7 @@ let checkGoInstalledInExtension =  (installDir:string,desiredVersion="1.21.0",ad
   })
 }
 
-const checkGoInstalled = (installDir:string,desiredVersion="1.21.0") => {
+const checkGoInstalled = (installDir:string,desiredVersion=extensionDesiredVersion) => {
   return new Promise((resolve, reject) => {
     exec('go version', (error, stdout, stderr) => {
       if (error) {
@@ -208,7 +208,7 @@ async function copyFile(sourcePath:string, destinationPath:string) {
 
 
 
-export let installGo = async (extensionRoot:string,goVersion="1.21.0",) => {
+export let installGo = async (extensionRoot:string,goVersion=extensionDesiredVersion,) => {
   // Change these values as needed
   let installLocation = path.normalize(extensionRoot+"/task_files")
   notifyDeveloper(installLocation)

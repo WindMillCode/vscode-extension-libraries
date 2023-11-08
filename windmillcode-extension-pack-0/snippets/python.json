@@ -1,9 +1,5 @@
 {
-	// Place your snippets for python here. Each snippet is defined under a snippet name and has a prefix, body and
-	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
-	// same ids are connected.
-	// Example:
+
 	"file running as main": {
 		"prefix": "__main__",
 		"body": [
@@ -32,16 +28,45 @@
 		],
 		"description": "assert response status code === 200"
 	},
-	"flask: route":{
-		"prefix":"flask: route",
-		"body": [
-			"@$1.route('/$4',methods=['$3'])\ndef $1_$2():\n\tdata = request.json.get('data',{})\n\n\n\tres = APIMsgFormat(msg=\"A-OK\",code=CONFIGS.endpointMsgCodes[\"success\"])\n\treturn res.return_flask_response(),200"
-		]
-	},
+	"flask: route": {
+    "prefix": "flask: route",
+    "body": [
+				"@$1.route('/$4', methods=['${3/(.*)/${1:/upcase}/}'])",
+        "def $1_$2():",
+        "    data = request.json.get('data', {})",
+        "    resp_body = $6.$2(data)",
+        "    res = APIMsgFormat(data=resp_body,msg=CONFIGS.endpoint_msg_codes[\"success\"])",
+        "    return res.return_flask_response()",
+				"# paste to test case file",
+				"def test_$1_$2(client, mocker):",
+				"",
+				"    $2_mock = mocker.patch('$5.$6.$2', return_value=TestUtils.generic_fake_result)",
+				"    req_body = {",
+				"        'data': 'data'",
+				"    }",
+				"    response = client.$3('/$7/$4', json=req_body)",
+				"",
+				"    assert response.status_code == http.client.OK.value",
+				"    assert TestUtils.generic_fake_result == response.json['data']",
+				"",
+				"    for index, call_args in enumerate($2_mock.call_args_list):",
+				"        arguments = call_args[0]",
+				"        assert arguments == (req_body['data'],)",
+				""
+    ]
+},
 	"flask: sqlalchemy query":{
 		"prefix":"conn.execute",
 		"body":[
 			"stmt = text(\"\"\"\n$1\n\"\"\")\nself.sqlalchemy_0_conn.execute(stmt,{\n})\nself.sqlalchemy_0_conn.commit()"
+		]
+	},
+	"python: it when called":{
+		"prefix":"conn.execute",
+		"body":[
+			"when called",
+			"under normal conditions",
+			"does the required action"
 		]
 	}
 

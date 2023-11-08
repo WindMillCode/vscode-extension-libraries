@@ -6,14 +6,14 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/windmillcode/go_scripts/utils"
+	"github.com/windmillcode/go_cli_scripts/v3/utils"
 )
 
 func main() {
 
 	utils.CDToWorkspaceRoot()
-	workspaceFolder,err:= os.Getwd()
-	if err !=nil {
+	workspaceFolder, err := os.Getwd()
+	if err != nil {
 		fmt.Println("there was an error while trying to receive the current dir")
 	}
 	settings, err := utils.GetSettingsJSON(workspaceFolder)
@@ -67,6 +67,6 @@ func main() {
 		utils.RunCommand("pip", []string{"uninstall", packageList})
 	}
 	utils.RunCommand("pip", []string{"install", packageList, "--target", sitePackages})
-	utils.RunCommand("pip", []string{"freeze", "--all", "--path", sitePackages, ">", requirementsFile})
+	utils.RunCommand("pip", []string{"freeze", "--all", "--path", sitePackages})
 
 }

@@ -7,7 +7,7 @@ import (
 	"regexp"
 	"sync"
 
-	"github.com/windmillcode/go_scripts/utils"
+	"github.com/windmillcode/go_cli_scripts/v3/utils"
 )
 
 func main() {
@@ -47,6 +47,12 @@ func main() {
 	}
 	reinstall := utils.ShowMenu(cliInfo, nil)
 
+	cliInfo = utils.ShowMenuModel{
+		Prompt:  "force?",
+		Choices: []string{"true", "false"},
+	}
+	force := utils.ShowMenu(cliInfo, nil)
+
 	var wg sync.WaitGroup
 	regex0 := regexp.MustCompile(" ")
 	projectsList := regex0.Split(projectsCLIString, -1)
@@ -57,17 +63,27 @@ func main() {
 		go func() {
 			defer wg.Done()
 			if reinstall == "true" {
-				utils.RunCommandInSpecificDirectory("rm", []string{"package-lock.json"}, app)
-				utils.RunCommandInSpecificDirectory("rm", []string{"yarn.lock"}, app)
+				os.Remove(utils.JoinAndConvertPathToOSFormat(app, "package-lock.json"))
+				os.Remove(utils.JoinAndConvertPathToOSFormat(app, "yarn.lock"))
 				if packageManager == "yarn" {
 					utils.RunCommandInSpecificDirectory(packageManager, []string{"cache", "clean"}, app)
 				}
-				utils.RunCommandInSpecificDirectory("rm", []string{"-r", "node_modules"}, app)
+				os.RemoveAll(utils.JoinAndConvertPathToOSFormat(app, "node_modules"))
 			}
 			if packageManager == "npm" {
-				utils.RunCommandInSpecificDirectory(packageManager, []string{"install", "-s"}, app)
+				command := []string{"install", "-s"}
+				if force == "true" {
+					command = append(command, "--force")
+				}
+				command = append(command, "--verbose")
+				utils.RunCommandInSpecificDirectory(packageManager, command, app)
 			} else {
-				utils.RunCommandInSpecificDirectory(packageManager, []string{"install"}, app)
+				command := []string{"install"}
+				if force == "true" {
+					command = append(command, "--force")
+				}
+				command = append(command, "--verbose")
+				utils.RunCommandInSpecificDirectory(packageManager, command, app)
 			}
 		}()
 	}
