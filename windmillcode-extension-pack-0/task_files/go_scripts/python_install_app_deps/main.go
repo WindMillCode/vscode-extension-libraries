@@ -32,7 +32,10 @@ func main() {
 	cliInfo := utils.ShowMenuModel{
 		Other:   true,
 		Prompt:  "Choose an option:",
-		Choices: []string{".\\apps\\backend\\FlaskApp"},
+		Choices: []string{
+			utils.JoinAndConvertPathToOSFormat("./apps/backend/FlaskApp"),
+			utils.JoinAndConvertPathToOSFormat("."),
+		},
 	}
 	appLocation := utils.ShowMenu(cliInfo, nil)
 
@@ -42,7 +45,7 @@ func main() {
 			Default: settings.ExtensionPack.PythonVersion0,
 		},
 	)
-	utils.RunCommand("pyenv", []string{"shell", pythonVersion})
+	utils.RunCommand("pyenv", []string{"global", pythonVersion})
 	cliInfo = utils.ShowMenuModel{
 		Prompt:  "reinstall?",
 		Choices: []string{"true", "false"},

@@ -9,9 +9,5 @@ func main() {
 	utils.CDToWorkspaceRoot()
 	utils.CDToTestNGApp()
 
-	opts := utils.CommandOptions{
-		Command: "",
-		Args: []string{},
-	}
-	utils.RunCommandWithOptions(opts)
+	utils.RunCommand("", []string{})
 }

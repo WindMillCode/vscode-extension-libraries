@@ -196,3 +196,31 @@ v 5.1.3
 
 v 5.1.4
 * python flask route snippet uses req_body instead of resp_body
+
+v 5.1.5
+* corrected issue with python install specific packages
+
+v 5.1.6
+* coorected go mod to work on mac os
+
+v 5.1.7
+* added python kwargs snippet to make it easier to grab values from kwargs
+
+v 5.1.8
+* added pytest helper fn snippets
+
+v 5.1.9
+* for flask_backend_test ensured the test case ran in an infinite loop
+
+v 5.1.10
+made install executable support any os
+fault flutter test command does not show any output
+
+v 5.1.11
+* attempting to get extension to work with vscode dev containers
+
+v 5.1.12
+* making flask backend run & test universal
+
+v 5.1.13
+* all python scripts leveage pyenv global instead of pyenv shell

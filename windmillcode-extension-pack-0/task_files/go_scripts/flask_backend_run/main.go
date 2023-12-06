@@ -29,7 +29,7 @@ func main() {
 	envVarsFile := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt:  []string{"where are the env vars located"},
-			Default: filepath.Join(workspaceFolder, settings.ExtensionPack.FlaskBackendDevHelperScript),
+			Default: utils.JoinAndConvertPathToOSFormat(workspaceFolder, settings.ExtensionPack.FlaskBackendDevHelperScript),
 		},
 	)
 	pythonVersion := utils.GetInputFromStdin(
@@ -39,15 +39,15 @@ func main() {
 		},
 	)
 	if pythonVersion != "" {
-		utils.RunCommand("pyenv", []string{"shell", pythonVersion})
+		utils.RunCommand("pyenv", []string{"global", pythonVersion})
 	}
 	for {
 		utils.CDToLocation(workspaceFolder)
 		envVarCommandOptions := utils.CommandOptions{
 			Command:      "windmillcode_go",
-			Args:         []string{"run", envVarsFile, filepath.Dir(envVarsFile), workspaceFolder},
+			Args:         []string{"run", envVarsFile, filepath.Dir(utils.JoinAndConvertPathToOSFormat(envVarsFile)), workspaceFolder},
 			GetOutput:    true,
-			TargetDir:     filepath.Dir(envVarsFile),
+			TargetDir:     filepath.Dir(utils.JoinAndConvertPathToOSFormat(envVarsFile)),
 		}
 		envVars,err := utils.RunCommandWithOptions(envVarCommandOptions)
 		if err != nil {

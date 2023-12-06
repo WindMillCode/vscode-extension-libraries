@@ -38,15 +38,15 @@ func main() {
 		},
 	)
 	if pythonVersion != "" {
-		utils.RunCommand("pyenv", []string{"shell", pythonVersion})
+		utils.RunCommand("pyenv", []string{"global", pythonVersion})
 	}
 	utils.CDToLocation(workspaceFolder)
 
 	envVarCommandOptions := utils.CommandOptions{
 		Command:      "windmillcode_go",
-		Args:         []string{"run", envVarsFile, filepath.Dir(envVarsFile), workspaceFolder},
+		Args:         []string{"run", envVarsFile, filepath.Dir(utils.JoinAndConvertPathToOSFormat(envVarsFile)), workspaceFolder},
 		GetOutput:    true,
-		TargetDir:     filepath.Dir(envVarsFile),
+		TargetDir:     filepath.Dir(utils.JoinAndConvertPathToOSFormat(envVarsFile)),
 	}
 	envVars,err := utils.RunCommandWithOptions(envVarCommandOptions)
 	if err != nil {
@@ -66,7 +66,9 @@ func main() {
 		flaskAppFolder, "unit_tests",
 	)
 	utils.CDToLocation(flaskAppUnitTestFolder)
-	utils.RunCommand("python", []string{"run_tests.py"})
+	for {
+		utils.RunCommand("python", []string{"run_tests.py"})
+	}
 
 }
 

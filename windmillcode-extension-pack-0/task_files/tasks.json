@@ -204,6 +204,15 @@
       }
     },
     {
+      "label": "flutter mobile: test",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
       "label": "firebase cloud: run emulators",
       "type": "shell",
 

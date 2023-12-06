@@ -2,7 +2,7 @@
   "name": "windmillcode-extension-pack-0",
   "displayName": "windmillcode-extension-pack-0",
   "description": "",
-  "version": "5.1.4",
+  "version": "5.1.13",
   "publisher": "windmillcode-publisher-0",
   "icon": "images/logo.png",
   "repository": {
@@ -172,7 +172,7 @@
     "pverest.java-ide-pack",
     "rangav.vscode-thunder-client",
     "rcore.rcore-unused-css-classes",
-    "rebornix.ruby",
+    "Shopify.ruby-extensions-pack",
     "ricardo-emerson.java-sysout",
     "richardwillis.vscode-gradle-extension-pack",
     "rust-lang.rust-analyzer",
@@ -234,3 +234,4 @@
     "uuid": "^9.0.0"
   }
 }
+

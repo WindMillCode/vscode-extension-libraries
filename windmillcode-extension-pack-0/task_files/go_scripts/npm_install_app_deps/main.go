@@ -34,12 +34,13 @@ func main() {
 		Other:  true,
 		Prompt: "Choose the node.js app",
 		Choices: []string{
-			filepath.Join("./apps/frontend/AngularApp"),
-			filepath.Join(".\\apps\\cloud\\FirebaseApp"),
-			filepath.Join("."),
+			utils.JoinAndConvertPathToOSFormat("./apps/frontend/AngularApp"),
+			utils.JoinAndConvertPathToOSFormat("./apps/cloud/FirebaseApp"),
+			utils.JoinAndConvertPathToOSFormat("."),
 		},
 	}
 	appLocation := utils.ShowMenu(cliInfo, nil)
+
 
 	cliInfo = utils.ShowMenuModel{
 		Prompt:  "reinstall?",

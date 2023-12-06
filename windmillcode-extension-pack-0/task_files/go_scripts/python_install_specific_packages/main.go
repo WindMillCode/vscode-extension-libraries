@@ -23,7 +23,10 @@ func main() {
 	cliInfo := utils.ShowMenuModel{
 		Other:   true,
 		Prompt:  "Choose an option:",
-		Choices: []string{".\\apps\\backend\\FlaskApp"},
+		Choices: []string{
+			utils.JoinAndConvertPathToOSFormat("./apps/backend/FlaskApp"),
+			utils.JoinAndConvertPathToOSFormat("."),
+		},
 	}
 	appLocation := utils.ShowMenu(cliInfo, nil)
 	appLocation = filepath.Join(appLocation)
@@ -34,7 +37,7 @@ func main() {
 			Default: settings.ExtensionPack.PythonVersion0,
 		},
 	)
-	utils.RunCommand("pyenv", []string{"shell", pythonVersion})
+	utils.RunCommand("pyenv", []string{"global", pythonVersion})
 
 	packageList := utils.TakeVariableArgs(
 		utils.TakeVariableArgsStruct{
@@ -51,7 +54,6 @@ func main() {
 	utils.CDToLocation(appLocation)
 	var sitePackages string
 	targetOs := runtime.GOOS
-	requirementsFile := targetOs + "-requirements.txt"
 	switch targetOs {
 	case "windows":
 

@@ -11,7 +11,7 @@ const semver = require('semver');
 let AdmZip = require("adm-zip");
 const targz = require('tar.gz2');
 
-let extensionDesiredVersion = "1.21.3"
+let extensionDesiredVersion = "1.21.4"
 
 let downloadFile =async (url: string, destinationPath: string): Promise<void> => {
 
@@ -187,7 +187,7 @@ function concatPath(platform: string, directory: string) {
 
 function changePermission(directory: string){
   let fileEnd = "windmillcode_go"
-  let finalFile = directory.concat(fileEnd)
+  let finalFile = path.join(fileEnd)
   fs.chmod(finalFile,0o777,() =>{
     notifyDeveloper(null,`The permissions for ${finalFile} changed`);
   })
