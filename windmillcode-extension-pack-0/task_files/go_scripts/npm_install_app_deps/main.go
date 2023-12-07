@@ -41,7 +41,7 @@ func main() {
 	}
 	appLocation := utils.ShowMenu(cliInfo, nil)
 
-
+	
 	cliInfo = utils.ShowMenuModel{
 		Prompt:  "reinstall?",
 		Choices: []string{"true", "false"},

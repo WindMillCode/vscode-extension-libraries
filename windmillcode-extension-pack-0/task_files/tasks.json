@@ -392,6 +392,15 @@
       "runOptions": {
         "instanceLimit": 10
       }
+    },
+    {
+      "label": "tasks: update workspace without extension",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 10
+      }
     }
   ],
   "inputs": [

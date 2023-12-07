@@ -7,7 +7,7 @@
     {
       "label": "Pushing work to git remote",
       "type": "shell",
-      "command": "git add .;git commit -m \"[UPDATE] additional work\";git branch --unset-upstream;git push origin HEAD"
+      "command": "git add .;git commit -m'[UPDATE] additional work';git branch --unset-upstream;git push origin HEAD"
     },
 
 		{
@@ -68,7 +68,7 @@
       "type":"shell",
       "dependsOn":"misc: rm all vsix",
       "windows":{
-        "command":"npx vsce package ${input:misc_package_project_0};npx vsce publish ${input:misc_package_project_0};"
+        "command":"npx vsce package ${input:misc_package_project_0};npx vsce publish ${input:misc_package_project_0};start explorer ."
       }
     },
 		{

@@ -89,9 +89,11 @@ func main() {
 			programLocation2 := strings.Join(programLocation1, "_")
 			programLocation3 := "ignore//${input:current_user_0}//go_scripts//" + programLocation2
 			linuxTaskExecutable := ".//main"
+			if task.Label == "tasks: update workspace without extension" {
+				linuxTaskExecutable = "go run main.go"
+			}
 			linuxCommand0 := "cd " + programLocation3 + " ; " + linuxTaskExecutable
 			windowsCommand0 := "cd " + strings.Replace(programLocation3, "//", "\\", -1) + " ; " + strings.Replace(linuxTaskExecutable, "//", "\\", -1)
-
 			tasksJSON.Tasks[index].Windows.Command = windowsCommand0
 			tasksJSON.Tasks[index].Osx.Command = linuxCommand0
 			tasksJSON.Tasks[index].Linux.Command = linuxCommand0

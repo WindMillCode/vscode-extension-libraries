@@ -224,3 +224,9 @@ v 5.1.12
 
 v 5.1.13
 * all python scripts leveage pyenv global instead of pyenv shell
+
+v 5.2.0
+* added tasks_update_workspace_without_extension which will allow the user to rebuild dependencies w/o needed the extension to be installed
+
+v 5.2.1
+* small fix needed for tasks_update_workspace_without_extension
