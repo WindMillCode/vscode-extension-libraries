@@ -230,3 +230,6 @@ v 5.2.0
 
 v 5.2.1
 * small fix needed for tasks_update_workspace_without_extension
+
+v 5.2.2
+* added option to choose executable in angular frontend: analyze.

@@ -83,7 +83,7 @@
     {
       "id": "misc_package_project_0",
       "description": "the version for the package",
-      "type": "promptString"
+  "type": "promptString"
     },
     {
       "id": "misc_make_new_command_0",
