@@ -14,13 +14,13 @@ func main() {
 	initScript := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt:  []string{"docker init script to run relative to workspace root "},
-			Default: filepath.Join("ignore\\Local\\docker_init_container.go"),
+			Default: utils.JoinAndConvertPathToOSFormat("ignore\\Local\\docker_init_container.go"),
 		},
 	)
 	initScriptArgs := utils.TakeVariableArgs(
 		utils.TakeVariableArgsStruct{},
 	)
-	initScriptArgs = fmt.Sprintf("%s %s", filepath.Join("..", "..", ".."), initScriptArgs)
+	initScriptArgs = fmt.Sprintf("%s %s", utils.JoinAndConvertPathToOSFormat("..", "..", ".."), initScriptArgs)
 	initScriptLocation := filepath.Dir(initScript)
 	utils.CDToLocation(initScriptLocation)
 	initScript = filepath.Base(initScript)

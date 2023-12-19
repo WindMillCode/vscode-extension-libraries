@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/iancoleman/strcase"
@@ -16,7 +15,7 @@ func main() {
 	if err != nil {
 		return
 	}
-	templateLocation := filepath.Join(scriptLocation, "template")
+	templateLocation := utils.JoinAndConvertPathToOSFormat(scriptLocation, "template")
 	utils.CDToWorkspaceRoot()
 	utils.CDToFlutterApp()
 	flutterApp, err := os.Getwd()
@@ -31,11 +30,11 @@ func main() {
 	)
 
 	snakeCaseProviderName := strcase.ToSnake(providerName)
-	providerLocation := filepath.Join(flutterApp, "lib", "util", "riverpod_providers", snakeCaseProviderName)
-	newTemplatePath := filepath.Join(providerLocation, fmt.Sprintf("%s.dart", snakeCaseProviderName))
+	providerLocation := utils.JoinAndConvertPathToOSFormat(flutterApp, "lib", "util", "riverpod_providers", snakeCaseProviderName)
+	newTemplatePath := utils.JoinAndConvertPathToOSFormat(providerLocation, fmt.Sprintf("%s.dart", snakeCaseProviderName))
 	utils.CopyDir(templateLocation, providerLocation)
 	os.Rename(
-		filepath.Join(providerLocation, "template.dart"),
+		utils.JoinAndConvertPathToOSFormat(providerLocation, "template.dart"),
 		newTemplatePath,
 	)
 

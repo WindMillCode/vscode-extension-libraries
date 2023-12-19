@@ -1,7 +1,7 @@
 from managers.template_manager.template_manager import TemplateManager
 import pytest
 from unit_tests.conftest import ImportStrings
-from utils.singleton_exception import SingletonException
+from utils.exceptions.singleton_exception import SingletonException
 
 
 class TestImportStrings(ImportStrings):

@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/iancoleman/strcase"
@@ -18,8 +17,8 @@ func main() {
 	if err != nil {
 		return
 	}
-	pageFolder := filepath.Join(testNGApp, "src", "main", "java", "pages")
-	testFolder := filepath.Join(testNGApp, "src", "test", "java", "e2e")
+	pageFolder := utils.JoinAndConvertPathToOSFormat(testNGApp, "src", "main", "java", "pages")
+	testFolder := utils.JoinAndConvertPathToOSFormat(testNGApp, "src", "test", "java", "e2e")
 	pageName := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt: []string{"The name of the page on the website type in snake case "},
@@ -33,16 +32,16 @@ func main() {
 	if err != nil {
 		fmt.Printf("Error: ", err.Error())
 	}
-	myAct := filepath.Join(pageFolder, myDir, myPrefix+"ActController.java")
-	myPage := filepath.Join(pageFolder, myDir, myPrefix+"Page.java")
-	myVerify := filepath.Join(pageFolder, myDir, myPrefix+"VerifyController.java")
-	utils.CopyFile(filepath.Join(".", "template", "TemplateActController.java"), myAct)
-	utils.CopyFile(filepath.Join(".", "template", "TemplatePage.java"), myPage)
-	utils.CopyFile(filepath.Join(".", "template", "TemplateVerifyController.java"), myVerify)
+	myAct := utils.JoinAndConvertPathToOSFormat(pageFolder, myDir, myPrefix+"ActController.java")
+	myPage := utils.JoinAndConvertPathToOSFormat(pageFolder, myDir, myPrefix+"Page.java")
+	myVerify := utils.JoinAndConvertPathToOSFormat(pageFolder, myDir, myPrefix+"VerifyController.java")
+	utils.CopyFile(utils.JoinAndConvertPathToOSFormat(".", "template", "TemplateActController.java"), myAct)
+	utils.CopyFile(utils.JoinAndConvertPathToOSFormat(".", "template", "TemplatePage.java"), myPage)
+	utils.CopyFile(utils.JoinAndConvertPathToOSFormat(".", "template", "TemplateVerifyController.java"), myVerify)
 
 	utils.CDToLocation(testFolder)
-	myTest := filepath.Join(testFolder, myPrefix+"Test.java")
-	utils.CopyFile(filepath.Join(".", "TemplateTest.java"), myTest)
+	myTest := utils.JoinAndConvertPathToOSFormat(testFolder, myPrefix+"Test.java")
+	utils.CopyFile(utils.JoinAndConvertPathToOSFormat(".", "TemplateTest.java"), myTest)
 	for _, v := range []string{myAct, myPage, myVerify, myTest} {
 
 		fileString, err := utils.ReadFile(v)

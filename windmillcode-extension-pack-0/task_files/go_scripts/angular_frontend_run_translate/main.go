@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"runtime"
 
 	"github.com/windmillcode/go_cli_scripts/v3/utils"
@@ -13,7 +12,7 @@ func main() {
 
 	utils.CDToWorkspaceRoot()
 	workspaceRoot, _ := os.Getwd()
-	i18nLocation := filepath.Join(workspaceRoot, "apps", "frontend", "AngularApp", "src", "assets", "i18n")
+	i18nLocation := utils.JoinAndConvertPathToOSFormat(workspaceRoot, "apps", "frontend", "AngularApp", "src", "assets", "i18n")
 	settings, err := utils.GetSettingsJSON(workspaceRoot)
 	if err != nil {
 		return
@@ -45,19 +44,19 @@ func main() {
 
 	os.Setenv("OPENAI_API_BASE", openAIBase)
 	os.Setenv("OPENAI_API_KEY_0", openAIAPIKey)
-	utils.CDToLocation(filepath.Join(workspaceRoot, "ignore", "Windmillcode", "go_scripts", "i18n_script_via_ai"))
+	utils.CDToLocation(utils.JoinAndConvertPathToOSFormat(workspaceRoot, "ignore", "Windmillcode", "go_scripts", "i18n_script_via_ai"))
 	// pathSeparator := string(filepath.Separator)
 	i18nScriptLocation, _ := os.Getwd()
 	switch os := runtime.GOOS; os {
 	case "windows":
-		sitePackages := filepath.Join(i18nScriptLocation, "site-packages", "windows")
+		sitePackages := utils.JoinAndConvertPathToOSFormat(i18nScriptLocation, "site-packages", "windows")
 		// sitePackages = strings.Join([]string{".",sitePackages},pathSeparator)
 		if utils.FolderExists(sitePackages) == false {
 
 			utils.RunCommand("pip", []string{"install", "-r", "requirements.txt", "--target", sitePackages})
 		}
 	case "linux", "darwin":
-		sitePackages := filepath.Join(i18nScriptLocation, "site-packages", "linux")
+		sitePackages := utils.JoinAndConvertPathToOSFormat(i18nScriptLocation, "site-packages", "linux")
 		// sitePackages = strings.Join([]string{".",sitePackages},pathSeparator)
 		if utils.FolderExists(sitePackages) == false {
 			utils.RunCommand("pip", []string{"install", "-r", "requirements.txt", "--target", sitePackages})

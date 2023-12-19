@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"regexp"
 	"sync"
 
@@ -39,13 +38,13 @@ func main() {
 		},
 	)
 
-	sourcePath := filepath.Join(projectSrcCLIString, target)
+	sourcePath := utils.JoinAndConvertPathToOSFormat(projectSrcCLIString, target)
 	regex0 := regexp.MustCompile(" ")
 	projectsList := regex0.Split(projectsDestCLIString, -1)
 
 	var wg sync.WaitGroup
 	for _, project := range projectsList {
-		destPath := filepath.Join(project, target)
+		destPath := utils.JoinAndConvertPathToOSFormat(project, target)
 
 		wg.Add(1)
 		go func() {

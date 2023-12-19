@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"path/filepath"
 
 	"github.com/windmillcode/go_cli_scripts/v3/utils"
 )
@@ -13,10 +12,10 @@ func main() {
 	cliInfo := utils.ShowMenuModel{
 		Prompt: "choose a location to push to git remote",
 		Choices: []string{
-			filepath.Join("."),
-			filepath.Join(".", "apps", "frontend", "AngularApp"),
-			filepath.Join(".", "apps", "backend", "RailsApp"),
-			filepath.Join(".", "apps", "backend", "FlaskApp"),
+			utils.JoinAndConvertPathToOSFormat("."),
+			utils.JoinAndConvertPathToOSFormat(".", "apps", "frontend", "AngularApp"),
+			utils.JoinAndConvertPathToOSFormat(".", "apps", "backend", "RailsApp"),
+			utils.JoinAndConvertPathToOSFormat(".", "apps", "backend", "FlaskApp"),
 		},
 	}
 	repoLocation := utils.ShowMenu(cliInfo, nil)

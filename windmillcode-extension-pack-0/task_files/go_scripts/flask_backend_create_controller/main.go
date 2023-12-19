@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/iancoleman/strcase"
@@ -16,9 +15,9 @@ func main() {
 	if err != nil {
 		return
 	}
-	templateLocation := filepath.Join(scriptLocation, "template")
-	templateEndpointFile := filepath.Join(templateLocation, "template_endpoint.py")
-	templateHandlerFile := filepath.Join(templateLocation, "template_handler.py")
+	templateLocation := utils.JoinAndConvertPathToOSFormat(scriptLocation, "template")
+	templateEndpointFile := utils.JoinAndConvertPathToOSFormat(templateLocation, "template_endpoint.py")
+	templateHandlerFile := utils.JoinAndConvertPathToOSFormat(templateLocation, "template_handler.py")
 	utils.CDToWorkspaceRoot()
 	utils.CDToFlaskApp()
 	targetApp, err := os.Getwd()
@@ -26,8 +25,8 @@ func main() {
 		return
 	}
 
-	endpointsFolder := filepath.Join(targetApp, "endpoints")
-	handlersFolder := filepath.Join(targetApp, "handlers")
+	endpointsFolder := utils.JoinAndConvertPathToOSFormat(targetApp, "endpoints")
+	handlersFolder := utils.JoinAndConvertPathToOSFormat(targetApp, "handlers")
 
 	targetName := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
@@ -45,8 +44,8 @@ func main() {
 	snakeCaseTargetName := strcase.ToSnake(targetName)
 	snakeCaseEndpointTargetName := strcase.ToSnake(targetName + "_endpoint")
 	snakeCaseHandlersTargetName := strcase.ToSnake(targetName + "_handler")
-	endpointsFile := filepath.Join(endpointsFolder, fmt.Sprintf("%s.py", snakeCaseEndpointTargetName))
-	handlersFile := filepath.Join(handlersFolder, fmt.Sprintf("%s.py", snakeCaseHandlersTargetName))
+	endpointsFile := utils.JoinAndConvertPathToOSFormat(endpointsFolder, fmt.Sprintf("%s.py", snakeCaseEndpointTargetName))
+	handlersFile := utils.JoinAndConvertPathToOSFormat(handlersFolder, fmt.Sprintf("%s.py", snakeCaseHandlersTargetName))
 	utils.CopyFile(templateEndpointFile, endpointsFile)
 	utils.CopyFile(templateHandlerFile, handlersFile)
 
@@ -66,5 +65,5 @@ func main() {
 }
 
 func updateAppFile(targetApp string) {
-	// appFile := filepath.Join(targetApp, "app.py")
+	// appFile := utils.JoinAndConvertPathToOSFormat(targetApp, "app.py")
 }

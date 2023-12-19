@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"regexp"
 	"sync"
 
@@ -34,7 +33,7 @@ func main() {
 	regex0 := regexp.MustCompile(" ")
 	projectsList := regex0.Split(projectsCLIString, -1)
 	for _, project := range projectsList {
-		app := filepath.Join(project, angularAppLocation)
+		app := utils.JoinAndConvertPathToOSFormat(project, angularAppLocation)
 		wg.Add(1)
 		go func() {
 			defer wg.Done()

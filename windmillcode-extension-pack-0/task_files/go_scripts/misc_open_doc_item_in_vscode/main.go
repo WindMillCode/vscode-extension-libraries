@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"path/filepath"
 
 	"github.com/windmillcode/go_cli_scripts/v3/utils"
 )
@@ -13,13 +12,13 @@ func main() {
 	cliInfo := utils.ShowMenuModel{
 		Prompt: "Choose an option:",
 		Choices: []string{
-			"docs\\tasks_docs",
-			"docs\\application_documentation",
+			utils.JoinAndConvertPathToOSFormat("docs", "tasks_docs"),
+			utils.JoinAndConvertPathToOSFormat("docs", "application_documentation"),
 			"issues",
 		},
 	}
 	docLocation := utils.ShowMenu(cliInfo, nil)
-	docLocation = filepath.Join(docLocation)
+	docLocation = utils.JoinAndConvertPathToOSFormat(docLocation)
 	entityNames, err := utils.GetItemsInFolder(docLocation)
 	if err != nil {
 
@@ -31,6 +30,6 @@ func main() {
 		Other:   true,
 	}
 	targetName := utils.ShowMenu(cliInfo, nil)
-	targetPath := filepath.Join(docLocation, targetName)
+	targetPath := utils.JoinAndConvertPathToOSFormat(docLocation, targetName)
 	utils.RunCommand("code", []string{targetPath})
 }

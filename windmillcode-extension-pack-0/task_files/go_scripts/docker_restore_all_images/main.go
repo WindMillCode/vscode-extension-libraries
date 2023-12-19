@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"path/filepath"
 	"regexp"
 	"strings"
 
@@ -17,18 +16,18 @@ func main() {
 	dockerImgPath := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt:  []string{"Please enter a path for the docker image backup"},
-			Default: filepath.Join("D:\\docker-images"),
+			Default: utils.JoinAndConvertPathToOSFormat("D:\\docker-images"),
 		},
 	)
-	dockerImgPath = filepath.Join(dockerImgPath)
+	dockerImgPath = utils.JoinAndConvertPathToOSFormat(dockerImgPath)
 
 	dockerContainerPath := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt:  []string{"Please enter a path for the docker container backup"},
-			Default: filepath.Join("D:\\docker-containers"),
+			Default: utils.JoinAndConvertPathToOSFormat("D:\\docker-containers"),
 		},
 	)
-	dockerContainerPath = filepath.Join(dockerContainerPath)
+	dockerContainerPath = utils.JoinAndConvertPathToOSFormat(dockerContainerPath)
 	batchSizeString := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt:  []string{"Provide the batch size in order to back up x number of containers and images at a time"},

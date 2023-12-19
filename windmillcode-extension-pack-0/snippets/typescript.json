@@ -79,6 +79,10 @@
 		"prefix":"navigate",
 		"body":"this.utilService.router.navigateByUrl(ENV.nav.urls.$1)"
 	},
+	"angular ViewChild":{
+		"prefix":"ViewChild",
+		"body":" @ViewChild(\"$1\",{read:ViewContainerRef}) $1 :ViewContainerRef"
+	},
 	"angular wml-form":{
 		"prefix":"wml-form",
 		"body":"<wml-form [params]=mainForm></wml-form>"

@@ -2,7 +2,7 @@
   "name": "windmillcode-extension-pack-0",
   "displayName": "windmillcode-extension-pack-0",
   "description": "",
-  "version": "5.2.2",
+  "version": "5.2.10",
   "publisher": "windmillcode-publisher-0",
   "icon": "images/logo.png",
   "repository": {
@@ -209,7 +209,8 @@
     "yangbaopan.vscode-java-ibatisx",
     "YouMayCallMeV.vscode-java-saber",
     "Youssef.viow",
-    "mquandalle.graphql"
+    "mquandalle.graphql",
+    "42Crunch.vscode-openapi"
   ],
   "scripts": {
     "vscode:prepublish": "yarn compile",

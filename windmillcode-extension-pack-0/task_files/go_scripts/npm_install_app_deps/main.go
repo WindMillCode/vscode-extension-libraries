@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"regexp"
 	"sync"
 
@@ -41,7 +40,6 @@ func main() {
 	}
 	appLocation := utils.ShowMenu(cliInfo, nil)
 
-	
 	cliInfo = utils.ShowMenuModel{
 		Prompt:  "reinstall?",
 		Choices: []string{"true", "false"},
@@ -58,7 +56,7 @@ func main() {
 	regex0 := regexp.MustCompile(" ")
 	projectsList := regex0.Split(projectsCLIString, -1)
 	for _, project := range projectsList {
-		app := filepath.Join(project, appLocation)
+		app := utils.JoinAndConvertPathToOSFormat(project, appLocation)
 
 		wg.Add(1)
 		go func() {

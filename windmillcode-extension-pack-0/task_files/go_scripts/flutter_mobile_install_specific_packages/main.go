@@ -1,8 +1,6 @@
 package main
 
 import (
-	"path/filepath"
-
 	"github.com/windmillcode/go_cli_scripts/v3/utils"
 )
 
@@ -15,7 +13,7 @@ func main() {
 		Choices: []string{".\\apps\\mobile\\FlutterApp"},
 	}
 	appLocation := utils.ShowMenu(cliInfo, nil)
-	appLocation = filepath.Join(appLocation)
+	appLocation = utils.JoinAndConvertPathToOSFormat(appLocation)
 
 	packageList := utils.TakeVariableArgs(
 		utils.TakeVariableArgsStruct{

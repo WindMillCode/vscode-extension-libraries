@@ -141,6 +141,15 @@
       }
     },
     {
+      "label": "flask backend: create manager",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
       "label": "flutter mobile: create page",
       "type": "shell",
 
@@ -269,6 +278,15 @@
     },
     {
       "label": "misc: optimize images",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+    {
+      "label": "misc: rename files",
       "type": "shell",
 
 

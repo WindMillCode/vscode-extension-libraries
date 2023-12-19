@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"time"
 
 	"github.com/windmillcode/go_cli_scripts/v3/utils"
@@ -26,13 +25,13 @@ func main() {
 		Default: "mysql",
 	}
 	databaseToBackup := utils.ShowMenu(cliInfo, nil)
-	databaseBackupLocation := filepath.Join("apps", "database", databaseToBackup, "schema_entries")
+	databaseBackupLocation := utils.JoinAndConvertPathToOSFormat("apps", "database", databaseToBackup, "schema_entries")
 
 	myEnvs := []string{"dev", "preview", "prod"}
 	for _, v := range myEnvs {
 		utils.CDToLocation(workspaceRoot)
 		utils.CDToLocation(databaseBackupLocation)
-		utils.CDToLocation(filepath.Join(v))
+		utils.CDToLocation(utils.JoinAndConvertPathToOSFormat(v))
 		currentDay := time.Now().Format("1-02-06_03-04-05")
 		err := os.MkdirAll(currentDay, 0755)
 		if err != nil {

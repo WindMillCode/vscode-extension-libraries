@@ -108,9 +108,9 @@
 		"prefix":"flask pytest: create test for call_args",
 		"body":[
 			"for index, call_args in enumerate($1.call_args_list):",
-			"  positional_args = call_args[0]",
-			"  keywords_args = call_args[1]",
-			"  assert positional_args == ()"
+			"  positional_args,keywords_args = call_args",
+			"  assert positional_args == ()",
+			"  assert keywords_args == {}"
 		]
 	},
 	"flask pytest: create method mock":{

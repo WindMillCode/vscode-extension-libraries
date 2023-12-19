@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 
 	"github.com/windmillcode/go_cli_scripts/v3/utils"
 )
@@ -33,7 +32,7 @@ func main() {
 	serveConfiguration := utils.ShowMenu(cliInfo, nil)
 	utils.CDToAngularApp()
 	if runWithCache == "false" {
-		if err := os.RemoveAll(filepath.Join(".", ".angular")); err != nil {
+		if err := os.RemoveAll(utils.JoinAndConvertPathToOSFormat(".", ".angular")); err != nil {
 			fmt.Println("Error:", err)
 			return
 		}

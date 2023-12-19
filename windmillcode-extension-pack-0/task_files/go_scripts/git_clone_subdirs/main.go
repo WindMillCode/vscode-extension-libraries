@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/fs"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/windmillcode/go_cli_scripts/v3/utils"
@@ -62,7 +61,7 @@ func main() {
 		},
 	)
 
-	stagingDir = filepath.Join(stagingDir)
+	stagingDir = utils.JoinAndConvertPathToOSFormat(stagingDir)
 	os.RemoveAll(stagingDir)
 	os.Mkdir(stagingDir, fs.ModeDir)
 	utils.RunCommandInSpecificDirectory("git", []string{"init"}, stagingDir)
@@ -89,7 +88,7 @@ func main() {
 	for _, entry := range directories {
 		absEntryPathList := strings.Split(entry, string(os.PathSeparator))
 		for _, subdir := range subdirs {
-			absSubdirPath := filepath.Join(stagingDir, subdir)
+			absSubdirPath := utils.JoinAndConvertPathToOSFormat(stagingDir, subdir)
 			absSubdirPathList := strings.Split(absSubdirPath, string(os.PathSeparator))
 
 			removeEntry := false
@@ -127,7 +126,7 @@ func main() {
 	for _, src := range entriesToKeep {
 		suffix := ""
 		for _, subdir := range subdirs {
-			prefix := filepath.Join(stagingDir, subdir)
+			prefix := utils.JoinAndConvertPathToOSFormat(stagingDir, subdir)
 			suffix = utils.HasPrefixInArray(src, []string{prefix}, true)
 			if suffix != "" {
 				break
@@ -135,7 +134,7 @@ func main() {
 		}
 
 		if suffix != "" {
-			dest := filepath.Join(destDir, suffix)
+			dest := utils.JoinAndConvertPathToOSFormat(destDir, suffix)
 			entryType, _ := utils.IsFileOrFolder(src)
 			// fmt.Println(entryType)
 			// fmt.Println(dest)

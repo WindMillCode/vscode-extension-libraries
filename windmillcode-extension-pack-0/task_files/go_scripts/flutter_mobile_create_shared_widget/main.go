@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/iancoleman/strcase"
@@ -16,7 +15,7 @@ func main() {
 	if err != nil {
 		return
 	}
-	templateLocation := filepath.Join(scriptLocation, "template")
+	templateLocation := utils.JoinAndConvertPathToOSFormat(scriptLocation, "template")
 	utils.CDToWorkspaceRoot()
 	utils.CDToFlutterApp()
 	flutterApp, err := os.Getwd()
@@ -31,16 +30,16 @@ func main() {
 	)
 	snakeCaseName := strcase.ToSnake(targetName)
 	snakeCaseWidgetName := strcase.ToSnake(targetName + "Widget")
-	providerLocation := filepath.Join(flutterApp, "lib", "pages", snakeCaseName)
-	newTemplatePath := filepath.Join(providerLocation, fmt.Sprintf("%s.dart", snakeCaseWidgetName))
-	newRiverPodProviderPath := filepath.Join(providerLocation, fmt.Sprintf("%s_riverpod_provider.dart", snakeCaseWidgetName))
+	providerLocation := utils.JoinAndConvertPathToOSFormat(flutterApp, "lib", "pages", snakeCaseName)
+	newTemplatePath := utils.JoinAndConvertPathToOSFormat(providerLocation, fmt.Sprintf("%s.dart", snakeCaseWidgetName))
+	newRiverPodProviderPath := utils.JoinAndConvertPathToOSFormat(providerLocation, fmt.Sprintf("%s_riverpod_provider.dart", snakeCaseWidgetName))
 	utils.CopyDir(templateLocation, providerLocation)
 	os.Rename(
-		filepath.Join(providerLocation, "template_widget.dart"),
+		utils.JoinAndConvertPathToOSFormat(providerLocation, "template_widget.dart"),
 		newTemplatePath,
 	)
 	os.Rename(
-		filepath.Join(providerLocation, "template_riverpod_provider.dart"),
+		utils.JoinAndConvertPathToOSFormat(providerLocation, "template_riverpod_provider.dart"),
 		newRiverPodProviderPath,
 	)
 

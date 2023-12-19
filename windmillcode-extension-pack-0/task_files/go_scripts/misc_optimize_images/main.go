@@ -47,12 +47,12 @@ func main() {
 	regex0 := regexp.MustCompile(" ")
 	projectsList := regex0.Split(projectsCLIString, -1)
 	for _, project := range projectsList {
-		app := filepath.Join(project)
+		app := utils.JoinAndConvertPathToOSFormat(project)
 		normalizedBackupLocation := ""
 		if runtime.GOOS == "windows" {
-			normalizedBackupLocation = filepath.Join(backupLocation, utils.RemoveDrivePath(app))
+			normalizedBackupLocation = utils.JoinAndConvertPathToOSFormat(backupLocation, utils.RemoveDrivePath(app))
 		} else {
-			normalizedBackupLocation = filepath.Join(backupLocation, app)
+			normalizedBackupLocation = utils.JoinAndConvertPathToOSFormat(backupLocation, app)
 		}
 		wg.Add(1)
 		go func() {

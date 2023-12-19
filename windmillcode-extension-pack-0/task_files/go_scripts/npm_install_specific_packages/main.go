@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"regexp"
 	"sync"
 
@@ -77,7 +76,7 @@ func main() {
 
 	packagesList := regex0.Split(packagesCLIString, -1)
 	for _, project := range projectsList {
-		app := filepath.Join(project, appLocation)
+		app := utils.JoinAndConvertPathToOSFormat(project, appLocation)
 		wg.Add(1)
 		go func() {
 			defer wg.Done()

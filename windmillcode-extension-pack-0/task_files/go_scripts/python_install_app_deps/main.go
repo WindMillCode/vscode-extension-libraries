@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"regexp"
 	"runtime"
 	"sync"
@@ -30,8 +29,8 @@ func main() {
 	)
 
 	cliInfo := utils.ShowMenuModel{
-		Other:   true,
-		Prompt:  "Choose an option:",
+		Other:  true,
+		Prompt: "Choose an option:",
 		Choices: []string{
 			utils.JoinAndConvertPathToOSFormat("./apps/backend/FlaskApp"),
 			utils.JoinAndConvertPathToOSFormat("."),
@@ -58,10 +57,10 @@ func main() {
 	switch targetOs {
 	case "windows":
 
-		sitePackages = filepath.Join(".", "site-packages", "windows")
+		sitePackages = utils.JoinAndConvertPathToOSFormat(".", "site-packages", "windows")
 
 	case "linux", "darwin":
-		sitePackages = filepath.Join(".", "site-packages", "linux")
+		sitePackages = utils.JoinAndConvertPathToOSFormat(".", "site-packages", "linux")
 
 	default:
 		fmt.Println("Unknown Operating System:", targetOs)
@@ -71,8 +70,8 @@ func main() {
 	regex0 := regexp.MustCompile(" ")
 	projectsList := regex0.Split(projectsCLIString, -1)
 	for _, project := range projectsList {
-		app := filepath.Join(project, appLocation)
-		sitePackagesAbsPath := filepath.Join(app, sitePackages)
+		app := utils.JoinAndConvertPathToOSFormat(project, appLocation)
+		sitePackagesAbsPath := utils.JoinAndConvertPathToOSFormat(app, sitePackages)
 		wg.Add(1)
 		go func() {
 			if reinstall == "true" {

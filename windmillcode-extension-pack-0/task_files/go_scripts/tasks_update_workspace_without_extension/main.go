@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"path/filepath"
 	"regexp"
 	"strings"
 	"sync"
@@ -44,17 +43,17 @@ type TasksJSON struct {
 
 func main() {
 	utils.CDToWorkspaceRoot()
-	workSpaceFolder,_ :=os.Getwd()
+	workSpaceFolder, _ := os.Getwd()
 	cliInfo := utils.ShowMenuModel{
-		Prompt: "choose the executable to use (try with windmillcode_go first if not then use go)",
-		Choices:[]string{"go","windmillcode_go"},
-		Default:  "windmillcode_go",
+		Prompt:  "choose the executable to use (try with windmillcode_go first if not then use go)",
+		Choices: []string{"go", "windmillcode_go"},
+		Default: "windmillcode_go",
 	}
-	goExecutable := utils.ShowMenu(cliInfo,nil)
+	goExecutable := utils.ShowMenu(cliInfo, nil)
 
 	proceed := "FALSE"
 
-	tasksJsonFilePath := utils.JoinAndConvertPathToOSFormat(workSpaceFolder, ".vscode/tasks.json");
+	tasksJsonFilePath := utils.JoinAndConvertPathToOSFormat(workSpaceFolder, ".vscode/tasks.json")
 
 	content, err, shouldReturn := createTasksJson(tasksJsonFilePath, false)
 	if shouldReturn {
@@ -67,7 +66,7 @@ func main() {
 		fmt.Println("Error unmarshalling JSON:", err)
 		return
 	}
-	goScriptsDestDirPath := filepath.Join(workSpaceFolder, "ignore/Windmillcode/go_scripts")
+	goScriptsDestDirPath := utils.JoinAndConvertPathToOSFormat(workSpaceFolder, "ignore/Windmillcode/go_scripts")
 
 	rebuildExecutables(proceed, cliInfo, tasksJSON, goScriptsDestDirPath, goExecutable)
 

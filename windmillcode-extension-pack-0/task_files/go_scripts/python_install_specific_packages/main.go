@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"runtime"
 
 	"github.com/windmillcode/go_cli_scripts/v3/utils"
@@ -21,15 +20,15 @@ func main() {
 		return
 	}
 	cliInfo := utils.ShowMenuModel{
-		Other:   true,
-		Prompt:  "Choose an option:",
+		Other:  true,
+		Prompt: "Choose an option:",
 		Choices: []string{
 			utils.JoinAndConvertPathToOSFormat("./apps/backend/FlaskApp"),
 			utils.JoinAndConvertPathToOSFormat("."),
 		},
 	}
 	appLocation := utils.ShowMenu(cliInfo, nil)
-	appLocation = filepath.Join(appLocation)
+	appLocation = utils.JoinAndConvertPathToOSFormat(appLocation)
 
 	pythonVersion := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
@@ -57,10 +56,10 @@ func main() {
 	switch targetOs {
 	case "windows":
 
-		sitePackages = filepath.Join(".", "site-packages", "windows")
+		sitePackages = utils.JoinAndConvertPathToOSFormat(".", "site-packages", "windows")
 
 	case "linux", "darwin":
-		sitePackages = filepath.Join(".", "site-packages", "linux")
+		sitePackages = utils.JoinAndConvertPathToOSFormat(".", "site-packages", "linux")
 
 	default:
 		fmt.Println("Unknown Operating System:", targetOs)

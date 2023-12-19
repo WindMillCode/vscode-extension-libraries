@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"path/filepath"
 	"regexp"
 	"strings"
 	"sync"
@@ -47,18 +46,18 @@ func main() {
 	extensionFolder := os.Args[2]
 	tasksJsonRelativeFilePath := os.Args[3]
 	cliInfo := utils.ShowMenuModel{
-		Prompt: "choose the executable to use (try with windmillcode_go first if not then use go)",
-		Choices:[]string{"go","windmillcode_go"},
-		Default:  os.Args[4],
+		Prompt:  "choose the executable to use (try with windmillcode_go first if not then use go)",
+		Choices: []string{"go", "windmillcode_go"},
+		Default: os.Args[4],
 	}
-	goExecutable := utils.ShowMenu(cliInfo,nil)
+	goExecutable := utils.ShowMenu(cliInfo, nil)
 	cliInfo = utils.ShowMenuModel{
 		Prompt:  "This will delete your vscode/tasks.json in your workspace folder. If you don't have a .vscode/tasks.json or you have not used this command before, it is safe to choose TRUE. Otherwise, consult with your manager before continuing",
 		Choices: []string{"TRUE", "FALSE"},
 	}
 	proceed := utils.ShowMenu(cliInfo, nil)
 
-	tasksJsonFilePath := filepath.Join(extensionFolder, tasksJsonRelativeFilePath)
+	tasksJsonFilePath := utils.JoinAndConvertPathToOSFormat(extensionFolder, tasksJsonRelativeFilePath)
 
 	content, err, shouldReturn := createTasksJson(tasksJsonFilePath, false)
 	if shouldReturn {
@@ -73,8 +72,8 @@ func main() {
 		fmt.Println("Error unmarshalling JSON:", err)
 		return
 	}
-	goScriptsSourceDirPath := filepath.Join(extensionFolder, "task_files/go_scripts")
-	goScriptsDestDirPath := filepath.Join(workSpaceFolder, "ignore/Windmillcode/go_scripts")
+	goScriptsSourceDirPath := utils.JoinAndConvertPathToOSFormat(extensionFolder, "task_files/go_scripts")
+	goScriptsDestDirPath := utils.JoinAndConvertPathToOSFormat(workSpaceFolder, "ignore/Windmillcode/go_scripts")
 
 	if proceed == "TRUE" {
 
@@ -106,7 +105,7 @@ func main() {
 			return
 		}
 
-		workspaceTasksJSONFilePath := filepath.Join(workSpaceFolder, "/.vscode/tasks.json")
+		workspaceTasksJSONFilePath := utils.JoinAndConvertPathToOSFormat(workSpaceFolder, "/.vscode/tasks.json")
 		workspaceTasksJSONFile, err := os.OpenFile(workspaceTasksJSONFilePath, os.O_WRONLY|os.O_TRUNC, 0644)
 		if err != nil {
 			fmt.Println("Error opening file:", err)
@@ -151,7 +150,7 @@ func rebuildExecutables(proceed string, cliInfo utils.ShowMenuModel, tasksJSON T
 			regex1 := regexp.MustCompile(pattern1)
 			programLocation1 := regex1.Split(strings.Join(programLocation0, ""), -1)
 			programLocation2 := strings.Join(programLocation1, "_")
-			absProgramLocation := filepath.Join(goScriptsDestDirPath, programLocation2)
+			absProgramLocation := utils.JoinAndConvertPathToOSFormat(goScriptsDestDirPath, programLocation2)
 			go func() {
 				defer wg.Done()
 				buildGoCLIProgram(absProgramLocation, goExecutable)
