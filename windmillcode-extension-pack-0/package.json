@@ -1,8 +1,8 @@
 {
-  "name": "windmillcode-extension-pack-0",
-  "displayName": "windmillcode-extension-pack-0",
-  "description": "",
-  "version": "5.2.10",
+  "name": "windmillcode-extension-pack-zero",
+  "displayName": "WindMillCode Extension Pack Zero",
+  "description": "Big extension pack of useful extensions",
+  "version": "1.85.1000",
   "publisher": "windmillcode-publisher-0",
   "icon": "images/logo.png",
   "repository": {
@@ -20,82 +20,10 @@
     "onStartupFinished"
   ],
   "main": "./out/extension",
-  "contributes": {
-    "snippets": [
-      {
-        "language": "css",
-        "path": "./snippets/css.json"
-      },
-      {
-        "language": "dart",
-        "path": "./snippets/dart.json"
-      },
-      {
-        "language": "html",
-        "path": "./snippets/html.json"
-      },
-      {
-        "language": "java",
-        "path": "./snippets/java.json"
-      },
-      {
-        "language": "javascriptreact",
-        "path": "./snippets/javascriptreact.json"
-      },
-      {
-        "language": "json",
-        "path": "./snippets/json.json"
-      },
-      {
-        "language": "jsonc",
-        "path": "./snippets/jsonc.json"
-      },
-      {
-        "language": "markdown",
-        "path": "./snippets/markdown.json"
-      },
-      {
-        "language": "powershell",
-        "path": "./snippets/powershell.json"
-      },
-      {
-        "language": "python",
-        "path": "./snippets/python.json"
-      },
-      {
-        "language": "scss",
-        "path": "./snippets/scss.json"
-      },
-      {
-        "language": "typescript",
-        "path": "./snippets/typescript.json"
-      },
-      {
-        "language": "typescriptreact",
-        "path": "./snippets/typescriptreact.json"
-      },
-      {
-        "language": "go",
-        "path": "./snippets/go.json"
-      }
-    ],
-    "taskDefinitions": [
-      {
-        "type": "windmillcode",
-        "properties": {
-          "task": {
-            "type": "string",
-            "description": "the name of the windmillcode task"
-          },
-          "uuid": {
-            "type": "string",
-            "description": "the task uuid"
-          }
-        }
-      }
-    ]
-  },
   "extensionPack": [
+    "windmillcode-publisher-0.windmillcode-open-related-files",
+    "windmillcode-publisher-0.windmillcode-snippets-zero",
+    "windmillcode-publisher-0.windmillcode-tasks-zero",
     "ultram4rine.vscode-choosealicense",
     "YuTengjing.vscode-archive",
     "christian-kohler.npm-intellisense",

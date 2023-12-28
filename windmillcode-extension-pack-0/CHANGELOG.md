@@ -1,13 +1,19 @@
-# Change Log
+# ChangeLog
 
-All notable changes to the "windmillcode-extension-pack-0" extension pack will be documented in this file.
+All notable changes to the "Windmillcode Tasks Zero" extension pack will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+* Version updates will be based on vscode relesases
+on every vscode update a new version will be release
 
-## [Unreleased]
+* the software version extends the vscode patch version by 3 zeros giving us
+1000 possible updates before there is an update to vscode and extends back to zero
 
-- Initial release
+* you would have to check the CHANGELOG for any breaking, (major), minor or patched updates which will be denoted respectively
 
+## [1.85.1000] 12/27/23
+* Extension is made available for public use
+
+# OLD Extension
 v 0.2.0
   * support for the yarn utilities
 
@@ -264,3 +270,6 @@ v 5.2.9
 
 v 5.2.10
 * added flask backend: create manager vscode tasks
+
+
+
