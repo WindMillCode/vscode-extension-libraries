@@ -1,0 +1,15 @@
+.vscode/**
+.vscode-test/**
+out/test/**
+test/**
+src/**
+**/*.map
+.gitignore
+tsconfig.json
+vsc-extension-quickstart.md
+**/site-packages/**
+**/notes/**
+task_files/go/**
+task_files/win32/**
+task_files/go_scripts/.git/**
+src/WML**

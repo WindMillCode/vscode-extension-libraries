@@ -25,19 +25,5 @@ func main() {
 	utils.CDToLocation(initScriptLocation)
 	initScript = filepath.Base(initScript)
 
-	initOptions := utils.CommandOptions{
-		Command: "windmillcode_go",
-		Args: []string{"run", initScript, initScriptArgs},
-	}
-	_,err :=utils.RunCommandWithOptions(initOptions)
-	if err != nil {
-		initOptions = utils.CommandOptions{
-			Command: "go",
-			Args: []string{"run", initScript, initScriptArgs},
-		}
-		_,err =utils.RunCommandWithOptions(initOptions)
-		if err != nil {
-			return
-		}
-	}
+	utils.RunCommand("windmillcode_go", []string{"run", initScript, initScriptArgs})
 }

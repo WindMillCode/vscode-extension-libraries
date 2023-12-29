@@ -51,28 +51,26 @@ func main() {
 		}
 		envVars,err := utils.RunCommandWithOptions(envVarCommandOptions)
 		if err != nil {
-			envVarCommandOptions := utils.CommandOptions{
-				Command:   "go",
-				Args:      []string{"run", envVarsFile, filepath.Dir(utils.JoinAndConvertPathToOSFormat(envVarsFile)), workspaceFolder},
-				GetOutput: true,
-				TargetDir: filepath.Dir(utils.JoinAndConvertPathToOSFormat(envVarsFile)),
-			}
-			envVars, err = utils.RunCommandWithOptions(envVarCommandOptions)
-			if err != nil {
-				return
-			}
+			return
 		}
+
 		envVarsArray := strings.Split(envVars, ",")
 		for _, x := range envVarsArray {
 			keyPair := []string{}
 			for _, y := range strings.Split(x, "=") {
 				keyPair = append(keyPair, strings.TrimSpace(y))
 			}
+			keyPair[1] = strings.ReplaceAll(keyPair[1], ",", "")
 			os.Setenv(keyPair[0], keyPair[1])
 		}
 		utils.CDToLocation(flaskAppFolder)
-		utils.RunCommand("python", []string{"app.py"})
-
+		// runOptions := utils.CommandOptions{
+		// 	Command: "python",
+		// 	Args: []string{"app.py"},
+		// 	GetOutput: false,
+		// }
+		// utils.RunCommandWithOptions(runOptions)
+		utils.RunCommand("python",[]string{"app.py"})
 	}
 
-}
+}	
