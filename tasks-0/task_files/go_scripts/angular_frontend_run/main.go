@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/windmillcode/go_cli_scripts/v3/utils"
 )
@@ -23,13 +24,22 @@ func main() {
 	}
 	runWithCache := utils.ShowMenu(cliInfo, nil)
 
+	defaultConfig := "development"
+	if utils.IsRunningInDocker() {
+		defaultConfig = strings.Replace(defaultConfig, "development", "docker-development", 1)
+		for key, val := range angularFrontend.Configurations {
+			angularFrontend.Configurations[key] = strings.Replace(val, "development", "docker-development", 1)
+		}
+	}
+
 	cliInfo = utils.ShowMenuModel{
 		Prompt:  "the configuration to run",
 		Choices: angularFrontend.Configurations,
-		Default: "development",
+		Default: defaultConfig,
 		Other:   true,
 	}
 	serveConfiguration := utils.ShowMenu(cliInfo, nil)
+
 	utils.CDToAngularApp()
 	if runWithCache == "false" {
 		if err := os.RemoveAll(utils.JoinAndConvertPathToOSFormat(".", ".angular")); err != nil {

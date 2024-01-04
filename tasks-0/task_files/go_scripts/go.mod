@@ -3,9 +3,8 @@ module main
 go 1.21
 
 require (
-	github.com/fsnotify/fsnotify v1.7.0
 	github.com/iancoleman/strcase v0.3.0
-	github.com/windmillcode/go_cli_scripts/v3 v3.1.5
+	github.com/windmillcode/go_cli_scripts/v3 v3.1.6
 )
 
 require (

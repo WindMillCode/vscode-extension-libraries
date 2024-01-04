@@ -26,30 +26,39 @@ func main() {
 		return
 	}
 
-	envVarsFile := utils.GetInputFromStdin(
-		utils.GetInputFromStdinStruct{
-			Prompt:  []string{"where are the env vars located"},
-			Default: utils.JoinAndConvertPathToOSFormat(workspaceFolder, settings.ExtensionPack.FlaskBackendDevHelperScript),
+	helperScript := settings.ExtensionPack.FlaskBackendDevHelperScript
+	if utils.IsRunningInDocker() {
+		helperScript = strings.Replace(helperScript, "dev", "docker_dev", 1)
+	}
+
+	cliInfo := utils.ShowMenuModel{
+		Prompt: "Where are the env vars located",
+		Choices: []string{
+			utils.JoinAndConvertPathToOSFormat(workspaceFolder, helperScript),
 		},
-	)
+		Other: true,
+	}
+	envVarsFile := utils.ShowMenu(cliInfo, nil)
+
 	pythonVersion := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt:  []string{"provide a python version for pyenv to use"},
 			Default: settings.ExtensionPack.PythonVersion0,
 		},
 	)
+
 	if pythonVersion != "" {
 		utils.RunCommand("pyenv", []string{"global", pythonVersion})
 	}
 	for {
 		utils.CDToLocation(workspaceFolder)
 		envVarCommandOptions := utils.CommandOptions{
-			Command:      "windmillcode_go",
-			Args:         []string{"run", envVarsFile, filepath.Dir(utils.JoinAndConvertPathToOSFormat(envVarsFile)), workspaceFolder},
-			GetOutput:    true,
-			TargetDir:     filepath.Dir(utils.JoinAndConvertPathToOSFormat(envVarsFile)),
+			Command:   "windmillcode_go",
+			Args:      []string{"run", envVarsFile, filepath.Dir(utils.JoinAndConvertPathToOSFormat(envVarsFile)), workspaceFolder},
+			GetOutput: true,
+			TargetDir: filepath.Dir(utils.JoinAndConvertPathToOSFormat(envVarsFile)),
 		}
-		envVars,err := utils.RunCommandWithOptions(envVarCommandOptions)
+		envVars, err := utils.RunCommandWithOptions(envVarCommandOptions)
 		if err != nil {
 			return
 		}
@@ -70,7 +79,8 @@ func main() {
 		// 	GetOutput: false,
 		// }
 		// utils.RunCommandWithOptions(runOptions)
-		utils.RunCommand("python",[]string{"app.py"})
+		utils.RunCommand("python", []string{"app.py"})
 	}
 
-}	
+}
+
