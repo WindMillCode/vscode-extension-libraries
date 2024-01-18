@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/windmillcode/go_cli_scripts/v3/utils"
+	"github.com/windmillcode/go_cli_scripts/v4/utils"
 )
 
 func main() {
@@ -17,10 +17,10 @@ func main() {
 			Default: utils.JoinAndConvertPathToOSFormat("ignore\\Local\\docker_init_container.go"),
 		},
 	)
-	initScriptArgs := utils.TakeVariableArgs(
+	initScriptArgsStruct := utils.TakeVariableArgs(
 		utils.TakeVariableArgsStruct{},
 	)
-	initScriptArgs = fmt.Sprintf("%s %s", utils.JoinAndConvertPathToOSFormat("..", "..", ".."), initScriptArgs)
+	initScriptArgs := fmt.Sprintf("%s %s", utils.JoinAndConvertPathToOSFormat("..", "..", ".."), initScriptArgsStruct.InputString)
 	initScriptLocation := filepath.Dir(initScript)
 	utils.CDToLocation(initScriptLocation)
 	initScript = filepath.Base(initScript)

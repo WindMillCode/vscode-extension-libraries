@@ -5,7 +5,7 @@ import (
 	"os"
 	"runtime"
 
-	"github.com/windmillcode/go_cli_scripts/v3/utils"
+	"github.com/windmillcode/go_cli_scripts/v4/utils"
 )
 
 func main() {
@@ -65,9 +65,9 @@ func main() {
 		fmt.Println("Unknown Operating System:", targetOs)
 	}
 	if reinstall == "true" {
-		utils.RunCommand("pip", []string{"uninstall", packageList})
+		utils.RunCommand("pip", []string{"uninstall", packageList.InputString})
 	}
-	utils.RunCommand("pip", []string{"install", packageList, "--target", sitePackages})
+	utils.RunCommand("pip", []string{"install", packageList.InputString, "--target", sitePackages})
 	utils.RunCommand("pip", []string{"freeze", "--all", "--path", sitePackages})
 
 }

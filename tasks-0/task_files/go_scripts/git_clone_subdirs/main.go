@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/windmillcode/go_cli_scripts/v3/utils"
+	"github.com/windmillcode/go_cli_scripts/v4/utils"
 )
 
 func main() {
@@ -50,10 +50,10 @@ func main() {
 		Default:   gitCloneSubDirs.Subdirs,
 		Delimiter: "  ",
 	}
-	subdirsString := utils.TakeVariableArgs(
+	subdirsArgs := utils.TakeVariableArgs(
 		subdirStringStruct,
 	)
-	subdirs := strings.Split(subdirsString, subdirStringStruct.Delimiter)
+	subdirs := strings.Split(subdirsArgs.InputString, subdirStringStruct.Delimiter)
 	destDir := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
 			Prompt:  []string{"Provide the dest directory"},

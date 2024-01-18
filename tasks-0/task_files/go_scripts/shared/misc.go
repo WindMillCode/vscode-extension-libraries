@@ -2,12 +2,22 @@ package shared
 
 import (
 	"fmt"
+	"os"
 	"regexp"
 	"strings"
 	"sync"
 
-	"github.com/windmillcode/go_cli_scripts/v3/utils"
+	"github.com/windmillcode/go_cli_scripts/v4/utils"
 )
+
+type ShellOptions struct {
+	Executable string   `json:"executable"`
+	Args       []string `json:"args"`
+}
+
+type CommandOptions struct {
+	Shell ShellOptions `json:"shell"`
+}
 
 type Task struct {
 	Label   string `json:"label"`
@@ -16,7 +26,8 @@ type Task struct {
 		Command string `json:"command"`
 	} `json:"windows"`
 	Linux struct {
-		Command string `json:"command"`
+    Command string       `json:"command"`
+    Options CommandOptions `json:"options"`
 	} `json:"linux"`
 	Osx struct {
 		Command string `json:"command"`
@@ -33,6 +44,7 @@ type Input struct {
 	Default     string `json:"default"`
 	Type        string `json:"type"`
 }
+
 type TasksJSON struct {
 	Version string  `json:"version"`
 	Tasks   []Task  `json:"tasks"`
@@ -105,4 +117,24 @@ func BuildGoCLIProgram(programLocation string, goExecutable string) {
 	utils.RunCommandInSpecificDirectory(goExecutable, []string{"build", "main.go"}, programLocation)
 	fmt.Printf("Finished building %s \n", programLocation)
 
+}
+
+func CreateTasksJson(tasksJsonFilePath string, triedCreateOnError bool) ([]byte, error, bool) {
+	content, err := os.ReadFile(tasksJsonFilePath)
+	if err != nil {
+		if triedCreateOnError {
+			return nil, err, true
+		}
+
+		// If the file doesn't exist, create it.
+		_, createErr := os.Create(tasksJsonFilePath)
+		if createErr != nil {
+			return nil, createErr, true
+		}
+
+		// Recursively attempt to read the file after creating it.
+		return CreateTasksJson(tasksJsonFilePath, true)
+	}
+
+	return content, nil, false
 }

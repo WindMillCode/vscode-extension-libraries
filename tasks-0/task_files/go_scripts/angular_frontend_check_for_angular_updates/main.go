@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"sync"
 
-	"github.com/windmillcode/go_cli_scripts/v3/utils"
+	"github.com/windmillcode/go_cli_scripts/v4/utils"
 )
 
 func main() {
@@ -16,7 +16,7 @@ func main() {
 	if err != nil {
 		fmt.Println("there was an error while trying to receive the current dir")
 	}
-	projectsCLIString := utils.TakeVariableArgs(
+	projectsCLI := utils.TakeVariableArgs(
 		utils.TakeVariableArgsStruct{
 			Prompt:  "Provide the paths of all the projects where you want the actions to take place",
 			Default: workspaceRoot,
@@ -31,7 +31,7 @@ func main() {
 
 	var wg sync.WaitGroup
 	regex0 := regexp.MustCompile(" ")
-	projectsList := regex0.Split(projectsCLIString, -1)
+	projectsList := regex0.Split(projectsCLI.InputString, -1)
 	for _, project := range projectsList {
 		app := utils.JoinAndConvertPathToOSFormat(project, angularAppLocation)
 		wg.Add(1)

@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/windmillcode/go_cli_scripts/v3/utils"
+	"github.com/windmillcode/go_cli_scripts/v4/utils"
 )
 
 
@@ -31,7 +31,7 @@ func main() {
 
 	tasksJsonFilePath := utils.JoinAndConvertPathToOSFormat(extensionFolder, tasksJsonRelativeFilePath)
 
-	content, err, shouldReturn := createTasksJson(tasksJsonFilePath, false)
+	content, err, shouldReturn := shared.CreateTasksJson(tasksJsonFilePath, false)
 	if shouldReturn {
 		return
 	}
@@ -44,8 +44,37 @@ func main() {
 	}
 	goScriptsSourceDirPath := utils.JoinAndConvertPathToOSFormat(extensionFolder, "task_files/go_scripts")
 	goScriptsDestDirPath := utils.JoinAndConvertPathToOSFormat(workSpaceFolder, "ignore/Windmillcode/go_scripts")
+	cliInfo = utils.ShowMenuModel{
+		Prompt: "delete dest dir to ensure proper update (if updates are not taking place choose YES)",
+		Choices:[]string{"YES","NO"},
+		Default :"YES",
+	}
+	deleteDestDir := utils.ShowMenu(cliInfo,nil)
+	if deleteDestDir == "YES"{
+		fmt.Println("Deleting Dest dir ...")
+		if err := os.RemoveAll(goScriptsDestDirPath); err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+	}
+	fmt.Println("Copying over files ...")
+	utils.CopyDir(goScriptsSourceDirPath, goScriptsDestDirPath)
 
 	if proceed == "TRUE" {
+
+		cliInfo := utils.ShowMenuModel{
+			Prompt: "Run Tasks Via Interpreted or Complied Mode",
+			Choices:[]string{"COMPLIED","INTERPRETED"},
+			Default: "COMPLIED",
+		}
+		runMode := utils.ShowMenu(cliInfo,nil)
+
+		cliInfo = utils.ShowMenuModel{
+			Prompt: "use default user (if unsure select NO)",
+			Choices:[]string{"NO","YES"},
+			Default: "NO",
+		}
+		customUserIsPresent := utils.ShowMenu(cliInfo,nil)
 
 		for index, task := range tasksJSON.Tasks {
 
@@ -57,15 +86,24 @@ func main() {
 			programLocation1 := regex1.Split(strings.Join(programLocation0, ""), -1)
 			programLocation2 := strings.Join(programLocation1, "_")
 			programLocation3 := "ignore//${input:current_user_0}//go_scripts//" + programLocation2
-			linuxTaskExecutable := ".//main"
-			if task.Label == "tasks: update workspace without extension" {
-				linuxTaskExecutable = "go run main.go"
+			if customUserIsPresent =="NO"{
+				programLocation3 ="ignore//Windmillcode//go_scripts//" + programLocation2
 			}
-			linuxCommand0 := "cd " + programLocation3 + " ; " + linuxTaskExecutable
-			windowsCommand0 := "cd " + strings.Replace(programLocation3, "//", "\\", -1) + " ; " + strings.Replace(linuxTaskExecutable, "//", "\\", -1)
+			taskExecutable := ".//main"
+			if runMode == "INTERPRETED" {
+				taskExecutable = fmt.Sprintf("%s %s",goExecutable,"run main.go")
+			}
+			linuxCommand0 := "cd " + programLocation3 + " ; " + taskExecutable
+			windowsCommand0 := "cd " + strings.Replace(programLocation3, "//", "\\", -1) + " ; " + strings.Replace(taskExecutable, "//", "\\", -1)
 			tasksJSON.Tasks[index].Windows.Command = windowsCommand0
 			tasksJSON.Tasks[index].Osx.Command = linuxCommand0
 			tasksJSON.Tasks[index].Linux.Command = linuxCommand0
+			tasksJSON.Tasks[index].Linux.Options = shared.CommandOptions{
+				Shell: shared.ShellOptions{
+					Executable: "bash",
+					Args: []string{"-ic"},
+				},
+			}
 
 		}
 
@@ -87,8 +125,6 @@ func main() {
 			fmt.Println("Error writing to file:", err)
 			return
 		}
-
-		utils.CopyDir(goScriptsSourceDirPath, goScriptsDestDirPath)
 	}
 
 	shared.RebuildExecutables(proceed, cliInfo, tasksJSON, goScriptsDestDirPath, goExecutable)
@@ -97,24 +133,5 @@ func main() {
 
 
 
-func createTasksJson(tasksJsonFilePath string, triedCreateOnError bool) ([]byte, error, bool) {
-	content, err := os.ReadFile(tasksJsonFilePath)
-	if err != nil {
-		if triedCreateOnError {
-			return nil, err, true
-		}
-
-		// If the file doesn't exist, create it.
-		_, createErr := os.Create(tasksJsonFilePath)
-		if createErr != nil {
-			return nil, createErr, true
-		}
-
-		// Recursively attempt to read the file after creating it.
-		return createTasksJson(tasksJsonFilePath, true)
-	}
-
-	return content, nil, false
-}
 
 

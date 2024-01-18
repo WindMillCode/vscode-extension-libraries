@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"github.com/windmillcode/go_cli_scripts/v3/utils"
+	"github.com/windmillcode/go_cli_scripts/v4/utils"
 )
 
 func main() {
@@ -32,7 +32,7 @@ func main() {
 	cliInfo = utils.ShowMenuModel{
 		Prompt: "where is the test managers folder located",
 		Choices:[]string{
-			utils.JoinAndConvertPathToOSFormat(".","unit_tests","managers"),
+			utils.JoinAndConvertPathToOSFormat(".","unit_tests","FlaskTesting","managers"),
 		},
 		Other: true,
 	}

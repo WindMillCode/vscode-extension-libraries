@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 	"main/shared"
-	"github.com/windmillcode/go_cli_scripts/v3/utils"
+	"github.com/windmillcode/go_cli_scripts/v4/utils"
 )
 
 
@@ -20,11 +20,11 @@ func main() {
 	}
 	goExecutable := utils.ShowMenu(cliInfo, nil)
 
-	proceed := "FALSE"
+
 
 	tasksJsonFilePath := utils.JoinAndConvertPathToOSFormat(workSpaceFolder, ".vscode/tasks.json")
 
-	content, err, shouldReturn := createTasksJson(tasksJsonFilePath, false)
+	content, err, shouldReturn := shared.CreateTasksJson(tasksJsonFilePath, false)
 	if shouldReturn {
 		return
 	}
@@ -37,30 +37,11 @@ func main() {
 	}
 	goScriptsDestDirPath := utils.JoinAndConvertPathToOSFormat(workSpaceFolder, "ignore/Windmillcode/go_scripts")
 
-	shared.RebuildExecutables(proceed, cliInfo, tasksJSON, goScriptsDestDirPath, goExecutable)
+	shared.RebuildExecutables("FALSE", cliInfo, tasksJSON, goScriptsDestDirPath, goExecutable)
 
 }
 
 
 
-func createTasksJson(tasksJsonFilePath string, triedCreateOnError bool) ([]byte, error, bool) {
-	content, err := os.ReadFile(tasksJsonFilePath)
-	if err != nil {
-		if triedCreateOnError {
-			return nil, err, true
-		}
-
-		// If the file doesn't exist, create it.
-		_, createErr := os.Create(tasksJsonFilePath)
-		if createErr != nil {
-			return nil, createErr, true
-		}
-
-		// Recursively attempt to read the file after creating it.
-		return createTasksJson(tasksJsonFilePath, true)
-	}
-
-	return content, nil, false
-}
 
 

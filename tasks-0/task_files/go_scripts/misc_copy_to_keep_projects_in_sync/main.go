@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"sync"
 
-	"github.com/windmillcode/go_cli_scripts/v3/utils"
+	"github.com/windmillcode/go_cli_scripts/v4/utils"
 )
 
 func main() {
@@ -24,7 +24,7 @@ func main() {
 		},
 	)
 
-	projectsDestCLIString := utils.TakeVariableArgs(
+	projectsDestCLI := utils.TakeVariableArgs(
 		utils.TakeVariableArgsStruct{
 			Prompt: "Provide the paths of all the projects to copy the files/dirs",
 			ErrMsg: "Projects must be provided",
@@ -40,7 +40,7 @@ func main() {
 
 	sourcePath := utils.JoinAndConvertPathToOSFormat(projectSrcCLIString, target)
 	regex0 := regexp.MustCompile(" ")
-	projectsList := regex0.Split(projectsDestCLIString, -1)
+	projectsList := regex0.Split(projectsDestCLI.InputString, -1)
 
 	var wg sync.WaitGroup
 	for _, project := range projectsList {

@@ -294,6 +294,15 @@
       }
     },
     {
+      "label": "misc: run proxy",
+      "type": "shell",
+
+
+      "runOptions": {
+        "instanceLimit": 1000
+      }
+    },
+    {
       "label": "misc: rename files",
       "type": "shell",
 

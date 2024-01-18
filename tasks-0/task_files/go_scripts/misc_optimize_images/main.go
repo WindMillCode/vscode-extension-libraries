@@ -8,7 +8,7 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/windmillcode/go_cli_scripts/v3/utils"
+	"github.com/windmillcode/go_cli_scripts/v4/utils"
 )
 
 func main() {
@@ -24,7 +24,7 @@ func main() {
 	}
 	miscOptimizeImages := settings.ExtensionPack.MiscOptimizeImages
 
-	projectsCLIString := utils.TakeVariableArgs(
+	projectsCLI := utils.TakeVariableArgs(
 		utils.TakeVariableArgsStruct{
 			Prompt:  "Provide the paths of all the locations where you want your images optimized",
 			Default: miscOptimizeImages.Location,
@@ -45,7 +45,7 @@ func main() {
 
 	var wg sync.WaitGroup
 	regex0 := regexp.MustCompile(" ")
-	projectsList := regex0.Split(projectsCLIString, -1)
+	projectsList := regex0.Split(projectsCLI.InputString, -1)
 	for _, project := range projectsList {
 		app := utils.JoinAndConvertPathToOSFormat(project)
 		normalizedBackupLocation := ""

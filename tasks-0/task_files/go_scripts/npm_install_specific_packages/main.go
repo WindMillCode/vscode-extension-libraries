@@ -3,10 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
-	"regexp"
 	"sync"
 
-	"github.com/windmillcode/go_cli_scripts/v3/utils"
+	"github.com/windmillcode/go_cli_scripts/v4/utils"
 )
 
 func main() {
@@ -16,7 +15,7 @@ func main() {
 	if err != nil {
 		fmt.Println("there was an error while trying to receive the current dir")
 	}
-	projectsCLIString := utils.TakeVariableArgs(
+	projectsCLI := utils.TakeVariableArgs(
 		utils.TakeVariableArgsStruct{
 			Prompt:  "Provide the paths of all the projects where you want the actions to take place",
 			Default: workspaceRoot,
@@ -40,7 +39,7 @@ func main() {
 	}
 	appLocation := utils.ShowMenu(cliInfo, nil)
 
-	packagesCLIString := utils.TakeVariableArgs(
+	packagesCLI := utils.TakeVariableArgs(
 		utils.TakeVariableArgsStruct{
 			Prompt: "Provide the names of the packages you would like to install",
 			ErrMsg: "You must provide packages for installation",
@@ -71,10 +70,9 @@ func main() {
 	force := utils.ShowMenu(cliInfo, nil)
 
 	var wg sync.WaitGroup
-	regex0 := regexp.MustCompile(" ")
-	projectsList := regex0.Split(projectsCLIString, -1)
+	projectsList := projectsCLI.InputArray
 
-	packagesList := regex0.Split(packagesCLIString, -1)
+	packagesList := packagesCLI.InputArray
 	for _, project := range projectsList {
 		app := utils.JoinAndConvertPathToOSFormat(project, appLocation)
 		wg.Add(1)

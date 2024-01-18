@@ -5,7 +5,6 @@ local_deps()
 
 class TemplateManager():
   init= False
-  dsn = None
   def __init__(self):
     if(TemplateManager.init):
       raise SingletonException
