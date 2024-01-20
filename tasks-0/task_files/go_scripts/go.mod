@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/iancoleman/strcase v0.3.0
-	github.com/windmillcode/go_cli_scripts/v4 v4.1.0
+	github.com/windmillcode/go_cli_scripts/v4 v4.2.4
 )
 
 require (

@@ -16,8 +16,7 @@
 
 
       "runOptions": {
-        "instanceLimit": 1,
-        "runOn":"folderOpen"
+        "instanceLimit": 1
       }
     },
     {
@@ -26,8 +25,7 @@
 
 
       "runOptions": {
-        "instanceLimit": 1,
-        "runOn":"folderOpen"
+        "instanceLimit": 1
       }
     },
     {
@@ -99,7 +97,7 @@
 
 
       "runOptions": {
-        "runOn": "folderOpen",
+
         "instanceLimit": 10
       }
     },
@@ -118,22 +116,13 @@
 
 
       "runOptions": {
-        "runOn":"folderOpen",
+
         "instanceLimit": 1
       }
     },
     {
       "label": "flask backend: test",
       "type": "shell",
-
-      "runOptions": {
-        "instanceLimit": 1
-      }
-    },
-    {
-      "label": "flask backend: view coverage info",
-      "type": "shell",
-
 
       "runOptions": {
         "instanceLimit": 1
@@ -235,7 +224,7 @@
 
 
       "runOptions": {
-        "runOn":"folderOpen",
+
         "instanceLimit": 1
       }
     },
@@ -294,7 +283,7 @@
       }
     },
     {
-      "label": "misc: run proxy",
+      "label": "misc: run proxies",
       "type": "shell",
 
 

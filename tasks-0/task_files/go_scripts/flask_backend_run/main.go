@@ -57,6 +57,7 @@ func main() {
 			Args:      []string{"run", envVarsFile, filepath.Dir(utils.JoinAndConvertPathToOSFormat(envVarsFile)), workspaceFolder},
 			GetOutput: true,
 			TargetDir: filepath.Dir(utils.JoinAndConvertPathToOSFormat(envVarsFile)),
+			PrintOutput: false,
 		}
 		envVars, err := utils.RunCommandWithOptions(envVarCommandOptions)
 		if err != nil {
@@ -73,14 +74,16 @@ func main() {
 			os.Setenv(keyPair[0], keyPair[1])
 		}
 		utils.CDToLocation(flaskAppFolder)
-		// runOptions := utils.CommandOptions{
-		// 	Command: "python",
-		// 	Args: []string{"app.py"},
-		// 	GetOutput: false,
-		// }
-		// utils.RunCommandWithOptions(runOptions)
-		utils.RunCommand("python", []string{"app.py"})
+		runOptions := utils.CommandOptions{
+			Command: "python",
+			Args: []string{"app.py"},
+			GetOutput: false,
+		}
+		utils.RunCommandWithOptions(runOptions)
 	}
 
 }
+
+
+
 

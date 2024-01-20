@@ -11,12 +11,14 @@ import (
 	"github.com/windmillcode/go_cli_scripts/v4/utils"
 )
 
-
-
 func main() {
 	workSpaceFolder := os.Args[1]
 	extensionFolder := os.Args[2]
 	tasksJsonRelativeFilePath := os.Args[3]
+	settings, err := utils.GetSettingsJSON(workSpaceFolder)
+	if err != nil {
+		return
+	}
 	cliInfo := utils.ShowMenuModel{
 		Prompt:  "choose the executable to use (try with windmillcode_go first if not then use go)",
 		Choices: []string{"go", "windmillcode_go"},
@@ -45,12 +47,12 @@ func main() {
 	goScriptsSourceDirPath := utils.JoinAndConvertPathToOSFormat(extensionFolder, "task_files/go_scripts")
 	goScriptsDestDirPath := utils.JoinAndConvertPathToOSFormat(workSpaceFolder, "ignore/Windmillcode/go_scripts")
 	cliInfo = utils.ShowMenuModel{
-		Prompt: "delete dest dir to ensure proper update (if updates are not taking place choose YES)",
-		Choices:[]string{"YES","NO"},
-		Default :"YES",
+		Prompt:  "delete dest dir to ensure proper update (if updates are not taking place choose YES)",
+		Choices: []string{"YES", "NO"},
+		Default: "YES",
 	}
-	deleteDestDir := utils.ShowMenu(cliInfo,nil)
-	if deleteDestDir == "YES"{
+	deleteDestDir := utils.ShowMenu(cliInfo, nil)
+	if deleteDestDir == "YES" {
 		fmt.Println("Deleting Dest dir ...")
 		if err := os.RemoveAll(goScriptsDestDirPath); err != nil {
 			fmt.Println("Error:", err)
@@ -63,18 +65,18 @@ func main() {
 	if proceed == "TRUE" {
 
 		cliInfo := utils.ShowMenuModel{
-			Prompt: "Run Tasks Via Interpreted or Complied Mode",
-			Choices:[]string{"COMPLIED","INTERPRETED"},
+			Prompt:  "Run Tasks Via Interpreted or Complied Mode",
+			Choices: []string{"COMPLIED", "INTERPRETED"},
 			Default: "COMPLIED",
 		}
-		runMode := utils.ShowMenu(cliInfo,nil)
+		runMode := utils.ShowMenu(cliInfo, nil)
 
 		cliInfo = utils.ShowMenuModel{
-			Prompt: "use default user (if unsure select NO)",
-			Choices:[]string{"NO","YES"},
+			Prompt:  "use default user (if unsure select NO)",
+			Choices: []string{"NO", "YES"},
 			Default: "NO",
 		}
-		customUserIsPresent := utils.ShowMenu(cliInfo,nil)
+		customUserIsPresent := utils.ShowMenu(cliInfo, nil)
 
 		for index, task := range tasksJSON.Tasks {
 
@@ -86,12 +88,12 @@ func main() {
 			programLocation1 := regex1.Split(strings.Join(programLocation0, ""), -1)
 			programLocation2 := strings.Join(programLocation1, "_")
 			programLocation3 := "ignore//${input:current_user_0}//go_scripts//" + programLocation2
-			if customUserIsPresent =="NO"{
-				programLocation3 ="ignore//Windmillcode//go_scripts//" + programLocation2
+			if customUserIsPresent == "NO" {
+				programLocation3 = "ignore//Windmillcode//go_scripts//" + programLocation2
 			}
 			taskExecutable := ".//main"
 			if runMode == "INTERPRETED" {
-				taskExecutable = fmt.Sprintf("%s %s",goExecutable,"run main.go")
+				taskExecutable = fmt.Sprintf("%s %s", goExecutable, "run main.go")
 			}
 			linuxCommand0 := "cd " + programLocation3 + " ; " + taskExecutable
 			windowsCommand0 := "cd " + strings.Replace(programLocation3, "//", "\\", -1) + " ; " + strings.Replace(taskExecutable, "//", "\\", -1)
@@ -101,8 +103,11 @@ func main() {
 			tasksJSON.Tasks[index].Linux.Options = shared.CommandOptions{
 				Shell: shared.ShellOptions{
 					Executable: "bash",
-					Args: []string{"-ic"},
+					Args:       []string{"-ic"},
 				},
+			}
+			if strings.Contains(strings.Join(settings.ExtensionPack.TasksToRunOnFolderOpen, " , "), task.Label) {
+				tasksJSON.Tasks[index].RunOptions.RunOn = "folderOpen"
 			}
 
 		}
@@ -130,8 +135,3 @@ func main() {
 	shared.RebuildExecutables(proceed, cliInfo, tasksJSON, goScriptsDestDirPath, goExecutable)
 
 }
-
-
-
-
-

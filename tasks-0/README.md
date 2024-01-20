@@ -81,12 +81,8 @@ Flask Backend: Test
 -------------------
 
 This task tests the Flask backend.
+This task also starts up a http server which allows you to view the coverage information while writing unit tests in flask.
 
-
-Flask Backend: View Coverage information
--------------------
-
-This tasks starts up a http server which allows you to view the coverage information while writing unit tests in flask.
 
 
 Flask Backend: Create Controller

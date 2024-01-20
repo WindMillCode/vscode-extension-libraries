@@ -72,3 +72,13 @@ it optionally runs a diode tunnel for each proxy making the proxy public on the 
 
 * [UPDATE] added customUserIsPresent option to
 tasks_update_workspace_with_latest_tasks so you dont have to manully hit enter for the Windmillcode user
+
+## [1.85.1016] - 1-15-2023
+* [UPDATE] -made internal changes
+* [UPDATE]- flask backend env does not print output to the console anymore
+
+## [1.85.1017] - 1-15-2023
+* [BREAKING CHANGE] -removed flask backend view coverage info
+* [UPDATE] flask backend test supports both unit testing and coverage info
+* [UPDATE] can leverage tasksToRunOnFolderOpen with the labels of the tasks you want to automatically run on folder open
+
