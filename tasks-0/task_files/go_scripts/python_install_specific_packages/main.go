@@ -9,7 +9,10 @@ import (
 )
 
 func main() {
-
+	scriptFolder,err := os.Getwd()
+	if err != nil {
+		fmt.Println("there was an error while trying to receive the script dir")
+	}
 	utils.CDToWorkspaceRoot()
 	workspaceFolder, err := os.Getwd()
 	if err != nil {
@@ -28,7 +31,7 @@ func main() {
 		},
 	}
 	appLocation := utils.ShowMenu(cliInfo, nil)
-	appLocation = utils.JoinAndConvertPathToOSFormat(appLocation)
+	appLocation = utils.JoinAndConvertPathToOSFormat(workspaceFolder,appLocation)
 
 	pythonVersion := utils.GetInputFromStdin(
 		utils.GetInputFromStdinStruct{
@@ -46,28 +49,71 @@ func main() {
 	)
 
 	cliInfo = utils.ShowMenuModel{
-		Prompt:  "reinstall?",
+		Prompt:  "uninstall?",
 		Choices: []string{"true", "false"},
 	}
-	reinstall := utils.ShowMenu(cliInfo, nil)
+	uninstall := utils.ShowMenu(cliInfo, nil)
+	cliInfo = utils.ShowMenuModel{
+		Prompt:  "install?",
+		Choices: []string{"true", "false"},
+	}
+	install := utils.ShowMenu(cliInfo, nil)
 	utils.CDToLocation(appLocation)
 	var sitePackages string
 	targetOs := runtime.GOOS
+
+	cliInfoMulti := utils.ShowMenuMultipleModel{
+		Prompt: "Select the requirements files ",
+		Choices:[]string{"windows-requirements.txt","linux-requirements.txt","darwin-requirements.txt"},
+		SelectionLimit: 3,
+		Defaults: []string{"windows-requirements.txt","linux-requirements.txt","darwin-requirements.txt"},
+	}
+	requirementsFiles := utils.ShowMenuMultipleOptions(cliInfoMulti,nil)
 	switch targetOs {
 	case "windows":
 
-		sitePackages = utils.JoinAndConvertPathToOSFormat(".", "site-packages", "windows")
+		sitePackages = utils.JoinAndConvertPathToOSFormat(appLocation, "site-packages", "windows")
 
 	case "linux", "darwin":
-		sitePackages = utils.JoinAndConvertPathToOSFormat(".", "site-packages", "linux")
+		sitePackages = utils.JoinAndConvertPathToOSFormat(appLocation, "site-packages", "linux")
 
 	default:
 		fmt.Println("Unknown Operating System:", targetOs)
 	}
-	if reinstall == "true" {
-		utils.RunCommand("pip", []string{"uninstall", packageList.InputString})
+	if uninstall == "true" {
+
+		packageListArgs := append([]string{"remove_local_packages.py"}, packageList.InputArray...)
+		packageListArgs = append(packageListArgs, sitePackages)
+		removeLocalPagesOptions :=utils.CommandOptions{
+			Command:        "python",
+			Args:           packageListArgs,
+			TargetDir:      scriptFolder,
+		}
+		utils.RunCommandWithOptions(removeLocalPagesOptions)
+		for _, requirementsFile := range requirementsFiles {
+			requirementsFilePath := utils.JoinAndConvertPathToOSFormat(appLocation, requirementsFile)
+			err := utils.RemoveContentFromFile(requirementsFilePath, packageList.InputArray)
+			if err != nil {
+					fmt.Printf("Error adding package to requirements file: %v\n", err)
+			}
+		}
+
 	}
-	utils.RunCommand("pip", []string{"install", packageList.InputString, "--target", sitePackages})
-	utils.RunCommand("pip", []string{"freeze", "--all", "--path", sitePackages})
+	if install == "true" {
+		fmt.Println(packageList.InputArray)
+		packageListArgs := append([]string{"install"}, packageList.InputArray...)
+		packageListArgs = append(packageListArgs,"--target", sitePackages)
+		utils.RunCommand("pip", packageListArgs)
+		for _, requirementsFile := range requirementsFiles {
+			requirementsFilePath := utils.JoinAndConvertPathToOSFormat(appLocation, requirementsFile)
+			for _, packageName := range packageList.InputArray {
+				err := utils.AddContentToFile(requirementsFilePath, "\n"+packageName, "suffix")
+				if err != nil {
+						fmt.Printf("Error adding package to requirements file: %v\n", err)
+				}
+			}
+		}
+	}
+
 
 }

@@ -31,6 +31,7 @@ func main() {
 		folderPath,_ := os.Getwd()
 		files, err := os.ReadDir(folderPath)
 		utils.CDToLocation(utils.ConvertPathToOSFormat(files[0].Name()))
+		fmt.Println(fmt.Sprintf("Coverage info accesible at localhost:%d", port))
 		http.Handle("/", http.FileServer(http.Dir(".")))
 		err = http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
 		if err != nil {
