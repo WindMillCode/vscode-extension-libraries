@@ -94,3 +94,6 @@ tasks_update_workspace_with_latest_tasks so you dont have to manully hit enter f
 
 ## [1.85.2003] -1-25-2024
 * [FIX] - fixed a bug with python install specific packages
+
+## [1.85.2004] -1-25-2024
+* [PATCH] - fixed an issue with flask backend run
